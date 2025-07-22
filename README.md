@@ -1,2 +1,1 @@
-# FinalYearProject-Backend-SamrtHire
-SmartHire : AI-Powered Virtual Interviewer.
+# Final Year Project-SmartHire-Backend
