@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import auth
+from app.api import auth, jobs
 from app.database import Base, engine
 
 # Create all tables in the database (if not exist)
@@ -18,3 +18,6 @@ async def root():
 
 # Include authentication routes with prefix /auth
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
+
+# Include jobs routes with prefix /jobs
+app.include_router(jobs.router, prefix="/jobs", tags=["Jobs"])

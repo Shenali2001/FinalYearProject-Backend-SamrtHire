@@ -1,4 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, func ,Enum
+from sqlalchemy.orm import relationship
+
 from app.database import Base
 from app.models.enums import UserRole
 
@@ -13,3 +15,5 @@ class User(Base):
     password_hash = Column(String, nullable=False)
     role = Column(Enum(UserRole), nullable=False, default=UserRole.CANDIDATE)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    cvs = relationship("UserCV", back_populates="user")
+
