@@ -1,420 +1,1309 @@
-import requests
+# app/services/cv_service.py
+import os
+import re
+import json
+import time
+import random
 import logging
+import requests
+import torch
+from typing import Optional, Tuple, List, Dict, Any
+from fastapi import FastAPI, HTTPException
 from sqlalchemy.orm import Session
-from fastapi import HTTPException
+
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+
 from app.models.cv import UserCV, Education, Skill, Project, WorkExperience
 from app.models.user import User
-from app.schemas.cv_details import UserCVCreate, EducationCreate, SkillCreate, ProjectCreate, WorkExperienceCreate
-import fitz  # PyMuPDF
-import re
-import os
+from app.schemas.cv_details import (
+    UserCVCreate, EducationCreate, SkillCreate, ProjectCreate, WorkExperienceCreate
+)
 
-# Configure logging
+# ----------------- Logging -----------------
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("smart-hire.services.cv_service")
 
-# Helper function to extract text from PDF
+# ----------------- ENV / Gemini -----------------
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
+GEMINI_JUDGE_MODEL = os.getenv("GEMINI_JUDGE_MODEL", "gemini-2.0-flash-lite").strip()
+GEMINI_URL = (
+    f"https://generativelanguage.googleapis.com/v1beta/models/"
+    f"{GEMINI_JUDGE_MODEL}:generateContent?key={GEMINI_API_KEY}"
+) if GEMINI_API_KEY else None
+
+if GEMINI_URL:
+    logger.info(f"[judge] Gemini ENABLED with model='{GEMINI_JUDGE_MODEL}'")
+else:
+    logger.warning("[judge] Gemini DISABLED (no GEMINI_API_KEY). Judge & feedback will use local fallback.")
+
+# ----------------- ENV / QG MODEL -----------------
+QG_MODEL_PATH = os.getenv("QG_MODEL_PATH", "./question_generation_model").strip()
+
+# ----------------- QG knobs (tunable by env) -----------------
+QG_PER_TURN_BUDGET_S = float(os.getenv("QG_PER_TURN_BUDGET_S", "2.8"))  # time budget per NEXT question
+QG_ACCEPT_THRESHOLD  = float(os.getenv("QG_ACCEPT_THRESHOLD", "1.25"))
+QG_MIN_WORDS         = int(os.getenv("QG_MIN_WORDS", "8"))
+QG_MAX_WORDS         = int(os.getenv("QG_MAX_WORDS", "20"))
+QG_MAX_SKILLS_USED   = int(os.getenv("QG_MAX_SKILLS_USED", "16"))
+QG_K_PER_PROMPT      = int(os.getenv("QG_K_PER_PROMPT", "6"))  # candidates per prompt
+
+# =========================================================
+# Device / lazy-load your QG model
+# =========================================================
+def _ensure_device(app: FastAPI):
+    if not hasattr(app.state, "device") or app.state.device is None:
+        dev = ("cuda" if torch.cuda.is_available()
+               else ("mps" if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available()
+                     else "cpu"))
+        app.state.device = torch.device(dev)
+        logger.info(f"[QG] Using device: {app.state.device}")
+
+def _ensure_qg_model_loaded(app: FastAPI):
+    _ensure_device(app)
+    need_load = (
+        not hasattr(app.state, "t5_model") or app.state.t5_model is None or
+        not hasattr(app.state, "t5_tokenizer") or app.state.t5_tokenizer is None
+    )
+    if not need_load:
+        return
+    path = QG_MODEL_PATH or "./question_generation_model"
+    try:
+        tok = T5Tokenizer.from_pretrained(path)
+        model = T5ForConditionalGeneration.from_pretrained(path)
+        model.to(app.state.device)
+        model.eval()
+        app.state.t5_tokenizer = tok
+        app.state.t5_model = model
+        app.state.qg_model_path = path
+        logger.info(f"[QG] Loaded question generator from '{path}'")
+    except Exception as e:
+        logger.warning(f"[QG] Failed to load '{path}', falling back to 't5-base' — {e}")
+        tok = T5Tokenizer.from_pretrained("t5-base")
+        model = T5ForConditionalGeneration.from_pretrained("t5-base")
+        model.to(app.state.device)
+        model.eval()
+        app.state.t5_tokenizer = tok
+        app.state.t5_model = model
+        app.state.qg_model_path = "t5-base"
+
+# =========================================================
+# PDF -> TEXT
+# =========================================================
 def extract_text_from_pdf_url(pdf_url: str) -> str:
-    """
-    Download PDF from URL, save it locally as temp_cv.pdf, and extract all text using PyMuPDF.
-
-    Args:
-        pdf_url (str): URL of the PDF to extract text from.
-
-    Returns:
-        str: Extracted text from the PDF.
-
-    Raises:
-        Exception: If the PDF cannot be downloaded or processed.
-    """
-    logger.debug(f"Downloading PDF from URL: {pdf_url}")
-    response = requests.get(pdf_url)
-    if response.status_code != 200:
-        logger.error(f"Failed to download CV from URL: {pdf_url}, status code: {response.status_code}")
-        raise Exception("Failed to download CV from provided URL")
+    logger.debug(f"Downloading PDF: {pdf_url}")
+    try:
+        response = requests.get(pdf_url, timeout=10)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        raise HTTPException(status_code=400, detail=f"Failed to download CV: {e}")
 
     local_pdf_path = "temp_cv.pdf"
-    # with open(local_pdf_path, "wb") as f:
-    #     f.write(response.content)
-
     try:
+        with open(local_pdf_path, "wb") as f:
+            f.write(response.content)
+        import fitz  # PyMuPDF
         doc = fitz.open(local_pdf_path)
-        text = ""
-        for page in doc:
-            text += page.get_text()
+        text = "".join(page.get_text() for page in doc)
         doc.close()
     except Exception as e:
-        logger.error(f"Failed to extract text from PDF: {str(e)}")
-        raise Exception(f"Failed to extract text from PDF: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"Failed to extract text from PDF: {e}")
     finally:
-        if os.path.exists(local_pdf_path):
-            os.remove(local_pdf_path)
-            logger.debug(f"Removed temporary file: {local_pdf_path}")
+        try:
+            if os.path.exists(local_pdf_path):
+                os.remove(local_pdf_path)
+        except Exception:
+            pass
 
-    # Normalize only multiple spaces/tabs, preserve newlines
-    text = re.sub(r'[ \t]+', ' ', text.strip())
-    logger.debug(f"Extracted text (first 500 chars): {text[:500]}...")
-    logger.debug(f"Full extracted text:\n{text}")
-    return text
+    return re.sub(r"[ \t]+", " ", text.strip())
 
-# Helper function to validate CV against template
+# =========================================================
+# TEMPLATE VALIDATION + SECTION PARSERS
+# =========================================================
 def validate_cv_template(text: str) -> bool:
-    """
-    Validate that the CV contains all required section headers.
+    required = ["SUMMARY:", "EDUCATION:", "SKILLS:", "PROJECTS:", "WORK EXPERIENCE:"]
+    up = text.upper()
+    return all(s in up for s in required)
 
-    Args:
-        text (str): The extracted text from the CV.
-
-    Returns:
-        bool: True if the CV matches the template, False otherwise.
-    """
-    required_sections = ["SUMMARY:", "EDUCATION:", "SKILLS:", "PROJECTS:", "WORK EXPERIENCE:"]
-    text_upper = text.upper()
-    missing_sections = [section for section in required_sections if section not in text_upper]
-    if missing_sections:
-        logger.warning(f"Missing sections: {missing_sections}")
-        return False
-    logger.debug("CV template validated successfully")
-    return True
-
-# Helper function to extract section text
 def extract_section_text(text: str, section_pattern: str, next_patterns: list) -> str:
-    """
-    Extract the text for a specific section between its header and the next section header.
-
-    Args:
-        text (str): The full extracted text from the PDF.
-        section_pattern (str): Regex pattern for the section header.
-        next_patterns (list): List of regex patterns for possible next section headers.
-
-    Returns:
-        str: The extracted section text, or empty string if not found.
-    """
-    match = re.search(section_pattern + r"\s*(?:\n|$)", text, re.IGNORECASE)
-    if not match:
-        logger.warning(f"Section not found for pattern: {section_pattern}")
+    m = re.search(section_pattern + r"\s*(?:\n|$)", text, re.IGNORECASE)
+    if not m:
         return ""
-
-    start = match.end()
+    start = m.end()
     end = len(text)
-    for pattern in next_patterns:
-        next_match = re.search(pattern + r"\s*(?:\n|$)", text[start:], re.IGNORECASE)
-        if next_match:
-            end = min(end, start + next_match.start())
+    for pat in next_patterns:
+        nm = re.search(pat + r"\s*(?:\n|$)", text[start:], re.IGNORECASE)
+        if nm:
+            end = min(end, start + nm.start())
+    return text[start:end].strip()
 
-    section_text = text[start:end].strip()
-    logger.debug(f"Extracted section text for {section_pattern}: {section_text[:100]}...")
-    return section_text
-
-# Helper function to parse education section
 def parse_education_section(section_text: str) -> list:
-    """
-    Parse the education section text into a list of education entries.
-
-    Args:
-        section_text (str): The text of the education section.
-
-    Returns:
-        list: List of dictionaries containing education data.
-    """
-    education = []
+    out = []
     if not section_text:
-        logger.warning("Education section is empty")
-        return education
+        return out
+    for raw in section_text.split("\n"):
+        line = raw.strip()
+        if not line or not (line.startswith("-") or line.startswith("•")):
+            continue
+        line = line.strip("-• ").strip()
+        parts = [p.strip() for p in line.split(",", 2) if p.strip()]
+        if len(parts) >= 2:
+            institution = parts[0]
+            degree_years = parts[1]
+            notes = parts[2] if len(parts) > 2 else ""
+            years = re.search(r"(\d{4})\s*-\s*(\d{4}|Present)", degree_years)
+            degree = degree_years[: years.start()].strip() if years else degree_years.strip()
+            data = {
+                "institution": institution,
+                "degree": degree,
+                "start_year": years.group(1) if years else None,
+                "end_year": years.group(2) if years else None,
+                "notes": notes,
+            }
+            try:
+                EducationCreate(**data)
+                out.append(data)
+            except ValueError:
+                pass
+    return out
 
-    lines = section_text.split('\n')
-    for line in lines:
-        line = line.strip()
-        if line.startswith('-') or line.startswith('•'):
-            parts = line.strip('-• ').split(',', 2)
-            if len(parts) >= 3:
-                institution_degree = parts[0].strip() + ", " + parts[1].strip()
-                years_notes = parts[2].strip()
-                years = re.search(r'(\d{4})\s*-\s*(\d{4}|Present)', years_notes)
-                if years:
-                    edu_data = {
-                        "institution": institution_degree.split(',')[0].strip(),
-                        "degree": institution_degree.split(',')[1].strip(),
-                        "start_year": years.group(1),
-                        "end_year": years.group(2),
-                        "notes": years_notes[years.end():].strip() if years.end() < len(years_notes) else ""
-                    }
-                    try:
-                        EducationCreate(**edu_data)
-                        education.append(edu_data)
-                        logger.debug(f"Parsed education: {edu_data}")
-                    except ValueError as e:
-                        logger.warning(f"Invalid education data: {edu_data}, error: {str(e)}")
-    return education
-
-# Helper function to parse skills section
 def parse_skills_section(section_text: str) -> list:
-    """
-    Parse the skills section text into a list of skill entries.
-
-    Args:
-        section_text (str): The text of the skills section.
-
-    Returns:
-        list: List of dictionaries containing skill data.
-    """
-    skills = []
+    out = []
     if not section_text:
-        logger.warning("Skills section is empty")
-        return skills
+        return out
+    for raw in section_text.split("\n"):
+        line = raw.strip()
+        if not line or not (line.startswith("-") or line.startswith("•")):
+            continue
+        for s in [s.strip() for s in line.strip("-• ").split(",") if s.strip()]:
+            try:
+                SkillCreate(skill_name=s)
+                out.append({"skill_name": s})
+            except ValueError:
+                pass
+    return out
 
-    lines = section_text.split('\n')
-    for line in lines:
-        line = line.strip()
-        if line.startswith('-') or line.startswith('•'):
-            skill_list = [s.strip() for s in line.strip('-• ').split(',') if s.strip()]
-            for skill in skill_list:
-                skill_data = {"skill_name": skill}
-                try:
-                    SkillCreate(**skill_data)
-                    skills.append(skill_data)
-                    logger.debug(f"Parsed skill: {skill_data}")
-                except ValueError as e:
-                    logger.warning(f"Invalid skill data: {skill_data}, error: {str(e)}")
-    return skills
-
-# Helper function to parse projects section
 def parse_projects_section(section_text: str) -> list:
-    """
-    Parse the projects section text into a list of project entries.
-
-    Args:
-        section_text (str): The text of the projects section.
-
-    Returns:
-        list: List of dictionaries containing project data.
-    """
-    projects = []
+    out = []
     if not section_text:
-        logger.warning("Projects section is empty")
-        return projects
+        return out
+    for raw in section_text.split("\n"):
+        line = raw.strip()
+        if not line or not (line.startswith("-") or line.startswith("•")):
+            continue
+        line = line.strip("-• ").strip()
+        if ": " not in line:
+            continue
+        name, rest = line.split(": ", 1)
+        tech_m = re.search(r"Technologies:\s*(.+)", rest, re.IGNORECASE)
+        desc = rest[: tech_m.start()].strip(", ") if tech_m else rest.strip(", ")
+        tech = tech_m.group(1).strip() if tech_m else None
+        data = {"name": name.strip(), "description": desc or None, "technologies": tech}
+        try:
+            ProjectCreate(**data)
+            out.append(data)
+        except ValueError:
+            pass
+    return out
 
-    lines = section_text.split('\n')
-    for line in lines:
-        line = line.strip()
-        if line.startswith('-') or line.startswith('•'):
-            line = line.strip('-• ').strip()
-            if ': ' in line:
-                name_tech = line.split(': ', 1)
-                name = name_tech[0].strip()
-                tech_desc = name_tech[1].split(', Technologies: ', 1)
-                description = tech_desc[0].strip()
-                technologies = tech_desc[1].strip() if len(tech_desc) > 1 else ""
-                proj_data = {
-                    "name": name,
-                    "description": description,
-                    "technologies": technologies
-                }
-                try:
-                    ProjectCreate(**proj_data)
-                    projects.append(proj_data)
-                    logger.debug(f"Parsed project: {proj_data}")
-                except ValueError as e:
-                    logger.warning(f"Invalid project data: {proj_data}, error: {str(e)}")
-    return projects
-
-# Helper function to parse work experience section
 def parse_work_experience_section(section_text: str) -> list:
-    """
-    Parse the work experience section text into a list of work experience entries.
-
-    Args:
-        section_text (str): The text of the work experience section.
-
-    Returns:
-        list: List of dictionaries containing work experience data.
-    """
-    work_experience = []
+    out = []
     if not section_text:
-        logger.warning("Work experience section is empty")
-        return work_experience
-
-    lines = section_text.split('\n')
-    work = {}
-    description_lines = []
-    for line in lines:
-        line = line.strip()
-        if (line.startswith('-') or line.startswith('•')) and ',' in line:
+        return out
+    work: Dict[str, Any] = {}
+    desc_lines: List[str] = []
+    for raw in section_text.split("\n"):
+        line = raw.strip()
+        if (line.startswith("-") or line.startswith("•")) and "," in line:
             if work:
-                work["description"] = " ".join(description_lines).strip()
+                work["description"] = " ".join(desc_lines).strip()
                 try:
                     WorkExperienceCreate(**work)
-                    work_experience.append(work)
-                    logger.debug(f"Parsed work experience: {work}")
-                except ValueError as e:
-                    logger.warning(f"Invalid work experience data: {work}, error: {str(e)}")
-                description_lines = []
-            parts = line.strip('-• ').split(',', 2)
-            if len(parts) >= 3:
-                company = parts[0].strip()
-                role = parts[1].strip()
-                years_desc = parts[2].strip()
-                years = re.search(r'(\d{4})\s*-\s*(\d{4}|Present)', years_desc)
-                if years:
-                    work = {
-                        "company": company,
-                        "role": role,
-                        "start_date": years.group(1),
-                        "end_date": years.group(2),
-                        "description": ""
-                    }
-        elif (line.startswith('-') or line.startswith('•')) and work:
-            description_lines.append(line.strip('-• ').strip())
+                    out.append(work)
+                except ValueError:
+                    pass
+                desc_lines = []
+            parts = line.strip("-• ").split(",", 2)
+            company = parts[0].strip()
+            role = parts[1].strip() if len(parts) > 1 else ""
+            years_desc = parts[2].strip() if len(parts) > 2 else ""
+            years = re.search(r"(\d{4})\s*-\s*(\d{4}|Present)", years_desc)
+            work = {
+                "company": company, "role": role,
+                "start_date": years.group(1) if years else None,
+                "end_date": years.group(2) if years else None,
+                "description": ""
+            }
+        elif (line.startswith("-") or line.startswith("•")) and work:
+            desc_lines.append(line.strip("-• ").strip())
     if work:
-        work["description"] = " ".join(description_lines).strip()
+        work["description"] = " ".join(desc_lines).strip()
         try:
             WorkExperienceCreate(**work)
-            work_experience.append(work)
-            logger.debug(f"Parsed work experience: {work}")
-        except ValueError as e:
-            logger.warning(f"Invalid work experience data: {work}, error: {str(e)}")
-    return work_experience
+            out.append(work)
+        except ValueError:
+            pass
+    return out
 
-# Main parsing function
 def parse_cv_text(text: str) -> dict:
-    """
-    Parse the CV text into structured data for education, skills, projects, and work experience.
-
-    Args:
-        text (str): The extracted text from the CV PDF.
-
-    Returns:
-        dict: A dictionary with keys 'education', 'skills', 'projects', and 'work_experience',
-              each containing a list of dictionaries with relevant fields.
-
-    Raises:
-        ValueError: If the CV does not match the required template or any section is empty.
-    """
     if not validate_cv_template(text):
-        logger.error("CV does not match the required template")
-        raise ValueError("CV does not match the required template. Please upload a CV with the sections: SUMMARY:, EDUCATION:, SKILLS:, PROJECTS:, WORK EXPERIENCE:")
-
-    section_headers = {
+        raise ValueError("CV is missing required sections: SUMMARY, EDUCATION, SKILLS, PROJECTS, WORK EXPERIENCE.")
+    headers = {
         "summary": r"SUMMARY:",
         "education": r"EDUCATION:",
         "skills": r"SKILLS:",
         "projects": r"PROJECTS:",
-        "work_experience": r"WORK EXPERIENCE:"
+        "work_experience": r"WORK EXPERIENCE:",
     }
-    all_patterns = list(section_headers.values())
-
-    parsed = {
-        "education": parse_education_section(
-            extract_section_text(text, section_headers["education"], all_patterns[2:])),
-        "skills": parse_skills_section(extract_section_text(text, section_headers["skills"], all_patterns[3:])),
-        "projects": parse_projects_section(extract_section_text(text, section_headers["projects"], all_patterns[4:])),
-        "work_experience": parse_work_experience_section(
-            extract_section_text(text, section_headers["work_experience"], all_patterns[5:]))
+    pats = list(headers.values())
+    return {
+        "education": parse_education_section(extract_section_text(text, headers["education"], pats[2:])),
+        "skills": parse_skills_section(extract_section_text(text, headers["skills"], pats[3:])),
+        "projects": parse_projects_section(extract_section_text(text, headers["projects"], pats[4:])),
+        "work_experience": parse_work_experience_section(extract_section_text(text, headers["work_experience"], pats[5:])),
     }
 
-    # Check if any section is empty
-    empty_sections = [key for key, value in parsed.items() if not value]
-    if empty_sections:
-        logger.error(f"Empty sections detected: {empty_sections}")
-        raise ValueError(f"CV sections {empty_sections} are empty. Please upload a CV with complete sections: SUMMARY:, EDUCATION:, SKILLS:, PROJECTS:, WORK EXPERIENCE:")
-
-    logger.debug(f"Parsed CV data: {parsed}")
-    return parsed
-
-# Service function to create UserCV record
+# =========================================================
+# DB WRITE
+# =========================================================
 def create_user_cv_service(user_email: str, cv_data: UserCVCreate, db: Session):
-    """
-    Create a UserCV record from a CV PDF and store structured data in the database.
-
-    Args:
-        user_email (str): Email of the user.
-        cv_data (UserCVCreate): Schema containing CV URL and other metadata.
-        db (Session): Database session.
-
-    Returns:
-        UserCV: The created UserCV object.
-
-    Raises:
-        HTTPException: If user not found, CV processing fails, or CV does not match template.
-    """
-    logger.debug(f"Creating UserCV for user: {user_email}, cv_data: {cv_data}")
     user = db.query(User).filter(User.email == user_email).first()
     if not user:
-        logger.error(f"User not found: {user_email}")
         raise HTTPException(status_code=404, detail="User not found")
 
     try:
         cv_text = extract_text_from_pdf_url(cv_data.cv_url)
-        parsed_data = parse_cv_text(cv_text)
+        parsed = parse_cv_text(cv_text)
     except ValueError as ve:
-        logger.error(f"CV parsing failed: {str(ve)}")
         raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
-        logger.error(f"CV processing failed: {str(e)}")
-        raise HTTPException(status_code=400, detail=f"CV processing failed: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"CV processing failed: {e}")
 
     user_cv = UserCV(
         user_id=user.id,
         cv_url=cv_data.cv_url,
         job_type_id=cv_data.job_type_id,
         job_position_id=cv_data.job_position_id,
-        extracted_text=cv_text
+        extracted_text=cv_text,
     )
-    logger.debug(f"Created UserCV object: {user_cv.__dict__}")
-
-    for edu_data in parsed_data.get("education", []):
-        try:
-            edu = EducationCreate(**edu_data)
-            education = Education(**edu.dict())
-            user_cv.education.append(education)
-            logger.debug(f"Appended education: {education.__dict__}")
-        except ValueError as e:
-            logger.warning(f"Failed to validate education data: {edu_data}, error: {str(e)}")
-
-    for skill_data in parsed_data.get("skills", []):
-        try:
-            skill = SkillCreate(**skill_data)
-            skill_obj = Skill(**skill.dict())
-            user_cv.skills.append(skill_obj)
-            logger.debug(f"Appended skill: {skill_obj.__dict__}")
-        except ValueError as e:
-            logger.warning(f"Failed to validate skill data: {skill_data}, error: {str(e)}")
-
-    for proj_data in parsed_data.get("projects", []):
-        try:
-            proj = ProjectCreate(**proj_data)
-            project = Project(**proj.dict())
-            user_cv.projects.append(project)
-            logger.debug(f"Appended project: {project.__dict__}")
-        except ValueError as e:
-            logger.warning(f"Failed to validate project data: {proj_data}, error: {str(e)}")
-
-    for work_data in parsed_data.get("work_experience", []):
-        try:
-            work = WorkExperienceCreate(**work_data)
-            work_exp = WorkExperience(**work.dict())
-            user_cv.work_experience.append(work_exp)
-            logger.debug(f"Appended work experience: {work_exp.__dict__}")
-        except ValueError as e:
-            logger.warning(f"Failed to validate work experience data: {work_data}, error: {str(e)}")
-
     db.add(user_cv)
+    db.flush()  # get id
+
+    for edu in parsed.get("education", []):
+        try:
+            db.add(Education(**EducationCreate(**edu).dict(), user_cv_id=user_cv.id))
+        except ValueError:
+            pass
+    for sk in parsed.get("skills", []):
+        try:
+            db.add(Skill(**SkillCreate(**sk).dict(), user_cv_id=user_cv.id))
+        except ValueError:
+            pass
+    for pj in parsed.get("projects", []):
+        try:
+            db.add(Project(**ProjectCreate(**pj).dict(), user_cv_id=user_cv.id))
+        except ValueError:
+            pass
+    for wx in parsed.get("work_experience", []):
+        try:
+            db.add(WorkExperience(**WorkExperienceCreate(**wx).dict(), user_cv_id=user_cv.id))
+        except ValueError:
+            pass
+
     db.commit()
     db.refresh(user_cv)
-    logger.debug(f"Saved UserCV with id: {user_cv.id}")
     return user_cv
 
-# Service function to retrieve all UserCV records
 def get_all_user_cvs_service(db: Session):
-    """
-    Retrieve all UserCV records from the database.
+    return db.query(UserCV).all()
 
-    Args:
-        db (Session): Database session.
+# =========================================================
+# Role & snippets
+# =========================================================
+def classify_difficulty_from_content(content: str):
+    cl = (content or "").lower()
+    if any(k in cl for k in ["degree", "education", "distinction", "gpa"]):
+        return "easy", "education"
+    if any(k in cl for k in ["python", "docker", "react", "spring boot", "springboot", "sql", "mongodb", "java", "javascript", "next.js", "node.js"]):
+        return "medium", "skills"
+    return "hard", "project"
 
-    Returns:
-        List[UserCV]: List of all UserCV objects.
+def _resolve_role_for_user_cv(db: Session, user_cv: UserCV) -> Tuple[str, str]:
+    jt, jp = "unknown", "unknown"
+    try:
+        from app.models.enums import JobType, JobPosition  # type: ignore
+        try:
+            if getattr(user_cv, "job_type_id", None) is not None:
+                jt = JobType(user_cv.job_type_id).name.replace("_", " ").lower()
+            if getattr(user_cv, "job_position_id", None) is not None:
+                jp = JobPosition(user_cv.job_position_id).name.replace("_", " ").lower()
+        except Exception:
+            pass
+    except Exception:
+        pass
+    if jt == "unknown" or jp == "unknown":
+        try:
+            from app.models.job import JobType as JT, JobPosition as JP  # type: ignore
+            if jt == "unknown" and getattr(user_cv, "job_type_id", None) is not None:
+                rec = db.query(JT).get(user_cv.job_type_id)
+                if rec and getattr(rec, "name", None):
+                    jt = rec.name.strip().lower()
+            if jp == "unknown" and getattr(user_cv, "job_position_id", None) is not None:
+                rec = db.query(JP).get(user_cv.job_position_id)
+                if rec and getattr(rec, "name", None):
+                    jp = rec.name.strip().lower()
+        except Exception:
+            pass
+    return jt or "unknown", jp or "unknown"
+
+def _role_topics(job_type: str, job_position: str) -> List[str]:
+    mapping = {
+        ("software", "backend engineer"): ["APIs", "Databases", "Concurrency", "Caching", "System design"],
+        ("software", "frontend engineer"): ["React", "State", "Performance", "Accessibility", "Testing"],
+        ("software", "associate software engineer"): ["Version control", "Unit testing", "Code review", "CI/CD"],
+        ("ui/ux", "associate software engineer"): ["User flows", "Wireframes", "Usability", "Prototyping"],
+        ("accounting", "financial accountant"): ["GL", "Reconciliation", "ERP", "Reporting", "Compliance"],
+    }
+    return mapping.get((job_type, job_position), [])
+
+def _infer_topics_from_cv_skills(db: Session, user_cv: UserCV) -> List[str]:
+    raw = [s.skill_name or "" for s in db.query(Skill).filter(Skill.user_cv_id == user_cv.id).all()]
+    s = " ".join(raw).lower()
+    topics: List[str] = []
+    def add(k):
+        if k not in topics: topics.append(k)
+    if any(x in s for x in ["spring", "jpa", "hibernate"]): add("Spring & JPA")
+    if any(x in s for x in ["react", "next", "redux"]): add("React & State")
+    if any(x in s for x in ["docker", "kubernetes", "k8s"]): add("Containers & Orchestration")
+    if any(x in s for x in ["sql", "postgres", "mysql", "mssql"]): add("SQL & Indexing")
+    if any(x in s for x in ["mongodb", "redis", "elasticsearch"]): add("NoSQL & Caching")
+    if any(x in s for x in ["node", "express", "nestjs", "graphql", "rest"]): add("APIs & Protocols")
+    if any(x in s for x in ["aws", "azure", "gcp", "lambda", "s3", "firebase", "firestore"]): add("Cloud & Deployment")
+    if any(x in s for x in ["ci/cd", "jenkins", "github actions", "gitlab"]): add("CI/CD & Observability")
+    return topics[:5]
+
+def _build_snippets_for_user_cv(db: Session, user_cv: UserCV) -> List[dict]:
+    """Return list of dicts: {text, difficulty} for snippets."""
+    snippets: List[dict] = []
+
+    # SKILLS (dedupe + cap)
+    skill_names = []
+    seen_low = set()
+    for s in db.query(Skill).filter(Skill.user_cv_id == user_cv.id).all():
+        name = (s.skill_name or "").strip()
+        low = name.lower()
+        if name and low not in seen_low:
+            seen_low.add(low)
+            skill_names.append(name)
+    random.shuffle(skill_names)
+    for name in skill_names[:QG_MAX_SKILLS_USED]:
+        t = f"Skill: {name}."
+        d, _ = classify_difficulty_from_content(t)
+        snippets.append({"text": t, "difficulty": d})
+
+    # PROJECTS
+    for p in db.query(Project).filter(Project.user_cv_id == user_cv.id).all():
+        base = f"Project: {p.name}."
+        if p.description:
+            base += f" {p.description.strip()}"
+        if p.technologies:
+            base += f" Technologies: {p.technologies}."
+        d, _ = classify_difficulty_from_content(base)
+        snippets.append({"text": base, "difficulty": d})
+
+    # WORK EXPERIENCE
+    for w in db.query(WorkExperience).filter(WorkExperience.user_cv_id == user_cv.id).all():
+        span = f"{w.start_date or 'Unknown'}-{w.end_date or 'Present'}"
+        desc = (w.description or "").strip()
+        if desc:
+            t = f"Experience: {w.role} at {w.company} ({span}). Responsibilities: {desc}"
+        else:
+            t = f"Experience: {w.role} at {w.company} ({span})."
+        d, _ = classify_difficulty_from_content(t)
+        snippets.append({"text": t, "difficulty": d})
+
+    random.shuffle(snippets)
+    return snippets
+
+# =========================================================
+# Domain lexicon & coherence guard
+# =========================================================
+def _tokens_simple(t: str) -> List[str]:
+    return [w for w in re.findall(r"[a-zA-Z][a-zA-Z0-9\-\+\.#]{1,}", (t or "").lower())]
+
+_DOMAIN_LEX = {
+    "db": {
+        "sql","postgres","postgresql","mysql","mariadb","mssql","oracle","mongodb","nosql",
+        "index","indexes","indexing","transaction","transactions","acid","join","query","queries","jdbc","jpa","hibernate","schema","erd"
+    },
+    "uiux": {
+        "wireframe","wireframes","prototype","prototypes","prototyping","figma","ux","ui","usability",
+        "persona","personas","journey","affinity","heuristic","mockup","mockups","low-fidelity","high-fidelity"
+    },
+    "frontend": {
+        "react","next","redux","dom","browser","css","scss","tailwind","html","typescript","vite","webpack","vitejs","spa"
+    },
+    "backend": {
+        "api","apis","grpc","rest","http","spring","springboot","node","express","nestjs","microservice","microservices",
+        "jwt","auth","authorization","authentication","controller","service","repository"
+    },
+    "devops": {
+        "docker","kubernetes","k8s","helm","jenkins","github","gitlab","ci","cd","ci/cd","pipeline","pipelines","terraform"
+    },
+    "cloud": {
+        "aws","gcp","azure","lambda","s3","ec2","cloudwatch","cloudrun","cloudsql","appengine",
+        "firebase","firestore","realtime","realtime-database","realtimedatabase","cloudfunctions","cloud-function","cloudfunctions",
+        "fcm","cloudstorage","firebase-storage","firebaseauth","firebase-auth"
+    }
+}
+
+# Banned cross-domain mixes (reject if BOTH domains present in a candidate)
+_BANNED_PAIRS = {
+    frozenset({"uiux","db"}),
+    frozenset({"uiux","devops"}),
+    frozenset({"uiux","cloud"}),
+}
+
+# Extra phrase-level bans (explicit bad combos seen in practice)
+_BAD_CROSS_PHRASES = {
+    ("wireframe", "firebase"),
+    ("wireframes", "firebase"),
+    ("wireframe", "firestore"),
+    ("wireframes", "firestore"),
+}
+
+def _domains_in(text: str) -> set:
+    toks = set(_tokens_simple(text))
+    domains = set()
+    for d, vocab in _DOMAIN_LEX.items():
+        if any(v in toks for v in vocab):
+            domains.add(d)
+    return domains
+
+def _allowed_domains_for_role(jt: str, jp: str) -> set:
+    jt = (jt or "").lower(); jp = (jp or "").lower()
+    if jt == "software" and "backend" in jp:
+        return {"backend","db","devops","cloud"}
+    if jt == "software" and "frontend" in jp:
+        return {"frontend","uiux"}
+    if "ui/ux" in jt or "uiux" in jt or "ux" in jp or "ui" in jp:
+        return {"uiux","frontend"}
+    # default
+    return {"backend","db","frontend","devops","cloud","uiux"}
+
+def _has_bad_phrase_combo(text: str) -> bool:
+    tl = (text or "").lower()
+    for a, b in _BAD_CROSS_PHRASES:
+        if a in tl and b in tl:
+            return True
+    return False
+
+def _semantic_sanity(text: str) -> bool:
+    tl = (text or "").lower()
+    # Wireframes are UI/UX-only; forbid mixes with other domains
+    if "wireframe" in tl:
+        qd = _domains_in(text)
+        return qd.issubset({"uiux","frontend"})
+    # ERDs/schemas are DB-only
+    if "erd" in tl or "schema" in tl:
+        qd = _domains_in(text)
+        return qd.issubset({"db","backend"})
+    return True
+
+def _coherence_ok(candidate_q: str, content_keywords: List[str], snippet_domains: set, role_domains: set) -> bool:
+    if _has_bad_phrase_combo(candidate_q):
+        return False
+    if not _semantic_sanity(candidate_q):
+        return False
+    q_domains = _domains_in(candidate_q)
+    # must overlap with content (keyword OR domain)
+    toks = set(_tokens_simple(candidate_q))
+    has_kw_overlap = any(k.lower() in toks for k in (content_keywords or [])[:6])
+    if not has_kw_overlap and not (q_domains & snippet_domains):
+        return False
+    # role/domain allowlist
+    if q_domains and not q_domains.issubset(role_domains | snippet_domains):
+        return False
+    # banned cross-domain mixes
+    for pair in _BANNED_PAIRS:
+        if pair.issubset(q_domains):
+            return False
+    return True
+
+def _preposition_tweaks(text: str) -> str:
+    # minor grammar cleanups; e.g., "at Firebase" -> "in Firebase"
+    return re.sub(r"\b(at|on)\s+(aws|gcp|azure|firebase|firestore)\b", r"in \2", text, flags=re.IGNORECASE)
+
+# =========================================================
+# T5 Question Generation (model-only, role-aware)
+# =========================================================
+_BAD_META = re.compile(
+    r"(ROLE|POSITION|TYPE|SKILLS|CV|CONTEXT|OUTPUT|TEMPLATE|PROMPT|INSTRUCTION|CONSTRAINTS?|QUESTION:|LABELS?|PREAMBLE|METADATA|```|\||^[-*]\s)",
+    re.IGNORECASE,
+)
+_BAD_CHARS = ["|", "`", "•"]  # keep ':', '/', '.' so CI/CD, Node.js, C++ survive
+_BANNED_CANON = {
+    "role","position","type","skills","cv","context","output","template","prompt",
+    "instruction","constraint","question","labels","preamble","metadata","uiux"
+}
+
+def _contains_banned_any_spacing(text: str) -> bool:
+    canon = re.sub(r"[^a-z]", "", (text or "").lower())
+    return any(b in canon for b in _BANNED_CANON)
+
+def _build_bad_words_ids(tokenizer) -> List[List[int]]:
+    bad = [
+        "ROLE","role","POSITION","position","TYPE","type","SKILLS","skills","CV","cv",
+        "CONTEXT","context","OUTPUT","output","TEMPLATE","template","PROMPT","prompt",
+        "INSTRUCTION","instruction","CONSTRAINT","constraints","Constraints","constraint",
+        "QUESTION","Question","LABELS","labels","PREAMBLE","preamble","METADATA","metadata",
+        "```","|","•","ui/ux","UI/UX",
+        "this interview","This interview","at this interview","At this interview",
+        "What performed","what performed"
+    ]
+    ids: List[List[int]] = []
+    for w in bad:
+        tok = tokenizer.encode(w, add_special_tokens=False)
+        if tok:
+            ids.append(tok)
+    return ids
+
+def _sanitize_question(text: str) -> Optional[str]:
+    if not text:
+        return None
+    text = text.strip().splitlines()[0].strip(" '\"“”‘’")
+    if _contains_banned_any_spacing(text):
+        return None
+    text = _BAD_META.sub("", text).strip()
+    for ch in _BAD_CHARS:
+        text = text.replace(ch, " ")
+    if text.lower().startswith(("a question", "write", "generate", "create", "compose", "produce")):
+        return None
+    text = (text.split("?")[0].strip() + "?") if "?" in text else text.rstrip(".!,:; ") + "?"
+    text = re.sub(r"\s+", " ", text).strip()
+    wc = len(text.split())
+    if wc < QG_MIN_WORDS or wc > QG_MAX_WORDS:
+        return None
+    if text and text[0].islower():
+        text = text[0].upper() + text[1:]
+    return re.sub(r"\s+", " ", text).strip()
+
+def _extract_keywords(content: str) -> List[str]:
+    toks = re.findall(r"[A-Za-z][A-Za-z0-9\+\#\.]{2,}", content or "")
+    toks = [t.strip(",.()").lower() for t in toks
+            if t.lower() not in {"and","the","with","for","from","into","using","at","of"}]
+    uniq: List[str] = []
+    for t in toks:
+        if t not in uniq:
+            uniq.append(t)
+    return uniq[:8]
+
+def _qg_prompt_topics_context(job_type: str, job_position: str, topics: List[str], content: str) -> str:
+    focus = f"Focus areas: {', '.join(topics)}." if topics else ""
+    return (
+        f"Ask exactly ONE technical interview question for a {job_position} ({job_type}). "
+        "Ask ONLY about technologies explicitly present in the context. "
+        "Do not mix unrelated areas (e.g., UI/UX with SQL/Cloud). "
+        "Prefer mechanisms (APIs, data structures, indexing, protocols, performance, debugging, scalability). "
+        f"{QG_MIN_WORDS}–{QG_MAX_WORDS} words, end with '?'. No labels.\n"
+        f"{focus}\n"
+        f"Context: {content}\n"
+        "Question:"
+    )
+
+def _qg_prompt_from_context_only(job_type: str, job_position: str, content: str) -> str:
+    return (
+        f"Ask exactly ONE technical interview question for a {job_position} ({job_type}). "
+        "Ask ONLY about technologies in the context; do not invent tools; avoid mixing unrelated domains. "
+        f"{QG_MIN_WORDS}–{QG_MAX_WORDS} words, end with '?'. No labels.\n\n"
+        f"Context: {content}\n"
+        "Question:"
+    )
+
+def _qg_prompt_from_keywords(job_type: str, job_position: str, keywords: List[str]) -> str:
+    return (
+        f"Ask exactly ONE technical interview question for a {job_position} ({job_type}). "
+        "Use these topics only; do not mix unrelated domains. "
+        f"{QG_MIN_WORDS}–{QG_MAX_WORDS} words, end with '?'. No labels.\n\n"
+        f"Topics: {', '.join((keywords or [])[:6])}\n"
+        "Question:"
+    )
+
+@torch.inference_mode()
+def _gen_candidates(app: FastAPI, prompt: str, k: int) -> List[str]:
+    """Generate multiple diverse candidates, model-only, quickly."""
+    _ensure_qg_model_loaded(app)
+    tok = app.state.t5_tokenizer
+    model = app.state.t5_model
+    device = app.state.device
+    bad_ids = _build_bad_words_ids(tok)
+
+    inputs = tok(prompt, return_tensors="pt", max_length=256, truncation=True).to(device)
+    cands_ids: List[torch.Tensor] = []
+
+    out = model.generate(
+        **inputs,
+        num_beams=4,
+        num_beam_groups=2,
+        diversity_penalty=0.15,
+        max_new_tokens=28,
+        min_new_tokens=8,
+        no_repeat_ngram_size=3,
+        repetition_penalty=1.12,
+        bad_words_ids=bad_ids,
+        early_stopping=True
+    )
+    seqs = out.sequences if hasattr(out, "sequences") else out
+    if isinstance(seqs, torch.Tensor):
+        for t in seqs[:k]:
+            cands_ids.append(t)
+
+    while len(cands_ids) < k:
+        smp = model.generate(
+            **inputs,
+            do_sample=True,
+            temperature=0.9,
+            top_p=0.95,
+            max_new_tokens=28,
+            min_new_tokens=8,
+            no_repeat_ngram_size=3,
+            repetition_penalty=1.08,
+            bad_words_ids=bad_ids
+        )
+        cands_ids.append(smp[0])
+
+    decoded: List[str] = []
+    for seq in cands_ids[:k]:
+        q = tok.decode(seq, skip_special_tokens=True).strip()
+        q = _sanitize_question(q)
+        if q:
+            decoded.append(q)
+
+    seen = set(); uniq = []
+    for q in decoded:
+        key = re.sub(r"[^a-z0-9]+", " ", q.lower()).strip()
+        if key not in seen:
+            seen.add(key); uniq.append(q)
+    return uniq
+
+_TECH_VERBS = {
+    "design","implement","optimize","debug","profile","scale","index","partition",
+    "replicate","cache","tune","benchmark","deploy","instrument","monitor","refactor",
+    "serialize","encrypt","compress","parallelize","shard","paginate"
+}
+_TECH_HINTS = {
+    "api","grpc","rest","http","sql","index","transaction","cache","latency","throughput",
+    "concurrency","thread","lock","async","complexity","profiling","memory","gc","jvm",
+    "spring","node","react","next","docker","kubernetes","ci/cd","graphql","auth","jwt",
+    "sharding","replication","consistency","cap","acid","monitoring","observability","logging",
+    "redis","rabbitmq","kafka","elasticsearch","typeorm","hibernate","jpa","postgres","mysql"
+}
+
+def _tech_score(q: str, role_topics: List[str], cv_keywords: List[str], q_domains: set, snippet_domains: set, role_domains: set) -> float:
+    ql = (q or "").lower()
+    score = 0.0
+    if any(v in ql for v in _TECH_VERBS): score += 1.05
+    if any(h in ql for h in _TECH_HINTS): score += 0.95
+    if any((t or "").lower() in ql for t in (role_topics or [])): score += 0.8
+    hits = sum(1 for k in (cv_keywords or []) if len(k) >= 3 and k in ql)
+    score += min(hits, 3) * 0.45
+    wc = len(q.split())
+    if QG_MIN_WORDS <= wc <= QG_MAX_WORDS: score += 0.6
+    if q.endswith("?"): score += 0.2
+    # Coherence bonuses/penalties
+    if q_domains and q_domains.issubset(role_domains | snippet_domains): score += 0.5
+    for pair in _BANNED_PAIRS:
+        if pair.issubset(q_domains): score -= 3.0
+    if "this interview" in ql or "at this interview" in ql: score -= 3.0
+    if "what performed" in ql: score -= 3.0
+    return score
+
+def _canonical(q: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", (q or "").lower()).strip()
+
+def _get_seen_store(app: FastAPI):
+    if not hasattr(app.state, "seen_questions"):
+        app.state.seen_questions = {}  # {(jt, jp): set(canonical_q)}
+    return app.state.seen_questions
+
+@torch.inference_mode()
+def _role_aware_generate_one(app: FastAPI, jt: str, jp: str, topics: List[str], content: str) -> Optional[str]:
+    """Generate ONE good technical, role-aligned, domain-coherent question from a single snippet/content."""
+    keywords = _extract_keywords(content)
+    prompts = [
+        _qg_prompt_topics_context(jt, jp, topics, content),
+        _qg_prompt_from_context_only(jt, jp, content),
+        _qg_prompt_from_keywords(jt, jp, keywords) if keywords else None,
+    ]
+    prompts = [p for p in prompts if p]
+
+    seen_store = _get_seen_store(app)
+    seen_key = (jt or "unknown", jp or "unknown")
+    seen_store.setdefault(seen_key, set())
+
+    role_domains = _allowed_domains_for_role(jt, jp)
+    snippet_domains = _domains_in(content)
+
+    best_q, best_s = None, -1e9
+    for p in prompts:
+        cands = _gen_candidates(app, p, k=QG_K_PER_PROMPT)
+        for q in cands:
+            if _canonical(q) in seen_store[seen_key]:
+                continue
+            if not _coherence_ok(q, keywords, snippet_domains, role_domains):
+                continue
+            q_domains = _domains_in(q)
+            s = _tech_score(q, [t.lower() for t in (topics or [])], keywords, q_domains, snippet_domains, role_domains)
+            if s > best_s:
+                best_q, best_s = q, s
+
+    if best_q and best_s >= QG_ACCEPT_THRESHOLD:
+        best_q = _preposition_tweaks(best_q)
+        seen_store[seen_key].add(_canonical(best_q))
+        return best_q
+    return None
+
+def _text_chunks_for_fallback(text: str, max_chunks: int = 40) -> List[str]:
+    parts = re.split(r"(?<=[\.\!\?])\s+|\n+", text or "")
+    chunks = []
+    for p in parts:
+        s = re.sub(r"\s+", " ", p).strip()
+        if len(s) >= 30:
+            chunks.append(s[:400])
+        if len(chunks) >= max_chunks:
+            break
+    return chunks
+
+# =========================================================
+# CV selection
+# =========================================================
+def _pick_best_user_cv_for_email(db: Session, email: str) -> Optional[UserCV]:
+    cv_ids = [row[0] for row in db.query(UserCV.id).join(User).filter(User.email == email).all()]
+    if not cv_ids:
+        return None
+    best_id, best_score = None, -1
+    for cid in cv_ids:
+        edu_n = db.query(Education).filter(Education.user_cv_id == cid).count()
+        sk_n  = db.query(Skill).filter(Skill.user_cv_id == cid).count()
+        pj_n  = db.query(Project).filter(Project.user_cv_id == cid).count()
+        wx_n  = db.query(WorkExperience).filter(WorkExperience.user_cv_id == cid).count()
+        score = edu_n + sk_n + pj_n + wx_n
+        logger.info(f"[QG] cv_id={cid} counts -> edu={edu_n} skills={sk_n} proj={pj_n} work={wx_n} score={score}")
+        if score > best_score or (score == best_score and (best_id is None or cid > best_id)):
+            best_score, best_id = score, cid
+    return db.query(UserCV).get(best_id) if best_id is not None else None
+
+# =========================================================
+# Judge (Gemini + local fallback)
+# =========================================================
+_STOPWORDS = {
+    "the","a","an","and","or","to","of","in","on","for","from","with","by","at","as","is","are","was","were",
+    "it","this","that","these","those","be","been","being","i","you","he","she","we","they","my","your","our"
+}
+def _norm_text(t: str) -> str:
+    return re.sub(r"\s+", " ", (t or "").strip().lower())
+def _tokens(t: str):
+    return [w for w in re.findall(r"[a-zA-Z][a-zA-Z0-9\-\+\.#]{1,}", _norm_text(t)) if w not in _STOPWORDS]
+def _looks_like_gibberish(answer: str) -> bool:
+    a = answer or ""
+    if len(a) < 6: return True
+    letters = sum(ch.isalpha() for ch in a); total = len(a)
+    if total == 0 or (letters / total) < 0.55: return True
+    vowel_ratio = (sum(ch in "aeiouAEIOU" for ch in a) / max(1, letters))
+    if vowel_ratio < 0.20: return True
+    if re.search(r"([a-zA-Z])\1{3,}", a): return True
+    toks = _tokens(a); avg_len = (sum(len(t) for t in toks) / max(1, len(toks))) if toks else 0
+    return (not toks) or avg_len < 3.0
+
+def _get_gemini_url() -> Optional[str]:
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    model   = os.getenv("GEMINI_JUDGE_MODEL", "gemini-2.0-flash-lite").strip()
+    if not api_key: return None
+    return f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+
+def _gemini_call(payload: dict) -> Optional[dict]:
+    url = _get_gemini_url()
+    if not url: return None
+    try:
+        resp = requests.post(url, json=payload, timeout=15)
+        if resp.status_code != 200:
+            msg = resp.text[:300].replace(os.getenv("GEMINI_API_KEY", "***"), "***")
+            logger.warning(f"Gemini HTTP {resp.status_code}: {msg}")
+            return None
+        return resp.json()
+    except Exception as e:
+        logger.warning(f"Gemini call error: {e}")
+        return None
+
+def _gemini_judge(question: str, answer: str) -> Optional[Tuple[bool, float, str]]:
+    system_text = (
+        "You are a technical interviewer grading a short answer.\n"
+        "Question and Answer are provided as JSON.\n"
+        "Mark CORRECT if on-topic AND either:\n"
+        "  • includes at least one specific technical detail, OR\n"
+        "  • gives a plausible mechanism relevant to the technology.\n"
+        "Mark INCORRECT only if off-topic/empty/pure fluff.\n"
+        "Return ONLY JSON: {\"is_correct\": true|false, \"confidence\": 0..1, \"reasons\": \"...\"}."
+    )
+    user_payload = json.dumps({"question": question, "answer": answer}, ensure_ascii=False)
+    body = {
+        "contents": [
+            {"role": "user", "parts": [{"text": system_text}]},
+            {"role": "user", "parts": [{"text": user_payload}]}
+        ],
+        "generationConfig": {"temperature": 0.15, "topK": 40, "topP": 0.9, "maxOutputTokens": 128}
+    }
+    data = _gemini_call(body)
+    if not data: return None
+    try:
+        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+        if text.startswith("```"):
+            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE|re.DOTALL).strip()
+        m = re.search(r"\{.*\}", text, flags=re.DOTALL)
+        if not m: return None
+        obj = json.loads(m.group(0))
+        return bool(obj.get("is_correct")), float(obj.get("confidence", 0.0)), str(obj.get("reasons","")).strip()
+    except Exception:
+        return None
+
+def _local_judge(question: str, answer: str) -> Tuple[bool, float]:
+    if _looks_like_gibberish(answer): return False, 0.05
+    qk = set(k for k in _tokens(question) if len(k) >= 3)
+    ak = set(k for k in _tokens(answer) if len(k) >= 3)
+    overlap = len(qk & ak)
+    if overlap >= 2: return True, min(0.4 + 0.1 * min(overlap, 4), 0.8)
+    return (len(ak) > 8), 0.35 if len(ak) > 8 else 0.2
+
+def _keyword_overlap(question: str, answer: str) -> int:
+    q = {w for w in _tokens(question) if len(w) >= 3}
+    a = {w for w in _tokens(answer) if len(w) >= 3}
+    return len(q & a)
+
+
+# =========================================================
+# Feedback report (Gemini + fallback)
+# =========================================================
+def _gemini_feedback(history: List[dict], jt: str, jp: str) -> Optional[dict]:
+    url = _get_gemini_url()
+    if not url: return None
+    rubric = (
+        "You are a hiring panel summarizer. Input is JSON {role_type, role_position, history} "
+        "where history is a list of {question, answer, difficulty, is_correct, p_correct}.\n"
+        "Write a concise JSON object ONLY with keys: "
+        "summary, strengths[], areas_to_improve[], next_steps[], suitability ('strong'|'good'|'borderline'|'unsuitable'), "
+        "is_suitable (bool), scorecard {easy:{asked,correct}, medium:{asked,correct}, hard:{asked,correct}, accuracy_pct}.\n"
+        "Base your judgments on correctness and the technical depth shown. No extra keys."
+    )
+    payload = {
+        "contents": [
+            {"role": "user", "parts": [{"text": rubric}]},
+            {"role": "user", "parts": [{"text":
+                json.dumps({"role_type": jt, "role_position": jp, "history": history}, ensure_ascii=False)
+            }]}
+        ],
+        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 400}
+    }
+    data = _gemini_call(payload)
+    if not data: return None
+    try:
+        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+        if text.startswith("```"):
+            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE|re.DOTALL).strip()
+        obj = json.loads(re.search(r"\{.*\}", text, flags=re.DOTALL).group(0))
+        return obj
+    except Exception as e:
+        logger.warning(f"[Feedback Gemini parse error] {e}")
+        return None
+
+def _local_feedback(history: List[dict]) -> dict:
+    asked_e = sum(1 for h in history if h.get("difficulty") == "easy")
+    corr_e  = sum(1 for h in history if h.get("difficulty") == "easy" and h.get("is_correct"))
+    asked_m = sum(1 for h in history if h.get("difficulty") == "medium")
+    corr_m  = sum(1 for h in history if h.get("difficulty") == "medium" and h.get("is_correct"))
+    asked_h = sum(1 for h in history if h.get("difficulty") == "hard")
+    corr_h  = sum(1 for h in history if h.get("difficulty") == "hard" and h.get("is_correct"))
+    asked = asked_e + asked_m + asked_h
+    corr  = corr_e + corr_m + corr_h
+    acc = (corr / asked * 100.0) if asked else 0.0
+    if acc >= 75: suit = "strong"; ok = True
+    elif acc >= 55: suit = "good"; ok = True
+    elif acc >= 35: suit = "borderline"; ok = False
+    else: suit = "unsuitable"; ok = False
+    strengths, gaps, nexts = [], [], []
+    if corr_m + corr_h >= 2:
+        strengths.append("Demonstrated grasp of core technical concepts.")
+    if corr_h >= 1:
+        strengths.append("Handled at least one advanced topic.")
+    if (asked_m + asked_h) - (corr_m + corr_h) >= 2:
+        gaps.append("Inconsistent depth on mid/advanced topics.")
+        nexts.append("Practice system design and database indexing scenarios.")
+    if corr_e < asked_e:
+        gaps.append("Missed a few fundamentals.")
+        nexts.append("Review language basics and common APIs.")
+    return {
+        "summary": "Automated local feedback generated (Gemini unavailable).",
+        "suitability": suit,
+        "is_suitable": ok,
+        "reasons": [],
+        "strengths": strengths,
+        "areas_to_improve": gaps,
+        "next_steps": nexts,
+        "scorecard": {
+            "easy":   {"asked": asked_e, "correct": corr_e},
+            "medium": {"asked": asked_m, "correct": corr_m},
+            "hard":   {"asked": asked_h, "correct": corr_h},
+            "accuracy_pct": round(acc, 1)
+        }
+    }
+
+def _build_final_feedback(state: dict, jt: str, jp: str) -> dict:
+    hist = [
+        {
+            "question": h.get("question",""),
+            "answer": h.get("answer",""),
+            "difficulty": h.get("difficulty","medium"),
+            "is_correct": bool(h.get("is_correct")),
+            "p_correct": float(h.get("p_correct", 0.0)),
+        } for h in state.get("history", [])
+    ]
+    fb = _gemini_feedback(hist, jt, jp)
+    if fb and isinstance(fb, dict) and "scorecard" in fb:
+        if "accuracy_pct" not in fb["scorecard"]:
+            asked_e = state["per_difficulty"]["easy"]["asked"]
+            corr_e  = state["per_difficulty"]["easy"]["correct"]
+            asked_m = state["per_difficulty"]["medium"]["asked"]
+            corr_m  = state["per_difficulty"]["medium"]["correct"]
+            asked_h = state["per_difficulty"]["hard"]["asked"]
+            corr_h  = state["per_difficulty"]["hard"]["correct"]
+            asked = asked_e + asked_m + asked_h
+            corr  = corr_e + corr_m + corr_h
+            acc = (corr / asked * 100.0) if asked else 0.0
+            fb["scorecard"]["accuracy_pct"] = round(acc, 1)
+        return fb
+    return _local_feedback(state.get("history", []))
+
+# =========================================================
+# Persist final report to DB
+# =========================================================
+def _persist_final_report(db: Session, email: str, state: dict, final: dict) -> Optional[int]:
     """
-    cvs = db.query(UserCV).all()
-    logger.debug(f"Retrieved {len(cvs)} UserCV records")
-    return cvs
+    Save the end-of-interview feedback to DB. Returns report id (or None).
+    Requires app.models.interview.InterviewReport to exist.
+    """
+    try:
+        from app.models.interview_reports import InterviewReport
+    except Exception as e:
+        logger.warning(f"[report] model import failed: {e}")
+        return None
+
+    try:
+        user = db.query(User).filter(User.email == email).first()
+        user_id = user.id if user else None
+
+        user_cv = None
+        try:
+            user_cv = _pick_best_user_cv_for_email(db, email)
+        except Exception:
+            pass
+        user_cv_id = user_cv.id if user_cv else None
+
+        fb = (final or {}).get("feedback", {}) if isinstance(final, dict) else {}
+        scorecard = fb.get("scorecard") or {}
+        acc = scorecard.get("accuracy_pct")
+
+        if acc is None:
+            try:
+                asked_e = state["per_difficulty"]["easy"]["asked"]
+                corr_e  = state["per_difficulty"]["easy"]["correct"]
+                asked_m = state["per_difficulty"]["medium"]["asked"]
+                corr_m  = state["per_difficulty"]["medium"]["correct"]
+                asked_h = state["per_difficulty"]["hard"]["asked"]
+                corr_h  = state["per_difficulty"]["hard"]["correct"]
+                asked = asked_e + asked_m + asked_h
+                corr  = corr_e + corr_m + corr_h
+                acc = round((corr / asked) * 100.0, 2) if asked else 0.0
+            except Exception:
+                acc = 0.0
+
+        rec = InterviewReport(
+            user_id=user_id,
+            user_cv_id=user_cv_id,
+            email=email,
+            role_type=state.get("role_type"),
+            role_position=state.get("role_position"),
+            status=final.get("status") or "finished",
+            score=int(final.get("score") or 0),
+            questions_asked=int(final.get("questions_asked") or 0),
+            accuracy_pct=float(acc or 0.0),
+            suitability=fb.get("suitability"),
+            is_suitable=bool(fb.get("is_suitable", False)),
+            summary=fb.get("summary"),
+            strengths=fb.get("strengths"),
+            areas_to_improve=fb.get("areas_to_improve"),
+            next_steps=fb.get("next_steps"),
+            scorecard=scorecard,
+            history=state.get("history"),
+            raw_feedback=fb,
+        )
+        db.add(rec)
+        db.commit()
+        db.refresh(rec)
+        logger.info(f"[report] saved InterviewReport id={rec.id} email={email}")
+        return rec.id
+    except Exception as e:
+        logger.warning(f"[report] save failed: {e}")
+        try:
+            db.rollback()
+        except Exception:
+            pass
+        return None
+
+# =========================================================
+# On-demand NEXT question generation (no pre-pool)
+# =========================================================
+def _prepare_context(email: str, db: Session) -> Tuple[str, str, List[str], List[dict], List[str]]:
+    """Return (jt, jp, topics, snippets[{text,diff}], chunks[str])."""
+    user_cv = _pick_best_user_cv_for_email(db, email)
+    if not user_cv:
+        raise HTTPException(status_code=404, detail="CV not found for user")
+    jt, jp = _resolve_role_for_user_cv(db, user_cv)
+    topics = _role_topics(jt, jp) or _infer_topics_from_cv_skills(db, user_cv)
+    snippets = _build_snippets_for_user_cv(db, user_cv)
+    chunks = _text_chunks_for_fallback(user_cv.extracted_text or "", max_chunks=60)
+    return jt, jp, topics, snippets, chunks
+
+def _next_question_on_demand(state: dict, app: FastAPI) -> Optional[dict]:
+    """Pick one snippet/chunk and generate ONE question under time budget."""
+    t0 = time.perf_counter()
+    jt = state.get("role_type") or "unknown"
+    jp = state.get("role_position") or "unknown"
+    topics = state.get("topics") or []
+
+    try_order = [state.get("current_difficulty","medium"), "medium", "easy", "hard"]
+
+    for diff in try_order:
+        bucket = state["snippet_buckets"].get(diff, [])
+        while bucket and (time.perf_counter() - t0) < QG_PER_TURN_BUDGET_S:
+            idx = bucket.pop(0)
+            if idx in state["used_snippet_idx"]:
+                continue
+            state["used_snippet_idx"].add(idx)
+            content = state["snippets"][idx]["text"]
+            q = _role_aware_generate_one(app, jt, jp, topics, content)
+            if q:
+                return {"question": q, "difficulty": diff, "scored": True}
+
+    while state["chunk_cursor"] < len(state["chunks"]) and (time.perf_counter() - t0) < QG_PER_TURN_BUDGET_S:
+        content = state["chunks"][state["chunk_cursor"]]
+        state["chunk_cursor"] += 1
+        q = _role_aware_generate_one(app, jt, jp, topics, content)
+        if q:
+            return {"question": q, "difficulty": "medium", "scored": True}
+
+    logger.info(f"[QG] NEXT could not generate within ~{QG_PER_TURN_BUDGET_S}s.")
+    return None
+
+# =========================================================
+# Interview flow (no pre-generation)
+# =========================================================
+ICEBREAKER_QUESTION = (
+    "To warm up, tell me about yourself — your background, key strengths, and what you’re looking for next."
+)
+
+def _init_interviews_store(app: FastAPI):
+    if not hasattr(app.state, "interviews"):
+        app.state.interviews: Dict[str, dict] = {}
+
+def start_adaptive_interview_service(email: str, db: Session, app: FastAPI, max_questions: int = 10):
+    _init_interviews_store(app)
+    if email in app.state.interviews:
+        app.state.interviews.pop(email, None)
+
+    jt, jp, topics, snippets, chunks = _prepare_context(email, db)
+
+    snippet_buckets = {"easy": [], "medium": [], "hard": []}
+    for i, s in enumerate(snippets):
+        snippet_buckets.setdefault(s["difficulty"], []).append(i)
+
+    state = {
+        "asked": [],
+        "asked_count": 0,
+        "correct_count": 0,
+        "incorrect_count": 0,
+        "per_difficulty": {
+            "easy":   {"asked": 0, "correct": 0},
+            "medium": {"asked": 0, "correct": 0},
+            "hard":   {"asked": 0, "correct": 0},
+        },
+        "history": [],
+        "last": None,
+        "score": 0,
+        "max_questions": max_questions,
+        "current_difficulty": "medium",
+        "stopped": False,
+        "phase": "PRELUDE",
+        "icebreaker": ICEBREAKER_QUESTION,
+        "icebreaker_answer": None,
+
+        # context for on-demand generation
+        "role_type": jt,
+        "role_position": jp,
+        "topics": topics,
+        "snippets": snippets,
+        "snippet_buckets": snippet_buckets,
+        "used_snippet_idx": set(),
+        "chunks": chunks,
+        "chunk_cursor": 0,
+    }
+    app.state.interviews[email] = state
+
+    return {"question": state["icebreaker"], "difficulty": "none", "tag": "icebreaker", "scored": False}
+
+def _pop_and_mark(state: dict, qdict: dict):
+    q = qdict["question"]; d = qdict["difficulty"]
+    if q not in state["asked"]:
+        state["asked"].append(q)
+        state["asked_count"] += 1
+        state["per_difficulty"][d]["asked"] += 1
+        state["last"] = {"question": q, "difficulty": d}
+
+def submit_adaptive_answer_service(email: str, question: Optional[str], answer: str, app: FastAPI, db: Session):
+    _init_interviews_store(app)
+    state = app.state.interviews.get(email)
+    if not state or state.get("stopped"):
+        raise HTTPException(status_code=400, detail="No active interview for user or interview already ended")
+
+    # PRELUDE
+    if state.get("phase") == "PRELUDE":
+        state["icebreaker_answer"] = answer
+        state["phase"] = "MAIN"
+
+        nxt = _next_question_on_demand(state, app)
+        if not nxt:
+            state["stopped"] = True
+            jt = state.get("role_type") or "unknown"
+            jp = state.get("role_position") or "unknown"
+            final = {"status": "finished", "score": state["score"], "questions_asked": state["asked_count"]}
+            final["feedback"] = _build_final_feedback(state, jt, jp)
+            report_id = _persist_final_report(db, email, state, final)
+            if report_id:
+                final["report_id"] = report_id
+            app.state.interviews.pop(email, None)
+            return {"result": True, "next": None, "final": final}
+
+        _pop_and_mark(state, nxt)
+        return {"result": True, "next": nxt, "final": None}
+
+    # MAIN
+    last = state.get("last") or {}
+    q_text = last.get("question") or (question or "")
+    q_diff = last.get("difficulty") or state.get("current_difficulty") or "medium"
+
+    is_correct, confidence = evaluate_answer_for_question(q_text, answer, app)
+    state["history"].append({
+        "question": q_text, "answer": answer, "difficulty": q_diff,
+        "is_correct": is_correct, "p_correct": confidence
+    })
+
+    if is_correct:
+        state["correct_count"] += 1
+        state["per_difficulty"][q_diff]["correct"] += 1
+        state["score"] += 1
+        if state["current_difficulty"] == "easy":
+            state["current_difficulty"] = "medium"
+        elif state["current_difficulty"] == "medium":
+            state["current_difficulty"] = "hard"
+    else:
+        state["incorrect_count"] += 1
+        state["score"] -= 1
+        if state["current_difficulty"] == "hard":
+            state["current_difficulty"] = "medium"
+        elif state["current_difficulty"] == "medium":
+            state["current_difficulty"] = "easy"
+
+    if state["asked_count"] >= state["max_questions"]:
+        state["stopped"] = True
+        jt = state.get("role_type") or "unknown"
+        jp = state.get("role_position") or "unknown"
+        final = {"status": "finished", "score": state["score"], "questions_asked": state["asked_count"]}
+        final["feedback"] = _build_final_feedback(state, jt, jp)
+        report_id = _persist_final_report(db, email, state, final)
+        if report_id:
+            final["report_id"] = report_id
+        app.state.interviews.pop(email, None)
+        return {"result": is_correct, "next": None, "final": final}
+
+    nxt = _next_question_on_demand(state, app)
+    if not nxt:
+        state["stopped"] = True
+        jt = state.get("role_type") or "unknown"
+        jp = state.get("role_position") or "unknown"
+        final = {"status": "finished", "score": state["score"], "questions_asked": state["asked_count"]}
+        final["feedback"] = _build_final_feedback(state, jt, jp)
+        report_id = _persist_final_report(db, email, state, final)
+        if report_id:
+            final["report_id"] = report_id
+        app.state.interviews.pop(email, None)
+        return {"result": is_correct, "next": None, "final": final}
+
+    _pop_and_mark(state, nxt)
+    return {"result": is_correct, "next": nxt, "final": None}
+
+# =========================================================
+# BACKWARD-COMPAT: batch generator for places still importing it
+# =========================================================
+def generate_questions_from_cv(email: str, db: Session, app: FastAPI, max_items: int = 20) -> List[dict]:
+    """
+    Compatibility wrapper for older routes that import this symbol.
+    Uses the same model-only, role-aware logic to return up to `max_items` questions.
+    """
+    jt, jp, topics, snippets, chunks = _prepare_context(email, db)
+    snippet_buckets = {"easy": [], "medium": [], "hard": []}
+    for i, s in enumerate(snippets):
+        snippet_buckets.setdefault(s["difficulty"], []).append(i)
+
+    used_snippet_idx = set()
+    chunk_cursor = 0
+    out: List[dict] = []
+    diffs_cycle = ["medium", "easy", "hard"]
+    di = 0
+    per_item_budget = float(os.getenv("QG_BATCH_ITEM_BUDGET_S", "1.8"))
+
+    while len(out) < max_items:
+        diff = diffs_cycle[di % len(diffs_cycle)]; di += 1
+        t0 = time.perf_counter()
+        bucket = snippet_buckets.get(diff, [])
+        found = False
+
+        while bucket and (time.perf_counter() - t0) < per_item_budget:
+            idx = bucket.pop(0)
+            if idx in used_snippet_idx:
+                continue
+            used_snippet_idx.add(idx)
+            content = snippets[idx]["text"]
+            q = _role_aware_generate_one(app, jt, jp, topics, content)
+            if q:
+                d, qtype = classify_difficulty_from_content(content)
+                out.append({"question": q, "difficulty": d, "type": qtype, "context": content})
+                found = True
+                break
+
+        if len(out) >= max_items:
+            break
+
+        if not found:
+            t1 = time.perf_counter()
+            while chunk_cursor < len(chunks) and (time.perf_counter() - t1) < per_item_budget:
+                content = chunks[chunk_cursor]
+                chunk_cursor += 1
+                q = _role_aware_generate_one(app, jt, jp, topics, content)
+                if q:
+                    out.append({"question": q, "difficulty": "medium", "type": "fallback", "context": "fallback_text"})
+                    found = True
+                    break
+
+        if not found:
+            if not any(snippet_buckets.values()) and chunk_cursor >= len(chunks):
+                break
+
+    logger.info(f"[QG-compat] Generated {len(out)} batch questions (max={max_items}) for {email}")
+    return out

@@ -25,9 +25,6 @@ dmypy.json
 # VSCode settings
 .vscode/
 
-# Env files
-.env
-.env.*
 
 # SQLite and other DB files
 *.sqlite3
