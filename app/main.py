@@ -9,7 +9,7 @@ import app.models  # <-- IMPORTANT: registers InterviewReport, UserCV, etc.
 # Create tables after models are imported
 Base.metadata.create_all(bind=engine)
 
-from app.api import auth, jobs, cv, interview  # routers AFTER create_all
+from app.api import auth, jobs, cv, interview,applications,users,stats ,recent_applications,admin_candidates
 
 from transformers import T5Tokenizer, T5ForConditionalGeneration, BertTokenizer, BertForSequenceClassification
 import torch
@@ -61,7 +61,16 @@ async def root():
     return {"message": "AI Interview System API is running!"}
 
 # Routers
-app.include_router(auth.router)      # /auth
-app.include_router(jobs.router)      # /jobs
-app.include_router(cv.router)        # /cv
-app.include_router(interview.router) # /interview
+app.include_router(auth.router)
+app.include_router(jobs.router)
+app.include_router(cv.router)
+app.include_router(interview.router)
+app.include_router(applications.router)
+
+app.include_router(users.router)
+
+app.include_router(stats.router)
+
+app.include_router(recent_applications.router)
+
+app.include_router(admin_candidates.router)
