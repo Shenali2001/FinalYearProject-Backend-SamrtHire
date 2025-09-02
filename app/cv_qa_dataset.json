@@ -1,0 +1,72 @@
+[
+  {
+    "context": "Financial Accountant specializing in financial planning, reporting, and analysis within the Department of Defense.",
+    "question": "What educational qualifications do you have in accounting?",
+    "answer": "I have an Associate in Accounting from Northern Maine Community College with a GPA of 3.41, 78 semester hours toward a Bachelor\u2019s in Accounting from Hudson College, and a Certified Defense Financial Manager certification from 2005."
+  },
+  {
+    "context": "Software Engineer with experience in building scalable applications and skilled in full-cycle development with a focus on performance, collaboration, and innovation, passionate about solving complex problems and enhancing user experiences.",
+    "question": "What degree did you obtain from Cardiff Metropolitan University?",
+    "answer": "I obtained a Bachelor\u2019s Degree in Computer Science."
+  },
+  {
+    "context": "Recognized innovator who drives change by engineering new processes and technologies, resulting in streamlined operations and company growth.",
+    "question": "What experience do you have with implementing agile methodologies in software development teams?",
+    "answer": "I transitioned multiple development teams to agile Scrum processes, implementing stories, cards, standards, and toolbox releases, which improved developer estimation and testing efficiency."
+  },
+  {
+    "context": "Engineering Project Manager, Company Name, May 2015 \u2013 July 2017.",
+    "question": "What project management methodologies did you use to oversee engineering projects from 2015 to 2017?",
+    "answer": "I utilized Agile and Scrum methodologies to manage engineering projects, ensuring iterative development and effective team collaboration."
+  },
+  {
+    "context": "TEACHER, Cole County Service Unit Manager, Girl Scouts of the Missouri Heartland, 2012 \u2013 Present.",
+    "question": "What teaching methods do you use to engage elementary students in your classroom?",
+    "answer": "I use interactive methods like hands-on activities, group discussions, and visual aids to engage elementary students and cater to diverse learning styles."
+  },
+  {
+    "context": "Teacher, Child care professional with background as a Family Support Specialist and a Teacher.",
+    "question": "How do you develop lesson plans to engage young children in a classroom setting?",
+    "answer": "I create interactive lesson plans with hands-on activities and age-appropriate materials to engage young children and support their developmental needs."
+  },
+  {
+    "context": "Experienced education professional with a background in instructional design, seeking opportunities to develop materials, activities, and tools.",
+    "question": "How do you design lesson plans to engage elementary students effectively?",
+    "answer": "I create interactive lesson plans with hands-on activities and visual aids tailored to diverse learning styles to engage elementary students."
+  },
+  {
+    "context": "Software Engineer, Embark, MarketSmart, Marketing Science Company, B.S. Computer Science.",
+    "question": "How do you use Python and Django to develop scalable web applications?",
+    "answer": "I leverage Django\u2019s ORM and modular architecture to build RESTful APIs and optimize database queries for scalability, as demonstrated in my work on a reporting system that improved speed by 24%."
+  },
+  {
+    "context": "Python Developer, DoorDash, Knewton, M.S. Computer Science, B.S. Computer Science.",
+    "question": "How do you use Python and Django to build scalable web applications?",
+    "answer": "I leverage Django\u2019s ORM and caching mechanisms to build RESTful APIs, optimizing performance for high traffic, as shown in my work at Knewton improving reporting speed by 24%."
+  },
+  {
+    "context": "Experienced Software Engineer, TechCorp, InnovateTech, StartUpX, B.S. Computer Science.",
+    "question": "How do you approach collaboration in software development projects?",
+    "answer": "I engage in pair programming and regular stand-ups, as done at TechCorp with my team of 5."
+  },
+  {
+    "context": "Embedded Software Engineer, Dice, Google, Superpedestrian, B.S. Computer Engineering.",
+    "question": "How do you use C for embedded systems development?",
+    "answer": "I write efficient C code for microcontrollers, as in Google\u2019s 50+ firmware designs."
+  },
+  {
+    "context": "Junior Software Engineer, 0-2 years experience, internships, academic projects.",
+    "question": "How do you use Python for developing small-scale applications?",
+    "answer": "I write Python scripts using functions and libraries like Flask for web apps, as in my academic projects."
+  },
+  {
+    "context": "Principal Software Engineer, Microsoft, 2020-current.",
+    "question": "How do you use Java for large-scale enterprise applications?",
+    "answer": "I develop scalable Java applications using Spring Boot, as in my Microsoft projects, improving maintainability by 12%."
+  },
+  {
+    "context": "Senior Information Security Engineer, Wells Fargo, 2015-current.",
+    "question": "How do you configure firewalls for enterprise security?",
+    "answer": "I designed and deployed 50+ firewalls at Wells Fargo, enhancing network security."
+  }
+]
