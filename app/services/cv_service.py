@@ -1166,6 +1166,22 @@ def _pop_and_mark(state: dict, qdict: dict):
         state["per_difficulty"][d]["asked"] += 1
         state["last"] = {"question": q, "difficulty": d}
 
+def evaluate_answer_for_question(question: str, answer: str, app: FastAPI) -> Tuple[bool, float]:
+    q = (question or "").strip()
+    a = (answer or "").strip()
+    if _looks_like_gibberish(a):
+        logger.debug("Answer rejected by gibberish gate.")
+        return False, 0.0
+    judged = _gemini_judge(q, a)
+    if judged is None:  # local fallback
+        return _local_judge(q, a)
+    is_corr, conf, _ = judged
+    if (not is_corr) and conf <= 0.35:
+        if _keyword_overlap(q, a) >= 1:
+            logger.info("[Judge=Override] Low-conf negative but on-topic -> accept")
+            return True, 0.55
+    return is_corr, conf
+
 def submit_adaptive_answer_service(email: str, question: Optional[str], answer: str, app: FastAPI, db: Session):
     _init_interviews_store(app)
     state = app.state.interviews.get(email)
