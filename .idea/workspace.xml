@@ -5,54 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2bce0f2-1b05-4e56-80d1-55ff11d89427" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/._question_generation_model" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._added_tokens.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._generation_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._model.safetensors" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._special_tokens_map.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._spiece.model" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._tokenizer_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.env" beforeDir="false" afterPath="$PROJECT_DIR$/app/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/answers_modal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/app/answers_modal.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/admin_candidates.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/admin_candidates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/applications.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/applications.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/cv.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/cv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/interview.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/interview.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/jobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/jobs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/recent_applications.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/recent_applications.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/stats.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/augment_hard_negatives.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/augment_hard_negatives.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/dependencies.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/core/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/security.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/enhanced_dataset_clean.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/enhanced_dataset_clean.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/cv.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/cv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/enums.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/init.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/init.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/interview_reports.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/interview_reports.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/job.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/job.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/question_modal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/app/question_modal.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schemas/cv.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/cv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schemas/cv_details.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/cv_details.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schemas/interview.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/interview.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schemas/job.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/job.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schemas/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/application_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/application_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/auth_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/auth_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/candidate_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/candidate_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/cv_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/cv_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/job_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/job_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/recent_applications_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/recent_applications_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/stats_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/stats_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/user_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +72,7 @@
       <updated>1753271364645</updated>
       <workItem from="1757006930327" duration="1719000" />
       <workItem from="1757086818237" duration="782000" />
-      <workItem from="1757170293058" duration="678000" />
+      <workItem from="1757170293058" duration="4238000" />
     </task>
     <servers />
   </component>
