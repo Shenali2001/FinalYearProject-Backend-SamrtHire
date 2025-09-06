@@ -5,9 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2bce0f2-1b05-4e56-80d1-55ff11d89427" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/._question_generation_model" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._added_tokens.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._generation_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._model.safetensors" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._special_tokens_map.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._spiece.model" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/__MACOSX/question_generation_model/._tokenizer_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.env" beforeDir="false" afterPath="$PROJECT_DIR$/app/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/answers_modal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/app/answers_modal.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/admin_candidates.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/admin_candidates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/applications.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/applications.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/cv.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/cv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/interview.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/interview.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/jobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/jobs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/recent_applications.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/recent_applications.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/augment_hard_negatives.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/augment_hard_negatives.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/dependencies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/security.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/enhanced_dataset_clean.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/enhanced_dataset_clean.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/cv.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/cv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/init.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/init.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/interview_reports.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/interview_reports.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/job.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/job.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/question_modal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/app/question_modal.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/cv.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/cv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/cv_details.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/cv_details.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/interview.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/interview.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/job.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/job.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/application_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/application_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/auth_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/auth_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/candidate_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/candidate_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/cv_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/cv_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/job_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/job_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/recent_applications_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/recent_applications_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/stats_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/stats_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/user_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,17 +78,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev-User-Manegment&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Assignment/FinalYearProject/FinalYearProject-Backend-SamrtHire&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "dev-User-Manegment",
+    "last_opened_file_path": "D:/Assignment/FinalYearProject/FinalYearProject-Backend-SamrtHire",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Assignment\FinalYearProject\FinalYearProject-Backend-SamrtHire" />
@@ -52,7 +103,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-53e2683a6804-9cdd278e9d02-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.26094.141" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-PY-252.23892.515" />
+        <option value="bundled-python-sdk-7e47963ff851-f0eec537fc84-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.23892.515" />
       </set>
     </attachedChunks>
   </component>
@@ -63,7 +115,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753271364645</updated>
+      <workItem from="1757006930327" duration="1719000" />
+      <workItem from="1757086818237" duration="782000" />
+      <workItem from="1757170293058" duration="678000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

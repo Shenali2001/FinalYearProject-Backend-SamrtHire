@@ -1,0 +1,2195 @@
+[
+  {"input": "CV skill: Java", "output": "What are the four pillars of OOP in Java?"},
+  {"input": "CV skill: Java", "output": "Explain the difference between abstract classes and interfaces in Java?"},
+  {"input": "CV skill: Java", "output": "How does garbage collection work in Java?"},
+  {"input": "CV skill: Java", "output": "What is the difference between checked and unchecked exceptions in Java?"},
+  {"input": "CV skill: Java", "output": "Describe the Java Memory Model and its key components?"},
+  {"input": "CV skill: Java", "output": "How would you implement multithreading in Java?"},
+  {"input": "CV skill: Java", "output": "What are lambda expressions in Java, and when would you use them?"},
+  {"input": "CV skill: Java", "output": "Explain the concept of generics in Java?"},
+  {"input": "CV skill: Java", "output": "What is the difference between == and .equals() in Java?"},
+  {"input": "CV skill: Java", "output": "How does Java handle concurrency with synchronized blocks?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot simplify configuration compared to traditional Spring?"},
+  {"input": "CV skill: Spring Boot", "output": "What is the purpose of @SpringBootApplication annotation?"},
+  {"input": "CV skill: Spring Boot", "output": "Explain dependency injection in Spring Boot?"},
+  {"input": "CV skill: Spring Boot", "output": "How do you handle exceptions globally in Spring Boot?"},
+  {"input": "CV skill: Spring Boot", "output": "What are Spring Boot starters, and why are they useful?"},
+  {"input": "CV skill: Spring Boot", "output": "Describe how to create a RESTful API in Spring Boot?"},
+  {"input": "CV skill: Spring Boot", "output": "How does @Autowired work in Spring Boot?"},
+  {"input": "CV skill: Spring Boot", "output": "What is the role of application.properties in Spring Boot?"},
+  {"input": "CV skill: Spring Boot", "output": "Explain Spring Boot Actuator and its endpoints?"},
+  {"input": "CV skill: Spring Boot", "output": "How would you secure a Spring Boot application with JWT?"},
+  {"input": "CV skill: Spring Boot", "output": "What is the difference between @Component, @Service, and @Repository?"},
+  {"input": "CV skill: Spring Boot", "output": "How do you optimize startup time in a Spring Boot app?"},
+  {"input": "CV skill: Spring Boot", "output": "Describe transaction management in Spring Boot?"},
+  {"input": "CV skill: Spring Boot", "output": "What is Spring Data JPA, and how does it integrate with Spring Boot?"},
+  {"input": "CV skill: Spring Boot", "output": "How do you handle CORS in Spring Boot?"},
+  {"input": "CV skill: React", "output": "What are React Hooks, and give an example of useState?"},
+  {"input": "CV skill: React", "output": "Explain the difference between functional and class components in React?"},
+  {"input": "CV skill: React", "output": "How does the virtual DOM work in React?"},
+  {"input": "CV skill: React", "output": "What is JSX, and how is it transpiled?"},
+  {"input": "CV skill: React", "output": "Describe the React component lifecycle methods?"},
+  {"input": "CV skill: React", "output": "How would you handle state management in a large React app?"},
+  {"input": "CV skill: React", "output": "What is the purpose of React Fragment?"},
+  {"input": "CV skill: React", "output": "Explain prop drilling and how to avoid it?"},
+  {"input": "CV skill: React", "output": "How do you optimize performance in React with memoization?"},
+  {"input": "CV skill: React", "output": "What are controlled vs. uncontrolled components in React forms?"},
+  {"input": "CV skill: Next.js", "output": "What is server-side rendering in Next.js, and why is it useful?"},
+  {"input": "CV skill: Next.js", "output": "Explain the difference between getStaticProps and getServerSideProps?"},
+  {"input": "CV skill: Next.js", "output": "How do you implement dynamic routing in Next.js?"},
+  {"input": "CV skill: Next.js", "output": "What are API routes in Next.js?"},
+  {"input": "CV skill: Next.js", "output": "Describe static site generation (SSG) in Next.js?"},
+  {"input": "CV skill: Next.js", "output": "How does Next.js handle image optimization?"},
+  {"input": "CV skill: Next.js", "output": "What is the _app.js file in Next.js used for?"},
+  {"input": "CV skill: Next.js", "output": "Explain incremental static regeneration (ISR) in Next.js?"},
+  {"input": "CV skill: Next.js", "output": "How would you deploy a Next.js app to Vercel?"},
+  {"input": "CV skill: Next.js", "output": "What are the benefits of using Next.js over plain React?"},
+  {"input": "CV skill: Node.js", "output": "What is the event loop in Node.js?"},
+  {"input": "CV skill: Node.js", "output": "Explain callback hell and how to avoid it?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js handle asynchronous operations?"},
+  {"input": "CV skill: Node.js", "output": "What is Express.js, and how does it simplify Node.js development?"},
+  {"input": "CV skill: Node.js", "output": "Describe middleware in Node.js/Express?"},
+  {"input": "CV skill: Node.js", "output": "How would you handle errors in a Node.js application?"},
+  {"input": "CV skill: Node.js", "output": "What are streams in Node.js?"},
+  {"input": "CV skill: Node.js", "output": "Explain clustering in Node.js for scalability?"},
+  {"input": "CV skill: Node.js", "output": "How do you secure a Node.js API?"},
+  {"input": "CV skill: Node.js", "output": "What is the difference between require() and import in Node.js?"},
+  {"input": "CV skill: TypeScript", "output": "What are the key differences between TypeScript and JavaScript?"},
+  {"input": "CV skill: TypeScript", "output": "Explain interfaces vs. types in TypeScript?"},
+  {"input": "CV skill: TypeScript", "output": "How do generics work in TypeScript?"},
+  {"input": "CV skill: TypeScript", "output": "What is a union type in TypeScript?"},
+  {"input": "CV skill: TypeScript", "output": "Describe decorators in TypeScript?"},
+  {"input": "CV skill: TypeScript", "output": "How would you type a function that accepts multiple argument types?"},
+  {"input": "CV skill: TypeScript", "output": "What is the 'never' type in TypeScript?"},
+  {"input": "CV skill: TypeScript", "output": "Explain enums in TypeScript?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript handle null and undefined?"},
+  {"input": "CV skill: TypeScript", "output": "What are mapped types in TypeScript?"},
+  {"input": "CV skill: SQL", "output": "What is the difference between INNER JOIN and LEFT JOIN?"},
+  {"input": "CV skill: SQL", "output": "Explain ACID properties in databases?"},
+  {"input": "CV skill: SQL", "output": "How do indexes improve query performance in SQL?"},
+  {"input": "CV skill: SQL", "output": "What is a subquery, and when would you use it?"},
+  {"input": "CV skill: SQL", "output": "Describe normalization and its forms?"},
+  {"input": "CV skill: SQL", "output": "How would you prevent SQL injection?"},
+  {"input": "CV skill: SQL", "output": "What are window functions in SQL?"},
+  {"input": "CV skill: SQL", "output": "Explain GROUP BY vs. HAVING?"},
+  {"input": "CV skill: SQL", "output": "How do you optimize slow SQL queries?"},
+  {"input": "CV skill: SQL", "output": "What is a trigger in SQL?"},
+  {"input": "CV skill: MongoDB", "output": "How does indexing work in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "What is sharding in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "Explain aggregation pipelines in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "What are the differences between MongoDB and SQL databases?"},
+  {"input": "CV skill: MongoDB", "output": "How do you handle transactions in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "Describe schema design in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "What is replication in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "How would you query nested documents in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "Explain change streams in MongoDB?"},
+  {"input": "CV skill: MongoDB", "output": "What are capped collections?"},
+  {"input": "CV skill: PostgreSQL", "output": "What are the key features of PostgreSQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "Explain MVCC in PostgreSQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "How do you create a custom index in PostgreSQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "What is the difference between PostgreSQL and MySQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "Describe partitioning in PostgreSQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL handle JSON data?"},
+  {"input": "CV skill: PostgreSQL", "output": "What are extensions in PostgreSQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "Explain vacuuming in PostgreSQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "How would you set up replication in PostgreSQL?"},
+  {"input": "CV skill: PostgreSQL", "output": "What is a CTE in PostgreSQL?"},
+  {"input": "CV skill: Firebase", "output": "Explain how Firebase Authentication works?"},
+  {"input": "CV skill: Firebase", "output": "What is the difference between Firestore and Realtime Database?"},
+  {"input": "CV skill: Firebase", "output": "How do you secure Firebase rules?"},
+  {"input": "CV skill: Firebase", "output": "Describe Firebase Cloud Functions?"},
+  {"input": "CV skill: Firebase", "output": "How would you handle offline data in Firebase?"},
+  {"input": "CV skill: Git", "output": "What is the difference between git merge and git rebase?"},
+  {"input": "CV skill: Git", "output": "Explain Git branching strategies like Git Flow?"},
+  {"input": "CV skill: Git", "output": "How do you resolve merge conflicts in Git?"},
+  {"input": "CV skill: Git", "output": "What is git stash, and when would you use it?"},
+  {"input": "CV skill: Git", "output": "Describe git cherry-pick?"},
+  {"input": "CV skill: Jira", "output": "What are epics, stories, and tasks in Jira?"},
+  {"input": "CV skill: Jira", "output": "How do you set up a Scrum board in Jira?"},
+  {"input": "CV skill: Jira", "output": "Explain Jira workflows and transitions?"},
+  {"input": "CV skill: Jira", "output": "What are Jira custom fields?"},
+  {"input": "CV skill: Jira", "output": "How would you integrate Jira with GitHub?"},
+  {"input": "CV skill: Bootstrap", "output": "What is the Bootstrap grid system?"},
+  {"input": "CV skill: Bootstrap", "output": "Explain responsive utilities in Bootstrap?"},
+  {"input": "CV skill: Bootstrap", "output": "How do you customize Bootstrap themes?"},
+  {"input": "CV skill: Bootstrap", "output": "What are Bootstrap components like modals?"},
+  {"input": "CV skill: Bootstrap", "output": "Describe Bootstrap's breakpoints for responsive design?"},
+  {"input": "CV skill: Tailwind CSS", "output": "What is utility-first CSS in Tailwind?"},
+  {"input": "CV skill: Tailwind CSS", "output": "How do you implement dark mode in Tailwind CSS?"},
+  {"input": "CV skill: Tailwind CSS", "output": "Explain Tailwind's JIT mode?"},
+  {"input": "CV skill: Tailwind CSS", "output": "How would you optimize Tailwind for production?"},
+  {"input": "CV skill: Tailwind CSS", "output": "What are Tailwind plugins?"},
+  {"input": "CV skill: Redux", "output": "Explain the Redux data flow?"},
+  {"input": "CV skill: Redux", "output": "What are actions and reducers in Redux?"},
+  {"input": "CV skill: Redux", "output": "How does Redux middleware work?"},
+  {"input": "CV skill: Redux", "output": "Describe Redux Thunk?"},
+  {"input": "CV skill: Redux", "output": "When would you use Redux vs. Context API?"},
+  {"input": "CV skill: Context API", "output": "How does Context API handle state in React?"},
+  {"input": "CV skill: Context API", "output": "Explain useContext hook?"},
+  {"input": "CV skill: Context API", "output": "What are the pros and cons of Context API?"},
+  {"input": "CV skill: Context API", "output": "How would you optimize re-renders with Context API?"},
+  {"input": "CV skill: Context API", "output": "Describe creating a context provider?"},
+  {"input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB", "output": "How would you implement user authentication in this app?"},
+  {"input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB", "output": "What database schema would you design for bookings?"},
+  {"input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB", "output": "How does Next.js handle API routes for this project?"},
+  {"input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB", "output": "Explain integrating MongoDB with Spring Boot?"},
+  {"input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB", "output": "What scalability strategies would you use?"},
+  {"input": "CV project: Pet Shop App using React Native, Node.js", "output": "How would you manage state in this mobile app?"},
+  {"input": "CV project: Pet Shop App using React Native, Node.js", "output": "Describe the backend API structure in Node.js."},
+  {"input": "CV project: Pet Shop App using React Native, Node.js", "output": "What navigation library would you use in React Native?"},
+  {"input": "CV project: Pet Shop App using React Native, Node.js", "output": "How do you handle offline mode in this app?"},
+  {"input": "CV project: Pet Shop App using React Native, Node.js", "output": "Explain integrating payments in Node.js backend?"},
+  {"input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB", "output": "What performance optimizations did you apply in Next.js?"},
+  {"input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB", "output": "How did you ensure data consistency in MongoDB?"},
+  {"input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB", "output": "Describe your deployment pipeline for this role?"},
+  {"input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB", "output": "What testing strategies did you use?"},
+  {"input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB", "output": "How did you handle user sessions?"},
+  {"input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL", "output": "What database queries did you optimize in PostgreSQL?"},
+  {"input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL", "output": "Explain the entity relationships in this system?"},
+  {"input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL", "output": "How did you implement security in Spring Boot?"},
+  {"input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL", "output": "What was your role in integrating JPA?"},
+  {"input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL", "output": "Describe handling transactions in this app?"},
+  {"input": "CV section: Full-stack development using React, Next.js, and Spring Boot", "output": "What is the difference between client-side and server-side rendering?"},
+  {"input": "CV section: Full-stack development using React, Next.js, and Spring Boot", "output": "How do you integrate a React frontend with a Spring Boot backend?"},
+  {"input": "CV section: Full-stack development using React, Next.js, and Spring Boot", "output": "Explain CORS in a full-stack app?"},
+  {"input": "CV section: Full-stack development using React, Next.js, and Spring Boot", "output": "What tools do you use for full-stack testing?"},
+  {"input": "CV section: Full-stack development using React, Next.js, and Spring Boot", "output": "How would you deploy a full-stack app to the cloud?"},
+  {"input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase", "output": "What are the trade-offs between relational and NoSQL databases?"},
+  {"input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase", "output": "How does Firebase differ from traditional databases?"},
+  {"input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase", "output": "Explain joins in SQL vs. embedding in MongoDB?"},
+  {"input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase", "output": "What is eventual consistency in NoSQL?"},
+  {"input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase", "output": "How do you model relationships in Firestore?"},
+  {"input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS", "output": "What Git commands do you use for collaboration?"},
+  {"input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS", "output": "How does Jira support agile methodologies?"},
+  {"input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS", "output": "Explain the difference between Bootstrap and Tailwind CSS?"},
+  {"input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS", "output": "What are custom directives in Tailwind?"},
+  {"input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS", "output": "How do you create a pull request workflow in Git?"},
+
+  {
+    "input": "CV skill: Java",
+    "output": "How does Java support polymorphism through method overriding?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the role of the final keyword in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain Java's try-with-resources statement?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How do you create a custom exception in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What are Java annotations and their uses?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Describe the Java Collections Framework hierarchy?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How does HashMap work internally in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain the volatile keyword in Java concurrency?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the difference between ArrayList and LinkedList?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How do you use Java streams for data processing?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What are functional interfaces in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain Java's module system introduced in Java 9?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How does Java handle type erasure in generics?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the purpose of the static keyword in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Describe Java's reflection API?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How do you implement serialization in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What are varargs in Java methods?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain the concept of autoboxing in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How does Java support multiple inheritance via interfaces?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the Java Native Interface (JNI)?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you configure external properties in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Explain Spring Boot's embedded servers?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is @RestController in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How does Spring Boot handle validation?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Describe Spring Boot's caching abstraction?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is the purpose of @EnableAutoConfiguration?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you implement scheduling in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Explain Spring Boot's profile management?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What are Spring Boot DevTools?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you create a custom starter in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Describe integrating Spring Boot with Kafka?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is the Spring Boot's CommandLineRunner?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How does Spring Boot support microservices?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Explain @ConfigurationProperties in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is the Spring Boot CLI?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you monitor Spring Boot apps with Micrometer?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Describe Spring Boot's WebFlux for reactive programming?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What are Spring Boot's testing utilities?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you handle file uploads in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Explain Spring Boot's integration with GraphQL?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How do you handle side effects in React functional components?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What is React's Strict Mode?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "Explain React's reconciliation process?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How do you create custom hooks in React?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What are portals in React?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "Describe error boundaries in React?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How does React handle keys in lists?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What is the use of ref in React?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "Explain React's concurrent mode?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How do you optimize React apps with code splitting?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What is getStaticPaths in Next.js?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How does Next.js support internationalization?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "Explain Next.js middleware?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What are layouts in Next.js?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How do you handle authentication in Next.js?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "Describe Next.js's font optimization?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What is the app router in Next.js 13?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How does Next.js handle static exports?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "Explain server components in Next.js?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What are streaming SSR in Next.js?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How do you create a REST API with Node.js?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "Explain Node.js modules system?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "What is PM2 for Node.js process management?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How do you handle file I/O in Node.js?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "Describe Node.js's buffer class?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "What are worker threads in Node.js?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How does Node.js support WebSockets?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "Explain Node.js's global object?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What are decorators in TypeScript?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "How do you use namespaces in TypeScript?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "Explain conditional types in TypeScript?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What is the keyof operator in TypeScript?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "How do you declare ambient modules in TypeScript?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "Describe TypeScript's type guards?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What are readonly properties in TypeScript?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How do you use CTEs in SQL queries?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "What are stored procedures in SQL?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "Explain pivot tables in SQL?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How do you handle null values in SQL?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "What is the EXPLAIN command in SQL?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "How do you use $lookup in MongoDB aggregation?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "What is GridFS in MongoDB?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "Explain MongoDB's write concern?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "What are PostgreSQL's full-text search capabilities?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "How do you use LISTEN/NOTIFY in PostgreSQL?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "Describe PostgreSQL's advisory locks?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "How do you use Firebase Cloud Messaging?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "What is Firebase ML Kit?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "Explain Firebase's security rules language?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "How does Firebase handle data synchronization?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "How do you implement Redux Saga?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "What is Redux Toolkit?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "Explain immutable updates in Redux?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "How does Redux DevTools work?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "What are selectors in Redux?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "How do you combine multiple contexts?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "Explain context consumers in class components?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "What is the defaultValue in createContext?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "How do you test Context API?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "Describe performance considerations for Context API?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "What is git bisect for debugging?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "Explain git submodules?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "How do you use git reflog?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "What are git hooks?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "How do you create custom workflows in Jira?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "What are Jira dashboards?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "Explain Jira's issue linking?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "How do you use Bootstrap's utilities API?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "What is Tailwind's arbitrary values feature?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "How do you extend Tailwind's configuration?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How would you implement real-time updates in this app?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "What payment integration would you add?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How do you handle concurrency in bookings?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "Describe the frontend routing strategy?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "What error handling mechanisms did you use?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How would you add geolocation features?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "Explain the data validation approach?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "What logging framework did you integrate?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How do you manage environment variables?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "Describe the CI/CD pipeline for this project?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How would you implement push notifications?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "What state management did you use in React Native?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "Explain the app's authentication flow?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How do you handle image uploads in the app?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "What testing libraries did you use for React Native?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "Describe integrating a payment gateway?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How would you optimize app performance?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "What navigation pattern did you implement?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "Explain handling device permissions?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How do you manage app updates?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you implement search functionality?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "What sharding strategy did you use in MongoDB?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "Explain your approach to SEO optimization?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you handle caching in the app?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "What monitoring tools did you integrate?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "Describe your database migration process?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you ensure accessibility?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "What was your role in code reviews?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "Explain integrating third-party APIs?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you manage state across pages?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "What indexing did you apply in PostgreSQL?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "How did you implement auditing?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "Describe the reporting features?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "What validation libraries did you use?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "How did you handle batch processing?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "Explain the security audit process?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "What was the deployment environment?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "How did you optimize queries for reports?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "Describe integrating email notifications?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "What caching did you implement?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "How do you handle API versioning in full-stack apps?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "What is your approach to containerization?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "Explain microservices architecture in this stack?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "How do you implement logging across frontend and backend?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "What tools do you use for API documentation?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "How do you migrate data between databases?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "What backup strategies do you employ?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "How do you automate deployments with Git?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "What Jira plugins do you recommend?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "How do you combine Bootstrap and Tailwind?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the difference between String, StringBuilder, and StringBuffer in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain the concept of method overloading in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How does Java's exception propagation work?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What are inner classes in Java and their types?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Describe the Java class loading mechanism?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How do you use the Comparable and Comparator interfaces?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the purpose of the transient keyword in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain Java's fork-join framework?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How does Java support functional programming?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What are records in Java 14+?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Describe sealed classes in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How do you handle resource management in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the Java Flight Recorder?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain pattern matching in Java?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "How does Java's security manager work?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is Spring Boot's Banner customization?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you implement rate limiting in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Explain Spring Boot's integration with Elasticsearch?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is @ConditionalOnProperty in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Describe Spring Boot's support for gRPC?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you use Spring Boot with Docker?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What are Spring Boot's metrics endpoints?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Explain Spring Boot's WebSockets support?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How does Spring Boot handle internationalization?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is Spring Boot's Task Execution framework?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Describe integrating Spring Boot with Redis?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you configure SSL in Spring Boot?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is the Spring Boot Admin tool?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "Explain Spring Boot's batch processing?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you use Spring Boot with OAuth2?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What is React's Profiler API?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How do you implement lazy loading in React?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "Explain React's batching updates?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What are React's synthetic events?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "Describe React's hydration process?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How does React handle server-side rendering?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What is the useReducer hook?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "Explain React's forwardRef?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How do you use React's Suspense for data fetching?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What are React's transition APIs?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How do you use Next.js's Script component?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "Explain Next.js's dynamic imports?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What is Next.js's preview mode?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "Describe Next.js's edge functions?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How does Next.js handle redirects?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What are Next.js's metadata APIs?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "Explain Next.js's parallel routes?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How do you optimize fonts in Next.js?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What is Next.js's turbo mode?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "Describe Next.js's streaming UI?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How do you use Node.js's child_process module?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "Explain Node.js's os module?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "What is Node.js's util.promisify?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How does Node.js handle HTTPS servers?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "Describe Node.js's path module?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "What are Node.js addons?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "Explain Node.js's inspector module?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How do you profile Node.js applications?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "What is Node.js's v8 module?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "Describe Node.js's async_hooks?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What are TypeScript's template literal types?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "How do you use TypeScript's satisfies operator?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "Explain TypeScript's const assertions?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What is TypeScript's infer keyword?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "Describe TypeScript's declaration merging?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "How do you handle async types in TypeScript?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What are TypeScript's module augmentation?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "Explain TypeScript's triple-slash directives?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "How does TypeScript support JSX typing?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What is TypeScript's unknown type?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How do you use analytic functions in SQL?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "What are SQL views and materialized views?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "Explain SQL's MERGE statement?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How do you handle recursive queries in SQL?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "What is SQL's ROW_NUMBER function?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "Describe SQL's foreign key constraints?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How do you optimize SQL joins?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "What are SQL sequences?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "Explain SQL's UNION vs. UNION ALL?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How do you use SQL's CASE statement?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "What is MongoDB's $expr operator?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "How do you use MongoDB's text search?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "Explain MongoDB's capped collections?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "What are MongoDB's TTL indexes?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "Describe MongoDB's $merge stage?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "How does MongoDB handle geospatial queries?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "What is MongoDB's $facet stage?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "Explain MongoDB's read preferences?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "How do you use MongoDB's $graphLookup?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "What are MongoDB's hidden indexes?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "How do you use PostgreSQL's hstore extension?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "What is PostgreSQL's logical replication?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "Explain PostgreSQL's GIN indexes?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "How does PostgreSQL handle concurrent updates?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "What are PostgreSQL's window functions?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "Describe PostgreSQL's foreign data wrappers?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "How do you use PostgreSQL's BRIN indexes?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "What is PostgreSQL's pg_trgm extension?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "Explain PostgreSQL's parallel query execution?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "How do you configure PostgreSQL's WAL?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "What is Firebase's Remote Config?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "How do you use Firebase's A/B Testing?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "Explain Firebase's Crashlytics?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "What are Firebase's dynamic links?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "Describe Firebase's App Distribution?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "How does Firebase handle analytics?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "What is Firebase's Performance Monitoring?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "Explain Firebase's Test Lab?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "How do you integrate Firebase with BigQuery?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "What are Firebase's hosting features?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "How do you handle side effects in Redux?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "What is Redux's combineReducers?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "Explain Redux's applyMiddleware?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "How does Redux persist state?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "What are Redux's dev tools extensions?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "How do you update context from nested components?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "What is the displayName in React Context?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "Explain multiple providers in Context API?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "How do you mock Context in tests?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "What are alternatives to Context API?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "How do you use git worktree?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "What is git bundle?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "Explain git gc for optimization?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "How do you sign commits in Git?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "What are git attributes?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "How do you use Jira's automation rules?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "What are Jira's advanced roadmaps?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "Explain Jira's service desk features?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "How do you create Jira filters?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "What is Jira's portfolio management?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "How do you use Bootstrap's popover?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "What are Bootstrap's form controls?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "Explain Bootstrap's navbar customization?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "How do you implement Bootstrap modals?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "What is Bootstrap's card component?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "How do you use Tailwind's container queries?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "What is Tailwind's preflight?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "Explain Tailwind's variant modifiers?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "How do you create custom utilities in Tailwind?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "What are Tailwind's aspect-ratio utilities?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How would you implement rate limiting for APIs?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "What notification system would you add?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How do you handle time zones in bookings?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "Describe the user role management?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "What analytics would you integrate?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How would you add social sharing features?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "What animation libraries did you use?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "Explain the cart management system?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How do you handle app crashes?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "What was the build process for iOS/Android?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you implement user analytics?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "What was your approach to A/B testing?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you manage dependencies?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "Describe the backup strategy?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "What was the tech debt management process?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "How did you handle compliance requirements?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "What interest calculation algorithms did you use?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "Describe the user dashboard features?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "How did you implement search functionality?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "What was the data encryption method?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "How do you handle authentication across stack?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "What monitoring tools do you use?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "Explain your testing pyramid?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "How do you manage secrets?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "What is your approach to progressive enhancement?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "How do you choose between databases?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "What query optimization techniques do you use?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "Explain hybrid database architectures?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "How do you handle data sharding?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "What are your data recovery strategies?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "How do you use Git for feature branching?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "What Jira reports do you generate?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "Explain customizing Bootstrap with SASS?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "How do you purge unused Tailwind classes?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "What are Git LFS for large files?"
+  },
+
+
+  {
+    "input": "CV skill: Java",
+    "output": "How does Java's ConcurrentHashMap ensure thread safety in concurrent applications?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "What is the purpose of Java's Optional class in handling null values?"
+  },
+  {
+    "input": "CV skill: Java",
+    "output": "Explain how Java's ThreadLocal class manages thread-specific data in multithreading?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How do you configure a custom error page in a Spring Boot application?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "What is the role of @Transactional annotation in Spring Boot applications?"
+  },
+  {
+    "input": "CV skill: Spring Boot",
+    "output": "How does Spring Boot's @Cacheable annotation optimize application performance?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How does React's useMemo hook optimize performance in functional components?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "What is the purpose of React's useCallback hook in handling functions?"
+  },
+  {
+    "input": "CV skill: React",
+    "output": "How do you implement dynamic imports in React for lazy loading?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How does Next.js's getServerSideProps handle server-side data fetching?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "What is the role of _document.js in Next.js applications?"
+  },
+  {
+    "input": "CV skill: Next.js",
+    "output": "How does Next.js optimize SEO with metadata configurations?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How does Node.js's cluster module improve application scalability?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "What is the purpose of Node.js's crypto module for encryption?"
+  },
+  {
+    "input": "CV skill: Node.js",
+    "output": "How do you implement rate limiting in a Node.js API?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "How does TypeScript's intersection type combine multiple type definitions?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "What is the role of TypeScript's as const assertion?"
+  },
+  {
+    "input": "CV skill: TypeScript",
+    "output": "How do you use TypeScript's utility types like Partial and Pick?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How does SQL's EXISTS operator optimize subquery performance?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "What is the purpose of SQL's COALESCE function in queries?"
+  },
+  {
+    "input": "CV skill: SQL",
+    "output": "How do you implement table partitioning in SQL databases?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "How does MongoDB's $push operator update arrays in documents?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "What is the purpose of MongoDB's $inc operator in updates?"
+  },
+  {
+    "input": "CV skill: MongoDB",
+    "output": "How do you optimize MongoDB queries with compound indexes?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "How does PostgreSQL's EXPLAIN ANALYZE help optimize query performance?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "What is the role of PostgreSQL's TOAST for large objects?"
+  },
+  {
+    "input": "CV skill: PostgreSQL",
+    "output": "How do you implement full-text search in PostgreSQL?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "How does Firebase's Realtime Database handle data synchronization?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "What is the role of Firebase's Cloud Firestore triggers?"
+  },
+  {
+    "input": "CV skill: Firebase",
+    "output": "How do you configure Firebase Authentication with custom claims?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "How does git rebase --interactive modify commit history?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "What is the purpose of git tag in version control?"
+  },
+  {
+    "input": "CV skill: Git",
+    "output": "How do you use git cherry-pick for selective commits?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "How do you configure Jira's issue collectors for feedback?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "What is the role of Jira's sprint burndown chart?"
+  },
+  {
+    "input": "CV skill: Jira",
+    "output": "How do you implement time tracking in Jira projects?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "How does Bootstrap's collapse component handle dynamic content?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "What is the role of Bootstrap's spacing utilities?"
+  },
+  {
+    "input": "CV skill: Bootstrap",
+    "output": "How do you customize Bootstrap's color palette?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "How does Tailwind CSS handle responsive breakpoints?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "What is the purpose of Tailwind's purge option?"
+  },
+  {
+    "input": "CV skill: Tailwind CSS",
+    "output": "How do you use Tailwind's group-hover utilities?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "How does Redux's createSlice simplify reducer creation?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "What is the role of Redux's getState in middleware?"
+  },
+  {
+    "input": "CV skill: Redux",
+    "output": "How do you optimize Redux with memoized selectors?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "How does Context API handle dynamic context updates?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "What is the role of useContext in functional components?"
+  },
+  {
+    "input": "CV skill: Context API",
+    "output": "How do you avoid unnecessary rerenders with Context API?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How do you implement caching for API responses in this app?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "What indexing strategy optimizes MongoDB queries in this app?"
+  },
+  {
+    "input": "CV project: Drive Booking App using Spring Boot, Next.js, MongoDB",
+    "output": "How do you secure API endpoints in Spring Boot?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How do you implement offline caching in React Native?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "What Node.js middleware handles request validation?"
+  },
+  {
+    "input": "CV project: Pet Shop App using React Native, Node.js",
+    "output": "How do you optimize image rendering in React Native?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you implement lazy loading in Next.js apps?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "What MongoDB aggregation pipelines did you use?"
+  },
+  {
+    "input": "CV work: VVH Solutions, Associate Software Engineer, Developed scalable web applications using Next.js and MongoDB",
+    "output": "How did you configure Next.js for static exports?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "How did you use PostgreSQL's JSONB for flexible data?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "What Spring Boot annotations optimized database queries?"
+  },
+  {
+    "input": "CV work: Zynovatex, Intern Software Engineer, Assisted in building a loan management system using Spring Boot and PostgreSQL",
+    "output": "How did you configure PostgreSQL for high availability?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "How do you handle data fetching in server components?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "What strategies optimize full-stack app performance?"
+  },
+  {
+    "input": "CV section: Full-stack development using React, Next.js, and Spring Boot",
+    "output": "How do you implement JWT authentication across stack?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "How do you optimize MongoDB for high read throughput?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "What are the benefits of PostgreSQL's MVCC?"
+  },
+  {
+    "input": "CV section: Databases: SQL, MongoDB, PostgreSQL, Firebase",
+    "output": "How does Firebase's security rules enforce data access?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "How do you use Git submodules for dependency management?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "What Jira configurations improve team collaboration?"
+  },
+  {
+    "input": "CV section: Tools: Git, Jira, Bootstrap, Tailwind CSS",
+    "output": "How does Tailwind CSS optimize CSS bundle size?"
+  },
+    {"input": "CV skill: Python", "output": "How does Python's garbage collection mechanism manage memory allocation and deallocation?"},
+    {"input": "CV skill: Python", "output": "What is the role of list comprehensions in optimizing Python code performance?"},
+    {"input": "CV skill: Python", "output": "How does Python handle multithreading with the Global Interpreter Lock (GIL)?"},
+    {"input": "CV skill: Python", "output": "What are Python decorators, and how do they modify function behavior?"},
+    {"input": "CV skill: Python", "output": "How does Python's asyncio library enable asynchronous programming for I/O-bound tasks?"},
+    {"input": "CV skill: Java", "output": "How does Java's interface default methods support backward compatibility in APIs?"},
+    {"input": "CV skill: Java", "output": "What is the purpose of the Java Memory Model in concurrent programming?"},
+    {"input": "CV skill: Java", "output": "How does Java's try-with-resources statement ensure proper resource management?"},
+    {"input": "CV skill: Java", "output": "What mechanisms does Java use to handle checked versus unchecked exceptions?"},
+    {"input": "CV skill: Java", "output": "How does the Java Virtual Machine optimize bytecode execution with JIT compilation?"},
+    {"input": "CV skill: JavaScript", "output": "How does JavaScript's event loop manage asynchronous operations like promises?"},
+    {"input": "CV skill: JavaScript", "output": "What is the difference between var, let, and const in JavaScript scoping?"},
+    {"input": "CV skill: JavaScript", "output": "How does JavaScript's prototype chain enable inheritance in objects?"},
+    {"input": "CV skill: JavaScript", "output": "What are JavaScript closures, and how do they preserve variable scope?"},
+    {"input": "CV skill: JavaScript", "output": "How does the async/await syntax simplify asynchronous code in JavaScript?"},
+    {"input": "CV skill: React", "output": "How does React's virtual DOM optimize rendering performance in web applications?"},
+    {"input": "CV skill: React", "output": "What is the purpose of React hooks in managing state and side effects?"},
+    {"input": "CV skill: React", "output": "How does React's context API facilitate state management across components?"},
+    {"input": "CV skill: React", "output": "What mechanisms does React use to handle component lifecycle events?"},
+    {"input": "CV skill: React", "output": "How does React's useMemo hook optimize performance in complex components?"},
+    {"input": "CV skill: Node.js", "output": "How does Node.js handle non-blocking I/O operations for scalable applications?"},
+    {"input": "CV skill: Node.js", "output": "What is the role of the Node.js event emitter in handling asynchronous events?"},
+    {"input": "CV skill: Node.js", "output": "How does Node.js middleware process HTTP requests in Express applications?"},
+    {"input": "CV skill: Node.js", "output": "What mechanisms ensure Node.js handles large file uploads efficiently?"},
+    {"input": "CV skill: Node.js", "output": "How does the Node.js cluster module improve performance on multi-core systems?"},
+    {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's auto-configuration simplify application setup and deployment?"},
+    {"input": "CV skill: Spring Boot", "output": "What is the role of Spring Boot actuators in monitoring application health?"},
+    {"input": "CV skill: Spring Boot", "output": "How does Spring Boot handle dependency injection with the @Autowired annotation?"},
+    {"input": "CV skill: Spring Boot", "output": "What mechanisms does Spring Boot use for RESTful API versioning?"},
+    {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's embedded server simplify microservice deployment?"},
+    {"input": "CV skill: MongoDB", "output": "How does MongoDB's indexing improve query performance in large datasets?"},
+    {"input": "CV skill: MongoDB", "output": "What is the role of MongoDB's aggregation pipeline in data processing?"},
+    {"input": "CV skill: MongoDB", "output": "How does MongoDB ensure data consistency in a distributed database environment?"},
+    {"input": "CV skill: MongoDB", "output": "What mechanisms does MongoDB use to handle schema-less data storage?"},
+    {"input": "CV skill: MongoDB", "output": "How does MongoDB's replica set ensure high availability and fault tolerance?"},
+    {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's MVCC ensure concurrent transaction isolation?"},
+    {"input": "CV skill: PostgreSQL", "output": "What is the role of PostgreSQL's indexes in optimizing query performance?"},
+    {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL handle JSONB data for semi-structured queries?"},
+    {"input": "CV skill: PostgreSQL", "output": "What mechanisms does PostgreSQL use to enforce referential integrity?"},
+    {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's query planner optimize complex SQL queries?"},
+    {"input": "CV skill: Docker", "output": "How does Docker's containerization isolate applications from the host system?"},
+    {"input": "CV skill: Docker", "output": "What is the role of Docker Compose in orchestrating multi-container applications?"},
+    {"input": "CV skill: Docker", "output": "How does Docker's networking model support communication between containers?"},
+    {"input": "CV skill: Docker", "output": "What mechanisms does Docker use to manage image layers efficiently?"},
+    {"input": "CV skill: Docker", "output": "How does Docker ensure resource limits for CPU and memory usage?"},
+    {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' pod scheduling optimize resource allocation across nodes?"},
+    {"input": "CV skill: Kubernetes", "output": "What is the role of Kubernetes services in load balancing traffic?"},
+    {"input": "CV skill: Kubernetes", "output": "How does Kubernetes handle auto-scaling for containerized applications?"},
+    {"input": "CV skill: Kubernetes", "output": "What mechanisms does Kubernetes use to manage persistent storage?"},
+    {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' ingress controller route external traffic to services?"},
+    {"input": "CV skill: AWS", "output": "How does AWS Lambda handle serverless function execution for event-driven applications?"},
+    {"input": "CV skill: AWS", "output": "What is the role of AWS S3 in scalable object storage solutions?"},
+    {"input": "CV skill: AWS", "output": "How does AWS EC2 auto-scaling ensure high availability for applications?"},
+    {"input": "CV skill: AWS", "output": "What mechanisms does AWS RDS use to manage database backups?"},
+    {"input": "CV skill: AWS", "output": "How does AWS CloudFormation automate infrastructure provisioning and management?"},
+    {"input": "CV skill: Jenkins", "output": "How does Jenkins' pipeline feature automate continuous integration workflows?"},
+    {"input": "CV skill: Jenkins", "output": "What is the role of Jenkins plugins in extending CI/CD functionality?"},
+    {"input": "CV skill: Jenkins", "output": "How does Jenkins handle distributed builds across multiple nodes?"},
+    {"input": "CV skill: Jenkins", "output": "What mechanisms does Jenkins use to secure pipeline executions?"},
+    {"input": "CV skill: Jenkins", "output": "How does Jenkins integrate with version control systems like Git?"},
+    {"input": "CV skill: Git", "output": "How does Git's branching model support parallel development workflows?"},
+    {"input": "CV skill: Git", "output": "What is the role of Git rebase in maintaining a clean commit history?"},
+    {"input": "CV skill: Git", "output": "How does Git handle merge conflicts in collaborative development?"},
+    {"input": "CV skill: Git", "output": "What mechanisms does Git use to track file changes across commits?"},
+    {"input": "CV skill: Git", "output": "How does Git's stash feature manage temporary code changes?"},
+    {"input": "CV skill: Redux", "output": "How does Redux's middleware enhance state management in applications?"},
+    {"input": "CV skill: Redux", "output": "What is the role of Redux reducers in updating application state?"},
+    {"input": "CV skill: Redux", "output": "How does Redux handle asynchronous actions with thunks or sagas?"},
+    {"input": "CV skill: Redux", "output": "What mechanisms ensure Redux state immutability in large applications?"},
+    {"input": "CV skill: Redux", "output": "How does Redux's store dispatch actions to update component state?"},
+    {"input": "CV skill: TypeScript", "output": "How does TypeScript's type inference improve code reliability in JavaScript?"},
+    {"input": "CV skill: TypeScript", "output": "What is the role of TypeScript interfaces in defining object structures?"},
+    {"input": "CV skill: TypeScript", "output": "How does TypeScript handle union types for flexible data modeling?"},
+    {"input": "CV skill: TypeScript", "output": "What mechanisms does TypeScript use to enforce type safety at compile-time?"},
+    {"input": "CV skill: TypeScript", "output": "How does TypeScript's generics support reusable function definitions?"},
+    {"input": "CV skill: SQL", "output": "How does SQL's JOIN operation combine data from multiple tables?"},
+    {"input": "CV skill: SQL", "output": "What is the role of SQL indexes in optimizing query performance?"},
+    {"input": "CV skill: SQL", "output": "How does SQL handle transaction isolation levels for concurrent queries?"},
+    {"input": "CV skill: SQL", "output": "What mechanisms does SQL use to ensure data integrity constraints?"},
+    {"input": "CV skill: SQL", "output": "How does SQL's query optimizer improve execution plans for complex queries?"},
+    {"input": "CV skill: REST API", "output": "How does a REST API ensure stateless communication between client and server?"},
+    {"input": "CV skill: REST API", "output": "What is the role of HTTP methods in REST API design?"},
+    {"input": "CV skill: REST API", "output": "How does REST API authentication secure access to protected resources?"},
+    {"input": "CV skill: REST API", "output": "What mechanisms does a REST API use for versioning endpoints?"},
+    {"input": "CV skill: REST API", "output": "How does a REST API handle pagination for large dataset responses?"},
+    {"input": "CV skill: GraphQL", "output": "How does GraphQL's query language optimize data fetching from APIs?"},
+    {"input": "CV skill: GraphQL", "output": "What is the role of GraphQL resolvers in processing client queries?"},
+    {"input": "CV skill: GraphQL", "output": "How does GraphQL handle schema evolution for backward compatibility?"},
+    {"input": "CV skill: GraphQL", "output": "What mechanisms does GraphQL use to reduce over-fetching of data?"},
+    {"input": "CV skill: GraphQL", "output": "How does GraphQL's subscription feature enable real-time data updates?"},
+    {"input": "CV skill: Linux", "output": "How does Linux's process scheduling ensure efficient CPU resource allocation?"},
+    {"input": "CV skill: Linux", "output": "What is the role of Linux file permissions in securing system access?"},
+    {"input": "CV skill: Linux", "output": "How does Linux handle inter-process communication with pipes or sockets?"},
+    {"input": "CV skill: Linux", "output": "What mechanisms does Linux use to manage memory paging efficiently?"},
+    {"input": "CV skill: Linux", "output": "How does Linux's cron scheduler automate recurring system tasks?"},
+    {"input": "CV skill: Python", "output": "How does Python's context manager simplify resource management in file operations?"},
+    {"input": "CV skill: Python", "output": "What mechanisms does Python use to implement iterator protocols for custom objects?"},
+    {"input": "CV skill: Python", "output": "How does Python's memory management handle reference counting for objects?"},
+    {"input": "CV skill: Python", "output": "What is the role of Python's __init__ method in class initialization?"},
+    {"input": "CV skill: Python", "output": "How does Python's yield keyword enable generator functions for lazy evaluation?"},
+    {"input": "CV skill: Java", "output": "How does Java's synchronized keyword ensure thread safety in concurrent applications?"},
+    {"input": "CV skill: Java", "output": "What is the purpose of Java's volatile keyword in multithreaded programming?"},
+    {"input": "CV skill: Java", "output": "How does Java's Stream API process collections in a functional style?"},
+    {"input": "CV skill: Java", "output": "What mechanisms does Java use to implement garbage collection efficiently?"},
+    {"input": "CV skill: Java", "output": "How does Java's Optional class prevent NullPointerException in code?"},
+    {"input": "CV skill: JavaScript", "output": "How does JavaScript's Promise.all handle multiple asynchronous operations concurrently?"},
+    {"input": "CV skill: JavaScript", "output": "What is the role of JavaScript's module system in organizing code?"},
+    {"input": "CV skill: JavaScript", "output": "How does JavaScript's event delegation optimize event handling in applications?"},
+    {"input": "CV skill: JavaScript", "output": "What mechanisms does JavaScript use to implement arrow function syntax?"},
+    {"input": "CV skill: JavaScript", "output": "How does JavaScript's WeakMap manage memory for object references?"},
+    {"input": "CV skill: React", "output": "How does React's useEffect hook manage side effects in functional components?"},
+    {"input": "CV skill: React", "output": "What is the role of React's key prop in optimizing list rendering?"},
+    {"input": "CV skill: React", "output": "How does React's useReducer hook manage complex state logic?"},
+    {"input": "CV skill: React", "output": "What mechanisms does React use to reconcile DOM updates efficiently?"},
+    {"input": "CV skill: React", "output": "How does React's useCallback hook prevent unnecessary re-renders in components?"},
+    {"input": "CV skill: Node.js", "output": "How does Node.js's streams API handle large data processing efficiently?"},
+    {"input": "CV skill: Node.js", "output": "What is the role of Node.js's process object in managing runtime environment?"},
+    {"input": "CV skill: Node.js", "output": "How does Node.js implement error handling in asynchronous callbacks?"},
+    {"input": "CV skill: Node.js", "output": "What mechanisms does Node.js use to scale HTTP server performance?"},
+    {"input": "CV skill: Node.js", "output": "How does Node.js's child_process module enable parallel task execution?"},
+    {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's @RestController annotation simplify REST API development?"},
+    {"input": "CV skill: Spring Boot", "output": "What is the role of Spring Boot's application.properties in configuration management?"},
+    {"input": "CV skill: Spring Boot", "output": "How does Spring Boot handle transaction management for database operations?"},
+    {"input": "CV skill: Spring Boot", "output": "What mechanisms does Spring Boot use to secure endpoints with OAuth2?"},
+    {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's JPA repository simplify database interactions?"},
+    {"input": "CV skill: MongoDB", "output": "How does MongoDB's sharding distribute data across multiple servers?"},
+    {"input": "CV skill: MongoDB", "output": "What is the role of MongoDB's change streams in real-time data updates?"},
+    {"input": "CV skill: MongoDB", "output": "How does MongoDB handle transactions in a NoSQL database environment?"},
+    {"input": "CV skill: MongoDB", "output": "What mechanisms does MongoDB use to optimize query execution plans?"},
+    {"input": "CV skill: MongoDB", "output": "How does MongoDB's GridFS store and retrieve large files efficiently?"},
+    {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's full-text search optimize text query performance?"},
+    {"input": "CV skill: PostgreSQL", "output": "What is the role of PostgreSQL's triggers in automating database actions?"},
+    {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL handle concurrent updates with row-level locking?"},
+    {"input": "CV skill: PostgreSQL", "output": "What mechanisms does PostgreSQL use to support geospatial data queries?"},
+    {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's EXPLAIN command analyze query execution plans?"},
+    {"input": "CV skill: Docker", "output": "How does Docker's overlay network enable communication across containerized applications?"},
+    {"input": "CV skill: Docker", "output": "What is the role of Docker volumes in persistent data storage?"},
+    {"input": "CV skill: Docker", "output": "How does Docker handle image caching to optimize build processes?"},
+    {"input": "CV skill: Docker", "output": "What mechanisms does Docker use to isolate container network namespaces?"},
+    {"input": "CV skill: Docker", "output": "How does Docker's Dockerfile define multi-stage builds for efficiency?"},
+    {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' ConfigMap manage configuration data for applications?"},
+    {"input": "CV skill: Kubernetes", "output": "What is the role of Kubernetes namespaces in organizing cluster resources?"},
+    {"input": "CV skill: Kubernetes", "output": "How does Kubernetes handle rolling updates for zero-downtime deployments?"},
+    {"input": "CV skill: Kubernetes", "output": "What mechanisms does Kubernetes use to monitor pod health status?"},
+    {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' service discovery enable dynamic pod communication?"},
+    {"input": "CV skill: AWS", "output": "How does AWS's Elastic Load Balancer distribute traffic across instances?"},
+    {"input": "CV skill: AWS", "output": "What is the role of AWS IAM in securing cloud resources?"},
+    {"input": "CV skill: AWS", "output": "How does AWS ECS manage containerized application orchestration?"},
+    {"input": "CV skill: AWS", "output": "What mechanisms does AWS SQS use for message queuing scalability?"},
+    {"input": "CV skill: AWS", "output": "How does AWS's Route 53 handle DNS resolution for applications?"},
+    {"input": "CV skill: Jenkins", "output": "How does Jenkins' declarative pipeline simplify CI/CD workflow definitions?"},
+    {"input": "CV skill: Jenkins", "output": "What is the role of Jenkins' credentials plugin in securing sensitive data?"},
+    {"input": "CV skill: Jenkins", "output": "How does Jenkins handle automated testing in CI/CD pipelines?"},
+    {"input": "CV skill: Jenkins", "output": "What mechanisms does Jenkins use to trigger builds based on events?"},
+    {"input": "CV skill: Jenkins", "output": "How does Jenkins integrate with Docker for containerized builds?"},
+    {"input": "CV skill: Git", "output": "How does Git's cherry-pick command apply specific commits to branches?"},
+    {"input": "CV skill: Git", "output": "What is the role of Git hooks in automating repository tasks?"},
+    {"input": "CV skill: Git", "output": "How does Git manage submodules for external repository integration?"},
+    {"input": "CV skill: Git", "output": "What mechanisms does Git use to resolve divergent branch histories?"},
+    {"input": "CV skill: Git", "output": "How does Git's reflog recover lost commits in repositories?"},
+    {"input": "CV skill: Redux", "output": "How does Redux's combineReducers function manage multiple state slices?"},
+    {"input": "CV skill: Redux", "output": "What is the role of Redux selectors in accessing state efficiently?"},
+    {"input": "CV skill: Redux", "output": "How does Redux handle side effects with middleware like Redux Saga?"},
+    {"input": "CV skill: Redux", "output": "What mechanisms does Redux use to ensure predictable state updates?"},
+    {"input": "CV skill: Redux", "output": "How does Redux's connect function link components to the store?"},
+    {"input": "CV skill: TypeScript", "output": "How does TypeScript's structural typing enforce type compatibility in objects?"},
+    {"input": "CV skill: TypeScript", "output": "What is the role of TypeScript's enums in defining constant values?"},
+    {"input": "CV skill: TypeScript", "output": "How does TypeScript handle type narrowing for conditional logic?"},
+    {"input": "CV skill: TypeScript", "output": "What mechanisms does TypeScript use to support module resolution?"},
+    {"input": "CV skill: TypeScript", "output": "How does TypeScript's mapped types transform existing type definitions?"},
+    {"input": "CV skill: SQL", "output": "How does SQL's subquery optimize complex data retrieval operations?"},
+    {"input": "CV skill: SQL", "output": "What is the role of SQL views in simplifying query logic?"},
+    {"input": "CV skill: SQL", "output": "How does SQL handle window functions for analytical queries?"},
+    {"input": "CV skill: SQL", "output": "What mechanisms does SQL use to prevent injection attacks?"},
+    {"input": "CV skill: SQL", "output": "How does SQL's foreign key enforce relationships between tables?"},
+    {"input": "CV skill: REST API", "output": "How does a REST API handle rate limiting for scalability?"},
+    {"input": "CV skill: REST API", "output": "What is the role of REST API caching in performance optimization?"},
+    {"input": "CV skill: REST API", "output": "How does REST API handle error responses with HTTP status codes?"},
+    {"input": "CV skill: REST API", "output": "What mechanisms does REST API use to ensure idempotency?"},
+    {"input": "CV skill: REST API", "output": "How does REST API support cross-origin resource sharing (CORS)?"},
+    {"input": "CV skill: GraphQL", "output": "How does GraphQL's schema stitching combine multiple API schemas?"},
+    {"input": "CV skill: GraphQL", "output": "What is the role of GraphQL directives in customizing query behavior?"},
+    {"input": "CV skill: GraphQL", "output": "How does GraphQL handle batching to reduce server requests?"},
+    {"input": "CV skill: GraphQL", "output": "What mechanisms does GraphQL use to secure sensitive data fields?"},
+    {"input": "CV skill: GraphQL", "output": "How does GraphQL's mutation feature update server-side data?"},
+    {"input": "CV skill: Linux", "output": "How does Linux's systemd manage service startup and dependencies?"},
+    {"input": "CV skill: Linux", "output": "What is the role of Linux kernel modules in extending functionality?"},
+    {"input": "CV skill: Linux", "output": "How does Linux handle process prioritization with nice values?"},
+    {"input": "CV skill: Linux", "output": "What mechanisms does Linux use to secure network communications?"},
+    {"input": "CV skill: Linux", "output": "How does Linux's iptables configure firewall rules for security?"},
+
+  {"input": "CV skill: Python", "output": "How does Python's type hinting improve code maintainability?"},
+  {"input": "CV skill: Python", "output": "What is the role of Python's dataclasses in simplifying class definitions?"},
+  {"input": "CV skill: Python", "output": "How does Python's multiprocessing module differ from multithreading?"},
+  {"input": "CV skill: Python", "output": "Explain Python's metaclass and its use in customizing class creation?"},
+  {"input": "CV skill: Python", "output": "How does Python's virtualenv manage isolated project environments?"},
+  {"input": "CV skill: Java", "output": "What is the role of Java's Atomic classes in concurrent programming?"},
+  {"input": "CV skill: Java", "output": "How does Java's CompletableFuture handle asynchronous computations?"},
+  {"input": "CV skill: Java", "output": "Explain the purpose of Java's WeakReference in memory management?"},
+  {"input": "CV skill: Java", "output": "How does Java's ExecutorService manage thread pools for tasks?"},
+  {"input": "CV skill: Java", "output": "What is the purpose of Java's @FunctionalInterface annotation?"},
+  {"input": "CV skill: JavaScript", "output": "How does JavaScript's Proxy object enable object behavior customization?"},
+  {"input": "CV skill: JavaScript", "output": "What is the role of JavaScript's Symbol type in creating unique identifiers?"},
+  {"input": "CV skill: JavaScript", "output": "How does JavaScript's async iterator support asynchronous data streams?"},
+  {"input": "CV skill: JavaScript", "output": "Explain JavaScript's ArrayBuffer for handling binary data?"},
+  {"input": "CV skill: JavaScript", "output": "How does JavaScript's Reflect API simplify object manipulation?"},
+  {"input": "CV skill: React", "output": "How does React's useImperativeHandle customize ref behavior?"},
+  {"input": "CV skill: React", "output": "What is the role of React's ErrorBoundary in handling runtime errors?"},
+  {"input": "CV skill: React", "output": "How does React's useTransition hook manage UI updates?"},
+  {"input": "CV skill: React", "output": "Explain React's useDeferredValue for handling expensive renders?"},
+  {"input": "CV skill: React", "output": "How does React's memo function optimize functional components?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js's zlib module handle data compression?"},
+  {"input": "CV skill: Node.js", "output": "What is the role of Node.js's dns module in resolving domain names?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js's http2 module improve performance over HTTP/1.1?"},
+  {"input": "CV skill: Node.js", "output": "Explain Node.js's querystring module for URL parameter parsing?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js's vm module execute code in isolated contexts?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's @Scheduled annotation enable task scheduling?"},
+  {"input": "CV skill: Spring Boot", "output": "What is the role of Spring Boot's @EnableCaching for performance?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot integrate with RabbitMQ for messaging?"},
+  {"input": "CV skill: Spring Boot", "output": "Explain Spring Boot's @Profile annotation for environment-specific configurations?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's RestTemplate handle HTTP requests?"},
+  {"input": "CV skill: MongoDB", "output": "How does MongoDB's $geoNear operator optimize geospatial queries?"},
+  {"input": "CV skill: MongoDB", "output": "What is the role of MongoDB's $sample operator in aggregation pipelines?"},
+  {"input": "CV skill: MongoDB", "output": "How does MongoDB's $redact operator control document access?"},
+  {"input": "CV skill: MongoDB", "output": "Explain MongoDB's $out operator for writing aggregation results?"},
+  {"input": "CV skill: MongoDB", "output": "How does MongoDB's $bucket stage group data in aggregations?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's pg_stat_statements track query performance?"},
+  {"input": "CV skill: PostgreSQL", "output": "What is the role of PostgreSQL's table inheritance in schema design?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's LATERAL join optimize subquery execution?"},
+  {"input": "CV skill: PostgreSQL", "output": "Explain PostgreSQL's generated columns for computed values?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's pg_cron extension automate tasks?"},
+  {"input": "CV skill: Docker", "output": "How does Docker's buildx support multi-platform image builds?"},
+  {"input": "CV skill: Docker", "output": "What is the role of Docker's healthcheck instruction in monitoring containers?"},
+  {"input": "CV skill: Docker", "output": "How does Docker's swarm mode orchestrate container deployments?"},
+  {"input": "CV skill: Docker", "output": "Explain Docker's secrets management for sensitive data?"},
+  {"input": "CV skill: Docker", "output": "How does Docker's logging driver customize container logs?"},
+  {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' HorizontalPodAutoscaler adjust pod replicas?"},
+  {"input": "CV skill: Kubernetes", "output": "What is the role of Kubernetes' Secret resource in securing data?"},
+  {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' StatefulSet manage stateful applications?"},
+  {"input": "CV skill: Kubernetes", "output": "Explain Kubernetes' liveness and readiness probes for pod health?"},
+  {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' CRD extend custom resource definitions?"},
+  {"input": "CV skill: AWS", "output": "How does AWS's API Gateway manage RESTful API deployments?"},
+  {"input": "CV skill: AWS", "output": "What is the role of AWS KMS in encrypting sensitive data?"},
+  {"input": "CV skill: AWS", "output": "How does AWS's DynamoDB handle NoSQL database scalability?"},
+  {"input": "CV skill: AWS", "output": "Explain AWS's SNS for pub/sub messaging patterns?"},
+  {"input": "CV skill: AWS", "output": "How does AWS's CloudWatch monitor application performance?"},
+  {"input": "CV skill: Jenkins", "output": "How does Jenkins' shared libraries improve pipeline reusability?"},
+  {"input": "CV skill: Jenkins", "output": "What is the role of Jenkins' Blue Ocean for pipeline visualization?"},
+  {"input": "CV skill: Jenkins", "output": "How does Jenkins handle webhooks for automated builds?"},
+  {"input": "CV skill: Jenkins", "output": "Explain Jenkins' matrix-based security for access control?"},
+  {"input": "CV skill: Jenkins", "output": "How does Jenkins integrate with Kubernetes for dynamic agents?"},
+  {"input": "CV skill: Git", "output": "How does Git's sparse-checkout optimize large repository cloning?"},
+  {"input": "CV skill: Git", "output": "What is the role of Git's notes feature in adding metadata?"},
+  {"input": "CV skill: Git", "output": "How does Git's filter-branch modify commit history?"},
+  {"input": "CV skill: Git", "output": "Explain Git's shallow clone for reducing repository size?"},
+  {"input": "CV skill: Git", "output": "How does Git's blame command track code authorship?"},
+  {"input": "CV skill: Redux", "output": "How does Redux's normalize data for efficient state management?"},
+  {"input": "CV skill: Redux", "output": "What is the role of Redux's createAsyncThunk in async logic?"},
+  {"input": "CV skill: Redux", "output": "How does Redux handle state persistence across sessions?"},
+  {"input": "CV skill: Redux", "output": "Explain Redux's reselect library for memoized selectors?"},
+  {"input": "CV skill: Redux", "output": "How does Redux's RTK Query simplify API data fetching?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript's discriminated unions improve type safety?"},
+  {"input": "CV skill: TypeScript", "output": "What is the role of TypeScript's declaration files in third-party libraries?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript's satisfies operator ensure type compliance?"},
+  {"input": "CV skill: TypeScript", "output": "Explain TypeScript's literal types for precise value constraints?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript's conditional types handle complex type logic?"},
+  {"input": "CV skill: SQL", "output": "How does SQL's WITH clause improve query readability?"},
+  {"input": "CV skill: SQL", "output": "What is the role of SQL's CHECK constraint in data validation?"},
+  {"input": "CV skill: SQL", "output": "How does SQL's LAG function access previous row data?"},
+  {"input": "CV skill: SQL", "output": "Explain SQL's FULL OUTER JOIN for combining table data?"},
+  {"input": "CV skill: SQL", "output": "How does SQL's GROUP_CONCAT aggregate string data?"},
+  {"input": "CV skill: REST API", "output": "How does a REST API implement HATEOAS for navigation?"},
+  {"input": "CV skill: REST API", "output": "What is the role of OpenAPI in documenting REST APIs?"},
+  {"input": "CV skill: REST API", "output": "How does a REST API handle async operations with webhooks?"},
+  {"input": "CV skill: REST API", "output": "Explain REST API's content negotiation for response formats?"},
+  {"input": "CV skill: REST API", "output": "How does a REST API implement OAuth2 for secure authorization?"},
+  {"input": "CV skill: GraphQL", "output": "How does GraphQL's DataLoader optimize query batching?"},
+  {"input": "CV skill: GraphQL", "output": "What is the role of GraphQL's input types in mutations?"},
+  {"input": "CV skill: GraphQL", "output": "How does GraphQL handle pagination for large datasets?"},
+  {"input": "CV skill: GraphQL", "output": "Explain GraphQL's introspection for schema exploration?"},
+  {"input": "CV skill: GraphQL", "output": "How does GraphQL's resolver chaining process nested queries?"},
+  {"input": "CV skill: Linux", "output": "How does Linux's cgroups limit container resource usage?"},
+  {"input": "CV skill: Linux", "output": "What is the role of Linux's sysctl in tuning kernel parameters?"},
+  {"input": "CV skill: Linux", "output": "How does Linux's inotify monitor file system changes?"},
+  {"input": "CV skill: Linux", "output": "Explain Linux's ulimit for controlling user resource limits?"},
+  {"input": "CV skill: Linux", "output": "How does Linux's netfilter framework manage network packets?"},
+
+  {"input": "CV skill: Python", "output": "How does Python's `match` statement enhance control flow in modern versions?"},
+  {"input": "CV skill: Python", "output": "What is the role of Python's `pathlib` module in file system operations?"},
+  {"input": "CV skill: Python", "output": "How does Python's `functools.partial` simplify function customization?"},
+  {"input": "CV skill: Python", "output": "Explain Python's `collections.namedtuple` for lightweight data structures?"},
+  {"input": "CV skill: Java", "output": "How does Java's `Record` class simplify immutable data handling?"},
+  {"input": "CV skill: Java", "output": "What is the purpose of Java's `Lock` interface in concurrent programming?"},
+  {"input": "CV skill: Java", "output": "How does Java's `VarHandle` provide fine-grained memory access control?"},
+  {"input": "CV skill: Java", "output": "Explain Java's `Stream.collect` for transforming stream data into collections?"},
+  {"input": "CV skill: JavaScript", "output": "How does JavaScript's `IntersectionObserver` API handle element visibility?"},
+  {"input": "CV skill: JavaScript", "output": "What is the role of JavaScript's `BigInt` in handling large integers?"},
+  {"input": "CV skill: JavaScript", "output": "How does JavaScript's `WeakSet` manage object references efficiently?"},
+  {"input": "CV skill: JavaScript", "output": "Explain JavaScript's `Object.defineProperty` for property customization?"},
+  {"input": "CV skill: React", "output": "How does React's `useSyncExternalStore` integrate external state?"},
+  {"input": "CV skill: React", "output": "What is the role of React's `startTransition` in prioritizing updates?"},
+  {"input": "CV skill: React", "output": "How does React's `useId` hook generate unique identifiers?"},
+  {"input": "CV skill: React", "output": "Explain React's `SuspenseList` for coordinating suspense rendering?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js's `fs.promises` API simplify file operations?"},
+  {"input": "CV skill: Node.js", "output": "What is the role of Node.js's `worker_threads` in parallel processing?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js's `tls` module secure network communications?"},
+  {"input": "CV skill: Node.js", "output": "Explain Node.js's `url` module for parsing and formatting URLs?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's `@Async` annotation enable asynchronous execution?"},
+  {"input": "CV skill: Spring Boot", "output": "What is the role of Spring Boot's `@Validated` for bean validation?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot integrate with Apache Camel for routing?"},
+  {"input": "CV skill: Spring Boot", "output": "Explain Spring Boot's `@ConditionalOnClass` for conditional bean creation?"},
+  {"input": "CV skill: MongoDB", "output": "How does MongoDB's `$addToSet` operator manage unique array elements?"},
+  {"input": "CV skill: MongoDB", "output": "What is the role of MongoDB's `$unset` operator in document updates?"},
+  {"input": "CV skill: MongoDB", "output": "How does MongoDB's `$group` stage aggregate data in pipelines?"},
+  {"input": "CV skill: MongoDB", "output": "Explain MongoDB's `$sortByCount` for frequency-based sorting?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's `CHECK CONSTRAINT` enforce data validation?"},
+  {"input": "CV skill: PostgreSQL", "output": "What is the role of PostgreSQL's `CLUSTER` command in optimizing tables?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's `MATERIALIZED VIEW` cache query results?"},
+  {"input": "CV skill: PostgreSQL", "output": "Explain PostgreSQL's `LISTEN/NOTIFY` for event-driven triggers?"},
+  {"input": "CV skill: Docker", "output": "How does Docker's `network bridge` mode isolate container networks?"},
+  {"input": "CV skill: Docker", "output": "What is the role of Docker's `entrypoint` in container initialization?"},
+  {"input": "CV skill: Docker", "output": "How does Docker's `context` optimize build performance?"},
+  {"input": "CV skill: Docker", "output": "Explain Docker's `dockerignore` file for build optimization?"},
+  {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' `PodDisruptionBudget` ensure availability?"},
+  {"input": "CV skill: Kubernetes", "output": "What is the role of Kubernetes' `Taint` and `Toleration` in node scheduling?"},
+  {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' `CronJob` automate recurring tasks?"},
+  {"input": "CV skill: Kubernetes", "output": "Explain Kubernetes' `NetworkPolicy` for securing pod communication?"},
+  {"input": "CV skill: AWS", "output": "How does AWS's `EKS` manage Kubernetes clusters in the cloud?"},
+  {"input": "CV skill: AWS", "output": "What is the role of AWS's `Elastic Beanstalk` in application deployment?"},
+  {"input": "CV skill: AWS", "output": "How does AWS's `Step Functions` orchestrate serverless workflows?"},
+  {"input": "CV skill: AWS", "output": "Explain AWS's `Cognito` for user authentication and authorization?"},
+  {"input": "CV skill: Jenkins", "output": "How does Jenkins' `Pipeline as Code` improve CI/CD maintainability?"},
+  {"input": "CV skill: Jenkins", "output": "What is the role of Jenkins' `Folders` plugin in organizing pipelines?"},
+  {"input": "CV skill: Jenkins", "output": "How does Jenkins' `GitHub Branch Source` trigger multi-branch pipelines?"},
+  {"input": "CV skill: Jenkins", "output": "Explain Jenkins' `Active Directory` integration for authentication?"},
+  {"input": "CV skill: Git", "output": "How does Git's `revert` command undo changes in a repository?"},
+  {"input": "CV skill: Git", "output": "What is the role of Git's `archive` command in exporting repositories?"},
+  {"input": "CV skill: Git", "output": "How does Git's `shortlog` summarize commit contributions?"},
+  {"input": "CV skill: Git", "output": "Explain Git's `rerere` for reusing merge conflict resolutions?"},
+  {"input": "CV skill: Redux", "output": "How does Redux's `createEntityAdapter` manage normalized state?"},
+  {"input": "CV skill: Redux", "output": "What is the role of Redux's `configureStore` in simplifying setup?"},
+  {"input": "CV skill: Redux", "output": "How does Redux's `immer` integration simplify immutable updates?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript's `type alias` enhance type reusability?"},
+  {"input": "CV skill: TypeScript", "output": "What is the role of TypeScript's `as` operator in type assertions?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript's `extends` keyword constrain generic types?"},
+  {"input": "CV skill: TypeScript", "output": "Explain TypeScript's `never` type for exhaustive type checking?"},
+
+  {"input": "CV skill: Python", "output": "How does Python's `walrus operator` simplify variable assignment in expressions?"},
+  {"input": "CV skill: Python", "output": "What is the role of Python's `enum` module in defining enumerated constants?"},
+  {"input": "CV skill: Python", "output": "How does Python's `typing.Protocol` define structural subtyping?"},
+  {"input": "CV skill: Python", "output": "Explain Python's `concurrent.futures` for parallel task execution?"},
+  {"input": "CV skill: Java", "output": "How does Java's `Text Blocks` simplify multiline string handling?"},
+  {"input": "CV skill: Java", "output": "What is the purpose of Java's `Phaser` class in concurrent programming?"},
+  {"input": "CV skill: Java", "output": "How does Java's `ServiceLoader` enable plugin-based architectures?"},
+  {"input": "CV skill: Java", "output": "Explain Java's `Switch Expressions` for enhanced control flow?"},
+  {"input": "CV skill: JavaScript", "output": "How does JavaScript's `Temporal` API improve date and time handling?"},
+  {"input": "CV skill: JavaScript", "output": "What is the role of JavaScript's `SharedArrayBuffer` in multithreading?"},
+  {"input": "CV skill: JavaScript", "output": "How does JavaScript's `nullish coalescing` operator handle default values?"},
+  {"input": "CV skill: JavaScript", "output": "Explain JavaScript's `optional chaining` for safe property access?"},
+  {"input": "CV skill: React", "output": "How does React's `useDebugValue` enhance custom hook debugging?"},
+  {"input": "CV skill: React", "output": "What is the role of React's `useLayoutEffect` in DOM updates?"},
+  {"input": "CV skill: React", "output": "How does React's `useInsertionEffect` optimize CSS-in-JS libraries?"},
+  {"input": "CV skill: React", "output": "Explain React's `useEvent` hook for handling event listeners?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js's `perf_hooks` module measure performance metrics?"},
+  {"input": "CV skill: Node.js", "output": "What is the role of Node.js's `events` module in custom event handling?"},
+  {"input": "CV skill: Node.js", "output": "How does Node.js's `crypto.randomUUID` generate unique identifiers?"},
+  {"input": "CV skill: Node.js", "output": "Explain Node.js's `diagnostics_channel` for application monitoring?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot's `@ConditionalOnBean` control bean instantiation?"},
+  {"input": "CV skill: Spring Boot", "output": "What is the role of Spring Boot's `@RestControllerAdvice` in global error handling?"},
+  {"input": "CV skill: Spring Boot", "output": "How does Spring Boot integrate with ActiveMQ for messaging?"},
+  {"input": "CV skill: Spring Boot", "output": "Explain Spring Boot's `@EnableTransactionManagement` for transaction control?"},
+  {"input": "CV skill: MongoDB", "output": "How does MongoDB's `$arrayToObject` operator transform array data?"},
+  {"input": "CV skill: MongoDB", "output": "What is the role of MongoDB's `$setOnInsert` in upsert operations?"},
+  {"input": "CV skill: MongoDB", "output": "How does MongoDB's `$replaceRoot` reshape aggregation output?"},
+  {"input": "CV skill: MongoDB", "output": "Explain MongoDB's `$cond` operator for conditional logic in pipelines?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's `ON CONFLICT` clause handle upsert operations?"},
+  {"input": "CV skill: PostgreSQL", "output": "What is the role of PostgreSQL's `pg_stat_activity` in monitoring queries?"},
+  {"input": "CV skill: PostgreSQL", "output": "How does PostgreSQL's `EXCLUDE` constraint enforce unique constraints?"},
+  {"input": "CV skill: PostgreSQL", "output": "Explain PostgreSQL's `CREATE EXTENSION` for adding functionality?"},
+  {"input": "CV skill: Docker", "output": "How does Docker's `build cache` optimize image rebuilds?"},
+  {"input": "CV skill: Docker", "output": "What is the role of Docker's `overlay2` storage driver in performance?"},
+  {"input": "CV skill: Docker", "output": "How does Docker's `network host` mode simplify networking?"},
+  {"input": "CV skill: Docker", "output": "Explain Docker's `COPY --from` in multi-stage builds?"},
+  {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' `ResourceQuota` limit resource consumption?"},
+  {"input": "CV skill: Kubernetes", "output": "What is the role of Kubernetes' `ServiceAccount` in pod authentication?"},
+  {"input": "CV skill: Kubernetes", "output": "How does Kubernetes' `PriorityClass` manage pod scheduling priority?"},
+  {"input": "CV skill: Kubernetes", "output": "Explain Kubernetes' `MutatingWebhook` for dynamic resource changes?"},
+  {"input": "CV skill: AWS", "output": "How does AWS's `Fargate` simplify containerized app deployments?"},
+  {"input": "CV skill: AWS", "output": "What is the role of AWS's `Secrets Manager` in secure credential storage?"},
+  {"input": "CV skill: AWS", "output": "How does AWS's `EventBridge` handle event-driven architectures?"},
+  {"input": "CV skill: AWS", "output": "Explain AWS's `Aurora` for high-performance relational databases?"},
+  {"input": "CV skill: Jenkins", "output": "How does Jenkins' `Multibranch Pipeline` handle multiple branches?"},
+  {"input": "CV skill: Jenkins", "output": "What is the role of Jenkins' `Job DSL` in programmatic job creation?"},
+  {"input": "CV skill: Jenkins", "output": "How does Jenkins' `Pipeline Utility Steps` enhance pipeline functionality?"},
+  {"input": "CV skill: Jenkins", "output": "Explain Jenkins' `Role-Based Authorization` for user permissions?"},
+  {"input": "CV skill: Git", "output": "How does Git's `rebase --onto` handle complex branch rebasing?"},
+  {"input": "CV skill: Git", "output": "What is the role of Git's `describe` command in version tagging?"},
+  {"input": "CV skill: Git", "output": "How does Git's `fsck` verify repository integrity?"},
+  {"input": "CV skill: Git", "output": "Explain Git's `subtree` for managing nested repositories?"},
+  {"input": "CV skill: Redux", "output": "How does Redux's `createSelector` optimize state computations?"},
+  {"input": "CV skill: Redux", "output": "What is the role of Redux's `batch` API in reducing re-renders?"},
+  {"input": "CV skill: Redux", "output": "How does Redux's `RTK Query` handle caching for API calls?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript's `type predicate` improve type narrowing?"},
+  {"input": "CV skill: TypeScript", "output": "What is the role of TypeScript's `keyof` operator in type-safe lookups?"},
+  {"input": "CV skill: TypeScript", "output": "How does TypeScript's `abstract class` differ from interfaces?"},
+  {"input": "CV skill: TypeScript", "output": "Explain TypeScript's `override` keyword for method safety?"}
+
+
+
+]
