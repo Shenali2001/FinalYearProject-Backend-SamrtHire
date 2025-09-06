@@ -17,7 +17,7 @@ Base.metadata.create_all(bind=engine)
 
 from app.api import (
     auth, jobs, cv, interview, applications, users, stats,
-    recent_applications, admin_candidates
+    recent_applications, admin_candidates , interview_reports
 )
 
 logging.basicConfig(level=logging.INFO)
@@ -97,3 +97,5 @@ app.include_router(users.router)
 app.include_router(stats.router)
 app.include_router(recent_applications.router)
 app.include_router(admin_candidates.router)
+app.include_router(interview_reports.router)
+
