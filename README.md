@@ -1,5 +1,4 @@
-# FinalYearProject-Backend-SamrtHire
-SmartHire : AI-Powered Virtual Interviewer.
+#FinalYearProject-Backend-SmartHire : AI-Powered Virtual Interviewer.
 -------------------------------------------------------------
 
 This repository contains the backend code for the Final Year Project: SmartHire.  
