@@ -24,8 +24,12 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("smart-hire.services.cv_service")
 
 # ----------------- ENV / Gemini -----------------
-GEMINI_API_KEY = "AIzaSyB-W42OYrw8EDUAmxyYGyVr1aa1Rs0Mby8"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 GEMINI_JUDGE_MODEL = os.getenv("GEMINI_JUDGE_MODEL", "gemini-2.0-flash-lite").strip()
+
+if not GEMINI_API_KEY:
+    raise RuntimeError("GEMINI_API_KEY is not set. Please configure it in your environment.")
+
 
 def _get_gemini_url() -> Optional[str]:
     if not GEMINI_API_KEY:
