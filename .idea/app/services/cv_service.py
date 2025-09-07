@@ -24,50 +24,33 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("smart-hire.services.cv_service")
 
 # ----------------- ENV / Gemini -----------------
-GEMINI_API_KEY = "AIzaSyB-W42OYrw8EDUAmxyYGyVr1aa1Rs0Mby8"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 GEMINI_JUDGE_MODEL = os.getenv("GEMINI_JUDGE_MODEL", "gemini-2.0-flash-lite").strip()
+GEMINI_URL = (
+    f"https://generativelanguage.googleapis.com/v1beta/models/"
+    f"{GEMINI_JUDGE_MODEL}:generateContent?key={GEMINI_API_KEY}"
+) if GEMINI_API_KEY else None
 
-def _get_gemini_url() -> Optional[str]:
-    if not GEMINI_API_KEY:
-        return None
-    return f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_JUDGE_MODEL}:generateContent?key={GEMINI_API_KEY}"
-
-def _gemini_call(payload: dict) -> Optional[dict]:
-    url = _get_gemini_url()
-    if not url:
-        return None
-    try:
-        resp = requests.post(url, json=payload, timeout=20)
-        if resp.status_code != 200:
-            msg = resp.text[:400].replace(GEMINI_API_KEY, "***")
-            logger.warning(f"Gemini HTTP {resp.status_code}: {msg}")
-            return None
-        return resp.json()
-    except Exception as e:
-        logger.warning(f"Gemini call error: {e}")
-        return None
-
-if _get_gemini_url():
-    logger.info(f"[judge/feedback] Gemini ENABLED with model='{GEMINI_JUDGE_MODEL}'")
+if GEMINI_URL:
+    logger.info(f"[judge] Gemini ENABLED with model='{GEMINI_JUDGE_MODEL}'")
 else:
-    logger.warning("[judge/feedback] Gemini DISABLED (no GEMINI_API_KEY). Judge & feedback will use local fallback.")
+    logger.warning("[judge] Gemini DISABLED (no GEMINI_API_KEY). Judge & feedback will use local fallback.")
 
 # ----------------- ENV / QG MODEL -----------------
+# Default to your fine-tuned checkpoint folder (can override with QG_MODEL_PATH)
 QG_MODEL_PATH = os.getenv("QG_MODEL_PATH", "./technical_qg_enhanced_5986").strip()
 
-# ----------------- QG knobs -----------------
-QG_PER_TURN_BUDGET_S = float(os.getenv("QG_PER_TURN_BUDGET_S", "2.8"))
+# ----------------- QG knobs (tunable by env) -----------------
+QG_PER_TURN_BUDGET_S = float(os.getenv("QG_PER_TURN_BUDGET_S", "2.8"))  # time budget per NEXT question
 QG_ACCEPT_THRESHOLD  = float(os.getenv("QG_ACCEPT_THRESHOLD", "1.25"))
 QG_MIN_WORDS         = int(os.getenv("QG_MIN_WORDS", "8"))
 QG_MAX_WORDS         = int(os.getenv("QG_MAX_WORDS", "20"))
 QG_MAX_SKILLS_USED   = int(os.getenv("QG_MAX_SKILLS_USED", "16"))
-QG_K_PER_PROMPT      = int(os.getenv("QG_K_PER_PROMPT", "6"))
-QG_TEMPERATURE       = float(os.getenv("QG_TEMPERATURE", "0.85"))
-QG_TOP_P             = float(os.getenv("QG_TOP_P", "0.92"))
+QG_K_PER_PROMPT      = int(os.getenv("QG_K_PER_PROMPT", "6"))  # candidates per prompt
 
-# ----------------- Early end threshold -----------------
-# Ends interview immediately once score <= END_EARLY_SCORE (default -3)
-END_EARLY_SCORE = int(os.getenv("END_EARLY_SCORE", "-3"))
+# Optional decoding knobs for your finetuned model
+QG_TEMPERATURE = float(os.getenv("QG_TEMPERATURE", "0.85"))
+QG_TOP_P       = float(os.getenv("QG_TOP_P", "0.92"))
 
 # =========================================================
 # Device / lazy-load your QG model
@@ -404,8 +387,10 @@ def _infer_topics_from_cv_skills(db: Session, user_cv: UserCV) -> List[str]:
     return topics[:5]
 
 def _build_snippets_for_user_cv(db: Session, user_cv: UserCV) -> List[dict]:
+    """Return list of dicts: {text, difficulty} for snippets."""
     snippets: List[dict] = []
-    # SKILLS
+
+    # SKILLS (dedupe + cap)
     skill_names = []
     seen_low = set()
     for s in db.query(Skill).filter(Skill.user_cv_id == user_cv.id).all():
@@ -419,6 +404,7 @@ def _build_snippets_for_user_cv(db: Session, user_cv: UserCV) -> List[dict]:
         t = f"Skill: {name}."
         d, _ = classify_difficulty_from_content(t)
         snippets.append({"text": t, "difficulty": d})
+
     # PROJECTS
     for p in db.query(Project).filter(Project.user_cv_id == user_cv.id).all():
         base = f"Project: {p.name}."
@@ -428,6 +414,7 @@ def _build_snippets_for_user_cv(db: Session, user_cv: UserCV) -> List[dict]:
             base += f" Technologies: {p.technologies}."
         d, _ = classify_difficulty_from_content(base)
         snippets.append({"text": base, "difficulty": d})
+
     # WORK EXPERIENCE
     for w in db.query(WorkExperience).filter(WorkExperience.user_cv_id == user_cv.id).all():
         span = f"{w.start_date or 'Unknown'}-{w.end_date or 'Present'}"
@@ -438,6 +425,7 @@ def _build_snippets_for_user_cv(db: Session, user_cv: UserCV) -> List[dict]:
             t = f"Experience: {w.role} at {w.company} ({span})."
         d, _ = classify_difficulty_from_content(t)
         snippets.append({"text": t, "difficulty": d})
+
     random.shuffle(snippets)
     return snippets
 
@@ -473,11 +461,14 @@ _DOMAIN_LEX = {
     }
 }
 
+# Banned cross-domain mixes (reject if BOTH domains present in a candidate)
 _BANNED_PAIRS = {
     frozenset({"uiux","db"}),
     frozenset({"uiux","devops"}),
     frozenset({"uiux","cloud"}),
 }
+
+# Extra phrase-level bans (explicit bad combos seen in practice)
 _BAD_CROSS_PHRASES = {
     ("wireframe", "firebase"),
     ("wireframes", "firebase"),
@@ -501,6 +492,7 @@ def _allowed_domains_for_role(jt: str, jp: str) -> set:
         return {"frontend","uiux"}
     if "ui/ux" in jt or "uiux" in jt or "ux" in jp or "ui" in jp:
         return {"uiux","frontend"}
+    # default
     return {"backend","db","frontend","devops","cloud","uiux"}
 
 def _has_bad_phrase_combo(text: str) -> bool:
@@ -512,9 +504,11 @@ def _has_bad_phrase_combo(text: str) -> bool:
 
 def _semantic_sanity(text: str) -> bool:
     tl = (text or "").lower()
+    # Wireframes are UI/UX-only; forbid mixes with other domains
     if "wireframe" in tl:
         qd = _domains_in(text)
         return qd.issubset({"uiux","frontend"})
+    # ERDs/schemas are DB-only
     if "erd" in tl or "schema" in tl:
         qd = _domains_in(text)
         return qd.issubset({"db","backend"})
@@ -526,28 +520,32 @@ def _coherence_ok(candidate_q: str, content_keywords: List[str], snippet_domains
     if not _semantic_sanity(candidate_q):
         return False
     q_domains = _domains_in(candidate_q)
+    # must overlap with content (keyword OR domain)
     toks = set(_tokens_simple(candidate_q))
     has_kw_overlap = any(k.lower() in toks for k in (content_keywords or [])[:6])
     if not has_kw_overlap and not (q_domains & snippet_domains):
         return False
+    # role/domain allowlist
     if q_domains and not q_domains.issubset(role_domains | snippet_domains):
         return False
+    # banned cross-domain mixes
     for pair in _BANNED_PAIRS:
         if pair.issubset(q_domains):
             return False
     return True
 
 def _preposition_tweaks(text: str) -> str:
+    # minor grammar cleanups; e.g., "at Firebase" -> "in Firebase"
     return re.sub(r"\b(at|on)\s+(aws|gcp|azure|firebase|firestore)\b", r"in \2", text, flags=re.IGNORECASE)
 
 # =========================================================
-# T5 Question Generation (finetune-style)
+# T5 Question Generation helpers (FINETUNE-STYLE)
 # =========================================================
 _BAD_META = re.compile(
     r"(ROLE|POSITION|TYPE|SKILLS|CV|CONTEXT|OUTPUT|TEMPLATE|PROMPT|INSTRUCTION|CONSTRAINTS?|QUESTION:|LABELS?|PREAMBLE|METADATA|```|\||^[-*]\s)",
     re.IGNORECASE,
 )
-_BAD_CHARS = ["|", "`", "•"]
+_BAD_CHARS = ["|", "`", "•"]  # keep ':', '/', '.' so CI/CD, Node.js, C++ survive
 _BANNED_CANON = {
     "role","position","type","skills","cv","context","output","template","prompt",
     "instruction","constraint","question","labels","preamble","metadata","uiux"
@@ -588,31 +586,45 @@ def _extract_keywords(content: str) -> List[str]:
     return uniq[:8]
 
 def _to_ft_prompt_from_content(content: str) -> str:
+    """
+    Convert CV snippet text into the exact finetune-style prompt:
+    - 'Skill: X.'       -> 'Create a technical interview question about X:\\nQuestion:'
+    - 'Project: Y ...'  -> 'Generate a project-specific interview question for: Y\\nQuestion:'
+    - 'Experience: Z'   -> 'Create an experience-based question about: Z\\nQuestion:'
+    - fallback -> 'Generate a technical interview question for: <keywords>\\nQuestion:'
+    """
     txt = (content or "").strip()
     low = txt.lower()
+
     if low.startswith("skill:"):
         skill = txt.split(":", 1)[1].strip(" .")
         return f"Create a technical interview question about {skill}:\nQuestion:"
+
     if low.startswith("project:"):
         after = txt.split(":", 1)[1].strip()
         proj = re.split(r"\bTechnologies:\b", after, flags=re.IGNORECASE)[0].strip(" .")
         proj = proj if proj else after
         return f"Generate a project-specific interview question for: {proj}\nQuestion:"
+
     if low.startswith("experience:"):
         work = txt.split(":", 1)[1].strip(" .")
         return f"Create an experience-based question about: {work}\nQuestion:"
+
+    # Fallback: distill to keywords
     keywords = _extract_keywords(txt)
     fallback = ", ".join(keywords[:8]) if keywords else txt[:140]
     return f"Generate a technical interview question for: {fallback}\nQuestion:"
 
 @torch.inference_mode()
 def _gen_candidates(app: FastAPI, prompt: str, k: int) -> List[str]:
+    """Generate K diverse candidates using sampling (aligned with your fine-tuned prompt style)."""
     _ensure_qg_model_loaded(app)
     tok = app.state.t5_tokenizer
     model = app.state.t5_model
     device = app.state.device
 
     inputs = tok(prompt, return_tensors="pt", max_length=256, truncation=True).to(device)
+
     outs = model.generate(
         **inputs,
         do_sample=True,
@@ -668,6 +680,7 @@ def _tech_score(q: str, role_topics: List[str], cv_keywords: List[str], q_domain
     wc = len(q.split())
     if QG_MIN_WORDS <= wc <= QG_MAX_WORDS: score += 0.6
     if q.endswith("?"): score += 0.2
+    # Coherence bonuses/penalties
     if q_domains and q_domains.issubset(role_domains | snippet_domains): score += 0.5
     for pair in _BANNED_PAIRS:
         if pair.issubset(q_domains): score -= 3.0
@@ -685,6 +698,7 @@ def _get_seen_store(app: FastAPI):
 
 @torch.inference_mode()
 def _role_aware_generate_one(app: FastAPI, jt: str, jp: str, topics: List[str], content: str) -> Optional[str]:
+    """Generate ONE good technical, role-aligned, domain-coherent question from a single snippet/content."""
     keywords = _extract_keywords(content)
     prompts = [
         _to_ft_prompt_from_content(content),
@@ -771,8 +785,28 @@ def _looks_like_gibberish(answer: str) -> bool:
     toks = _tokens(a); avg_len = (sum(len(t) for t in toks) / max(1, len(toks))) if toks else 0
     return (not toks) or avg_len < 3.0
 
+def _get_gemini_url() -> Optional[str]:
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    model   = os.getenv("GEMINI_JUDGE_MODEL", "gemini-2.0-flash-lite").strip()
+    if not api_key: return None
+    return f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+
+def _gemini_call(payload: dict) -> Optional[dict]:
+    url = _get_gemini_url()
+    if not url: return None
+    try:
+        resp = requests.post(url, json=payload, timeout=15)
+        if resp.status_code != 200:
+            msg = resp.text[:300].replace(os.getenv("GEMINI_API_KEY", "***"), "***")
+            logger.warning(f"Gemini HTTP {resp.status_code}: {msg}")
+            return None
+        return resp.json()
+    except Exception as e:
+        logger.warning(f"Gemini call error: {e}")
+        return None
+
 def _gemini_judge(question: str, answer: str) -> Optional[Tuple[bool, float, str]]:
-    rubric = (
+    system_text = (
         "You are a technical interviewer grading a short answer.\n"
         "Question and Answer are provided as JSON.\n"
         "Mark CORRECT if on-topic AND either:\n"
@@ -781,10 +815,11 @@ def _gemini_judge(question: str, answer: str) -> Optional[Tuple[bool, float, str
         "Mark INCORRECT only if off-topic/empty/pure fluff.\n"
         "Return ONLY JSON: {\"is_correct\": true|false, \"confidence\": 0..1, \"reasons\": \"...\"}."
     )
+    user_payload = json.dumps({"question": question, "answer": answer}, ensure_ascii=False)
     body = {
         "contents": [
-            {"role": "user", "parts": [{"text": rubric}]},
-            {"role": "user", "parts": [{"text": json.dumps({"question": question, "answer": answer}, ensure_ascii=False)}]}
+            {"role": "user", "parts": [{"text": system_text}]},
+            {"role": "user", "parts": [{"text": user_payload}]}
         ],
         "generationConfig": {"temperature": 0.15, "topK": 40, "topP": 0.9, "maxOutputTokens": 128}
     }
@@ -815,313 +850,82 @@ def _keyword_overlap(question: str, answer: str) -> int:
     return len(q & a)
 
 # =========================================================
-# Gemini-based detailed FEEDBACK (candidate) & SUMMARY (admin)
+# Feedback report (Gemini + fallback)
 # =========================================================
-# Replace the _gemini_candidate_feedback and _gemini_admin_summary functions with these fixed versions
-
-def _gemini_candidate_feedback(history: List[dict], jt: str, jp: str, scorecard: dict) -> Optional[dict]:
-    """Ask Gemini for a rich candidate-facing feedback JSON."""
-    prompt = (
-        "You are a helpful technical interviewer. Input JSON includes role_type, role_position, and history.\n"
-        "history is a list of {question, answer, difficulty, is_correct, p_correct}.\n"
-        "Write DETAILED candidate feedback as STRICT JSON with keys ONLY:\n"
-        "  summary (string),\n"
-        "  strengths (array of strings),\n"
-        "  areas_to_improve (array of strings),\n"
-        "  topic_breakdown (array of {topic, performance('strong'|'ok'|'weak'), evidence}),\n"
-        "  next_steps (array of strings),\n"
-        "  resources (array of strings, 3-7 items),\n"
-        "  suitability ('strong'|'good'|'borderline'|'unsuitable'),\n"
-        "  is_suitable (boolean),\n"
-        "  overall_rating (number 1-5),\n"
-        "  hire_recommendation ('strong_yes'|'yes'|'leaning_no'|'no'),\n"
-        "  scorecard (object with existing asked/correct per difficulty and accuracy_pct).\n"
-        "Return ONLY valid JSON, no markdown formatting."
+def _gemini_feedback(history: List[dict], jt: str, jp: str) -> Optional[dict]:
+    url = _get_gemini_url()
+    if not url: return None
+    rubric = (
+        "You are a hiring panel summarizer. Input is JSON {role_type, role_position, history} "
+        "where history is a list of {question, answer, difficulty, is_correct, p_correct}.\n"
+        "Write a concise JSON object ONLY with keys: "
+        "summary, strengths[], areas_to_improve[], next_steps[], suitability ('strong'|'good'|'borderline'|'unsuitable'), "
+        "is_suitable (bool), scorecard {easy:{asked,correct}, medium:{asked,correct}, hard:{asked,correct}, accuracy_pct}.\n"
+        "Base your judgments on correctness and the technical depth shown. No extra keys."
     )
     payload = {
-        "role_type": jt, "role_position": jp,
-        "scorecard": scorecard,
-        "history": history
-    }
-    data = _gemini_call({
         "contents": [
-            {"role": "user", "parts": [{"text": prompt}]},
-            {"role": "user", "parts": [{"text": json.dumps(payload, ensure_ascii=False)}]},
+            {"role": "user", "parts": [{"text": rubric}]},
+            {"role": "user", "parts": [{"text":
+                json.dumps({"role_type": jt, "role_position": jp, "history": history}, ensure_ascii=False)
+            }]}
         ],
-        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 1200}  # Increased from 700
-    })
-    if not data:
-        logger.warning("[Gemini candidate feedback] No response from API")
-        return None
-
-    try:
-        # Log the raw response for debugging
-        logger.debug(f"[Gemini candidate feedback] Raw response: {json.dumps(data, ensure_ascii=False)}")
-
-        # Extract the text content
-        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-
-        # Check if response was truncated
-        finish_reason = data["candidates"][0].get("finishReason", "")
-        if finish_reason == "MAX_TOKENS":
-            logger.warning("[Gemini candidate feedback] Response was truncated due to MAX_TOKENS limit")
-            # Try to find a valid JSON object even in truncated response
-            json_matches = list(re.finditer(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', text, re.DOTALL))
-            if json_matches:
-                # Take the largest JSON-like structure
-                text = max(json_matches, key=lambda m: len(m.group(0))).group(0)
-            else:
-                logger.warning("[Gemini candidate feedback] No recoverable JSON found in truncated response")
-                return None
-
-        # Remove markdown code fences if present
-        if text.startswith("```"):
-            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
-
-        # Try to find the JSON object
-        match = re.search(r"\{.*\}", text, flags=re.DOTALL)
-        if not match:
-            logger.warning(f"[Gemini candidate feedback] No JSON object found in response: {text[:200]}")
-            return None
-
-        json_str = match.group(0)
-
-        # Attempt to parse JSON with additional error handling
-        try:
-            obj = json.loads(json_str)
-            # Validate required keys
-            required_keys = {
-                "summary", "strengths", "areas_to_improve", "topic_breakdown",
-                "next_steps", "resources", "suitability", "is_suitable",
-                "overall_rating", "hire_recommendation", "scorecard"
-            }
-            missing_keys = required_keys - set(obj.keys())
-            if missing_keys:
-                logger.warning(f"[Gemini candidate feedback] Missing required keys: {list(missing_keys)}")
-                # Add default values for missing keys
-                defaults = {
-                    "summary": "Interview completed successfully.",
-                    "strengths": ["Demonstrated technical knowledge"],
-                    "areas_to_improve": ["Continue practicing technical concepts"],
-                    "topic_breakdown": [],
-                    "next_steps": ["Review feedback and continue learning"],
-                    "resources": ["Technical documentation", "Practice problems", "Online courses"],
-                    "suitability": "borderline",
-                    "is_suitable": False,
-                    "overall_rating": 3,
-                    "hire_recommendation": "leaning_no",
-                    "scorecard": scorecard
-                }
-                for key in missing_keys:
-                    obj[key] = defaults.get(key)
-
-            return obj
-        except json.JSONDecodeError as e:
-            logger.warning(f"[Gemini candidate feedback parse error] JSON parsing failed: {e}")
-            logger.debug(f"[Gemini candidate feedback] Problematic JSON: {json_str[:500]}")
-
-            # Try to fix common JSON issues
-            try:
-                # Fix truncated JSON by adding closing braces/brackets if needed
-                fixed_json = json_str
-
-                # Count opening and closing braces/brackets
-                open_braces = fixed_json.count('{') - fixed_json.count('}')
-                open_brackets = fixed_json.count('[') - fixed_json.count(']')
-
-                # Add missing closing characters
-                if open_brackets > 0:
-                    fixed_json += ']' * open_brackets
-                if open_braces > 0:
-                    fixed_json += '}' * open_braces
-
-                # Try to fix common formatting issues
-                fixed_json = re.sub(r'}\s*{', '},{', fixed_json)  # Add missing commas between objects
-                fixed_json = re.sub(r']\s*{', '],{', fixed_json)  # Add missing commas before objects
-                fixed_json = re.sub(r',\s*}', '}', fixed_json)  # Remove trailing commas
-                fixed_json = re.sub(r',\s*]', ']', fixed_json)  # Remove trailing commas
-
-                obj = json.loads(fixed_json)
-                logger.info("[Gemini candidate feedback] Successfully parsed after fixing JSON")
-                return obj
-            except json.JSONDecodeError as e2:
-                logger.warning(f"[Gemini candidate feedback] Failed to fix JSON: {e2}")
-                return None
-    except Exception as e:
-        logger.warning(f"[Gemini candidate feedback] Unexpected error: {e}")
-        return None
-
-
-def _gemini_admin_summary(history: List[dict], jt: str, jp: str, scorecard: dict) -> Optional[dict]:
-    """Ask Gemini for admin summary in JSON format."""
-    prompt = (
-        "You are a hiring panel summarizer for HR. Input includes role_type, role_position, scorecard, and history.\n"
-        "Generate admin summary as STRICT JSON with keys ONLY:\n"
-        "  overview (string),\n"
-        "  competency_scores (object with numerical scores 1-5),\n"
-        "  notable_signals (array of strings),\n"
-        "  risk_flags (array of strings),\n"
-        "  recommendation (object with decision, confidence, level),\n"
-        "  followups (array of strings),\n"
-        "  question_log (array of objects with question, difficulty, is_correct, brief_reason).\n"
-        "Return ONLY valid JSON, no markdown formatting."
-    )
-    payload = {
-        "role_type": jt, "role_position": jp,
-        "scorecard": scorecard,
-        "history": history
+        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 400}
     }
-    data = _gemini_call({
-        "contents": [
-            {"role": "user", "parts": [{"text": prompt}]},
-            {"role": "user", "parts": [{"text": json.dumps(payload, ensure_ascii=False)}]},
-        ],
-        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 1000}  # Increased from 700
-    })
-    if not data:
-        logger.warning("[Gemini admin summary] No response from API")
-        return None
-
+    data = _gemini_call(payload)
+    if not data: return None
     try:
-        logger.debug(f"[Gemini admin summary] Raw response: {json.dumps(data, ensure_ascii=False)}")
         text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-
-        # Check if response was truncated
-        finish_reason = data["candidates"][0].get("finishReason", "")
-        if finish_reason == "MAX_TOKENS":
-            logger.warning("[Gemini admin summary] Response was truncated due to MAX_TOKENS limit")
-            return None  # Fall back to local summary for truncated responses
-
-        # Remove markdown formatting
-        if text.startswith("```") or text.startswith("##"):
-            # If it starts with markdown, it's likely not JSON format
-            logger.warning("[Gemini admin summary] Response appears to be markdown format, not JSON")
-            return None  # Fall back to local summary
-
         if text.startswith("```"):
-            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
-
-        match = re.search(r"\{.*\}", text, flags=re.DOTALL)
-        if not match:
-            logger.warning(f"[Gemini admin summary] No JSON object found in response: {text[:200]}")
-            return None
-
-        json_str = match.group(0)
-        try:
-            obj = json.loads(json_str)
-            required_keys = {
-                "overview", "competency_scores", "notable_signals", "risk_flags",
-                "recommendation", "followups", "question_log"
-            }
-            missing_keys = required_keys - set(obj.keys())
-            if missing_keys:
-                logger.warning(f"[Gemini admin summary] Missing required keys: {list(missing_keys)}")
-                return None  # Fall back to local summary if keys are missing
-            return obj
-        except json.JSONDecodeError as e:
-            logger.warning(f"[Gemini admin summary parse error] JSON parsing failed: {e}")
-            return None
+            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE|re.DOTALL).strip()
+        obj = json.loads(re.search(r"\{.*\}", text, flags=re.DOTALL).group(0))
+        return obj
     except Exception as e:
-        logger.warning(f"[Gemini admin summary] Unexpected error: {e}")
+        logger.warning(f"[Feedback Gemini parse error] {e}")
         return None
-# ----------------- Local fallbacks for richer outputs -----------------
-def _local_scorecard(state: dict) -> dict:
-    e_asked = state["per_difficulty"]["easy"]["asked"]
-    e_corr  = state["per_difficulty"]["easy"]["correct"]
-    m_asked = state["per_difficulty"]["medium"]["asked"]
-    m_corr  = state["per_difficulty"]["medium"]["correct"]
-    h_asked = state["per_difficulty"]["hard"]["asked"]
-    h_corr  = state["per_difficulty"]["hard"]["correct"]
-    asked = e_asked + m_asked + h_asked
-    corr  = e_corr  + m_corr  + h_corr
-    acc = (corr / asked * 100.0) if asked else 0.0
-    return {
-        "easy":   {"asked": e_asked, "correct": e_corr},
-        "medium": {"asked": m_asked, "correct": m_corr},
-        "hard":   {"asked": h_asked, "correct": h_corr},
-        "accuracy_pct": round(acc, 1)
-    }
 
-def _local_candidate_feedback(history: List[dict], scorecard: dict) -> dict:
-    asked = sum(1 for _ in history)
-    corr  = sum(1 for h in history if h.get("is_correct"))
+def _local_feedback(history: List[dict]) -> dict:
+    asked_e = sum(1 for h in history if h.get("difficulty") == "easy")
+    corr_e  = sum(1 for h in history if h.get("difficulty") == "easy" and h.get("is_correct"))
+    asked_m = sum(1 for h in history if h.get("difficulty") == "medium")
+    corr_m  = sum(1 for h in history if h.get("difficulty") == "medium" and h.get("is_correct"))
+    asked_h = sum(1 for h in history if h.get("difficulty") == "hard")
+    corr_h  = sum(1 for h in history if h.get("difficulty") == "hard" and h.get("is_correct"))
+    asked = asked_e + asked_m + asked_h
+    corr  = corr_e + corr_m + corr_h
     acc = (corr / asked * 100.0) if asked else 0.0
-    suitability = "strong" if acc >= 75 else "good" if acc >= 55 else "borderline" if acc >= 35 else "unsuitable"
-    is_suitable = acc >= 55
-    strengths, gaps, nexts, resources = [], [], [], []
-    if corr >= 2:
-        strengths.append("Showed understanding of at least a couple of core topics.")
-    if scorecard["hard"]["correct"] >= 1:
-        strengths.append("Handled an advanced topic under pressure.")
-    if (scorecard["medium"]["asked"] + scorecard["hard"]["asked"]) - (scorecard["medium"]["correct"] + scorecard["hard"]["correct"]) >= 2:
-        gaps.append("Needs deeper coverage of mid/advanced topics (APIs, DB indexing, performance).")
-        nexts.append("Practice small system design prompts and database indexing scenarios.")
-    if scorecard["easy"]["asked"] > scorecard["easy"]["correct"]:
-        gaps.append("Revisit fundamentals to avoid basic slips.")
-        nexts.append("Review language basics and common standard libraries.")
-    resources = [
-        "Designing Data-Intensive Applications (Martin Kleppmann)",
-        "System Design Primer (GitHub)",
-        "PostgreSQL Query Planning & Indexing docs",
-        "gRPC/REST API best practices (Microsoft/Google style guides)",
-        "Production-Grade Docker & Kubernetes (tutorial series)"
-    ]
-    topic_breakdown = []
-    for h in history[-5:]:
-        topic_breakdown.append({
-            "topic": "recent_question",
-            "performance": "strong" if h.get("is_correct") else "weak",
-            "evidence": (h.get("answer") or "")[:140]
-        })
+    if acc >= 75: suit = "strong"; ok = True
+    elif acc >= 55: suit = "good"; ok = True
+    elif acc >= 35: suit = "borderline"; ok = False
+    else: suit = "unsuitable"; ok = False
+    strengths, gaps, nexts = [], [], []
+    if corr_m + corr_h >= 2:
+        strengths.append("Demonstrated grasp of core technical concepts.")
+    if corr_h >= 1:
+        strengths.append("Handled at least one advanced topic.")
+    if (asked_m + asked_h) - (corr_m + corr_h) >= 2:
+        gaps.append("Inconsistent depth on mid/advanced topics.")
+        nexts.append("Practice system design and database indexing scenarios.")
+    if corr_e < asked_e:
+        gaps.append("Missed a few fundamentals.")
+        nexts.append("Review language basics and common APIs.")
     return {
-        "summary": "Automated local feedback (Gemini unavailable).",
+        "summary": "Automated local feedback generated (Gemini unavailable).",
+        "suitability": suit,
+        "is_suitable": ok,
+        "reasons": [],
         "strengths": strengths,
-        "areas_to_improve": gaps if gaps else ["Add more concrete examples in answers."],
-        "topic_breakdown": topic_breakdown,
-        "next_steps": nexts if nexts else ["Attempt timed practice on role-relevant topics."],
-        "resources": resources[:5],
-        "suitability": suitability,
-        "is_suitable": is_suitable,
-        "overall_rating": round(acc/25, 1),  # 0..4 -> approx 0..100%
-        "hire_recommendation": "yes" if is_suitable else "no",
-        "scorecard": scorecard
+        "areas_to_improve": gaps,
+        "next_steps": nexts,
+        "scorecard": {
+            "easy":   {"asked": asked_e, "correct": corr_e},
+            "medium": {"asked": asked_m, "correct": corr_m},
+            "hard":   {"asked": asked_h, "correct": corr_h},
+            "accuracy_pct": round(acc, 1)
+        }
     }
 
-def _local_admin_summary(history: List[dict], scorecard: dict) -> dict:
-    asked = len(history)
-    corr  = sum(1 for h in history if h.get("is_correct"))
-    acc   = (corr / asked * 100.0) if asked else 0.0
-    decision = "onsite" if acc >= 65 else "hold" if acc >= 50 else "reject"
-    level = "senior" if acc >= 80 else "mid" if acc >= 55 else "junior"
-    return {
-        "overview": "Automated local admin summary (Gemini unavailable). Candidate showed mixed performance; see scorecard and question log.",
-        "competency_scores": {
-            "problem_solving": round(min(5.0, 1.5 + acc/20), 1),
-            "coding": round(min(5.0, 1.2 + acc/25), 1),
-            "system_design": round(min(5.0, 0.8 + acc/30), 1),
-            "databases": round(min(5.0, 0.8 + acc/28), 1),
-            "web_backend": round(min(5.0, 1.0 + acc/26), 1),
-            "devops_testing": round(min(5.0, 0.6 + acc/35), 1),
-        },
-        "notable_signals": ["See recent answers for evidence; candidate accuracy trends are summarized in the scorecard."],
-        "risk_flags": ["Knowledge gaps on mid/advanced topics"] if acc < 55 else [],
-        "recommendation": {"decision": decision, "confidence": round(min(1.0, 0.4 + acc/100), 2), "level": level},
-        "followups": ["Probe system design trade-offs", "Deep dive on DB indexing and query plans"],
-        "question_log": [
-            {
-                "question": h.get("question","")[:180],
-                "difficulty": h.get("difficulty",""),
-                "is_correct": bool(h.get("is_correct")),
-                "brief_reason": "On-topic" if h.get("is_correct") else "Insufficient mechanism/detail"
-            } for h in history
-        ]
-    }
-
-# =========================================================
-# Build final combined outputs (candidate + admin) and persist
-# =========================================================
-def _build_final_reports(state: dict, jt: str, jp: str) -> dict:
-    # Build history snapshot
+def _build_final_feedback(state: dict, jt: str, jp: str) -> dict:
     hist = [
         {
             "question": h.get("question",""),
@@ -1131,14 +935,25 @@ def _build_final_reports(state: dict, jt: str, jp: str) -> dict:
             "p_correct": float(h.get("p_correct", 0.0)),
         } for h in state.get("history", [])
     ]
-    scorecard = _local_scorecard(state)
+    fb = _gemini_feedback(hist, jt, jp)
+    if fb and isinstance(fb, dict) and "scorecard" in fb:
+        if "accuracy_pct" not in fb["scorecard"]:
+            asked_e = state["per_difficulty"]["easy"]["asked"]
+            corr_e  = state["per_difficulty"]["easy"]["correct"]
+            asked_m = state["per_difficulty"]["medium"]["asked"]
+            corr_m  = state["per_difficulty"]["medium"]["correct"]
+            asked_h = state["per_difficulty"]["hard"]["asked"]
+            corr_h  = state["per_difficulty"]["hard"]["correct"]
+            asked = asked_e + asked_m + asked_h
+            corr  = corr_e + corr_m + corr_h
+            acc = (corr / asked * 100.0) if asked else 0.0
+            fb["scorecard"]["accuracy_pct"] = round(acc, 1)
+        return fb
+    return _local_feedback(state.get("history", []))
 
-    # Try Gemini for both outputs
-    cand_fb = _gemini_candidate_feedback(hist, jt, jp, scorecard) or _local_candidate_feedback(hist, scorecard)
-    admin_sum = _gemini_admin_summary(hist, jt, jp, scorecard) or _local_admin_summary(hist, scorecard)
-
-    return {"feedback": cand_fb, "admin_summary": admin_sum}
-
+# =========================================================
+# Persist final report to DB
+# =========================================================
 def _persist_final_report(db: Session, email: str, state: dict, final: dict) -> Optional[int]:
     """
     Save the end-of-interview feedback to DB. Returns report id (or None).
@@ -1161,23 +976,24 @@ def _persist_final_report(db: Session, email: str, state: dict, final: dict) -> 
             pass
         user_cv_id = user_cv.id if user_cv else None
 
-        cand_fb = (final or {}).get("feedback") or {}
-        admin_sum = (final or {}).get("admin_summary") or {}
-        scorecard = cand_fb.get("scorecard", {})
+        fb = (final or {}).get("feedback", {}) if isinstance(final, dict) else {}
+        scorecard = fb.get("scorecard") or {}
+        acc = scorecard.get("accuracy_pct")
 
-        # Accuracy for convenience if Gemini omitted it
-        if "accuracy_pct" not in scorecard:
-            e_asked = state["per_difficulty"]["easy"]["asked"]
-            e_corr  = state["per_difficulty"]["easy"]["correct"]
-            m_asked = state["per_difficulty"]["medium"]["asked"]
-            m_corr  = state["per_difficulty"]["medium"]["correct"]
-            h_asked = state["per_difficulty"]["hard"]["asked"]
-            h_corr  = state["per_difficulty"]["hard"]["correct"]
-            asked = e_asked + m_asked + h_asked
-            corr  = e_corr  + m_corr  + h_corr
-            scorecard["accuracy_pct"] = round((corr / asked) * 100.0, 1) if asked else 0.0
+        if acc is None:
+            try:
+                asked_e = state["per_difficulty"]["easy"]["asked"]
+                corr_e  = state["per_difficulty"]["easy"]["correct"]
+                asked_m = state["per_difficulty"]["medium"]["asked"]
+                corr_m  = state["per_difficulty"]["medium"]["correct"]
+                asked_h = state["per_difficulty"]["hard"]["asked"]
+                corr_h  = state["per_difficulty"]["hard"]["correct"]
+                asked = asked_e + asked_m + asked_h
+                corr  = corr_e + corr_m + corr_h
+                acc = round((corr / asked) * 100.0, 2) if asked else 0.0
+            except Exception:
+                acc = 0.0
 
-        # Persist using existing columns; store admin_summary in raw_feedback for now
         rec = InterviewReport(
             user_id=user_id,
             user_cv_id=user_cv_id,
@@ -1187,20 +1003,16 @@ def _persist_final_report(db: Session, email: str, state: dict, final: dict) -> 
             status=final.get("status") or "finished",
             score=int(final.get("score") or 0),
             questions_asked=int(final.get("questions_asked") or 0),
-            accuracy_pct=float(scorecard.get("accuracy_pct") or 0.0),
-            suitability=cand_fb.get("suitability"),
-            is_suitable=bool(cand_fb.get("is_suitable", False)),
-            summary=cand_fb.get("summary"),  # candidate-facing summary
-            strengths=cand_fb.get("strengths"),
-            areas_to_improve=cand_fb.get("areas_to_improve"),
-            next_steps=cand_fb.get("next_steps"),
+            accuracy_pct=float(acc or 0.0),
+            suitability=fb.get("suitability"),
+            is_suitable=bool(fb.get("is_suitable", False)),
+            summary=fb.get("summary"),
+            strengths=fb.get("strengths"),
+            areas_to_improve=fb.get("areas_to_improve"),
+            next_steps=fb.get("next_steps"),
             scorecard=scorecard,
             history=state.get("history"),
-            raw_feedback={
-                "ended_by": final.get("ended_by"),
-                "candidate": cand_fb,
-                "admin": admin_sum
-            },
+            raw_feedback=fb,
         )
         db.add(rec)
         db.commit()
@@ -1219,6 +1031,7 @@ def _persist_final_report(db: Session, email: str, state: dict, final: dict) -> 
 # On-demand NEXT question generation (no pre-pool)
 # =========================================================
 def _prepare_context(email: str, db: Session) -> Tuple[str, str, List[str], List[dict], List[str]]:
+    """Return (jt, jp, topics, snippets[{text,diff}], chunks[str])."""
     user_cv = _pick_best_user_cv_for_email(db, email)
     if not user_cv:
         raise HTTPException(status_code=404, detail="CV not found for user")
@@ -1229,10 +1042,12 @@ def _prepare_context(email: str, db: Session) -> Tuple[str, str, List[str], List
     return jt, jp, topics, snippets, chunks
 
 def _next_question_on_demand(state: dict, app: FastAPI) -> Optional[dict]:
+    """Pick one snippet/chunk and generate ONE question under time budget."""
     t0 = time.perf_counter()
     jt = state.get("role_type") or "unknown"
     jp = state.get("role_position") or "unknown"
     topics = state.get("topics") or []
+
     try_order = [state.get("current_difficulty","medium"), "medium", "easy", "hard"]
 
     for diff in try_order:
@@ -1258,7 +1073,7 @@ def _next_question_on_demand(state: dict, app: FastAPI) -> Optional[dict]:
     return None
 
 # =========================================================
-# Interview flow
+# Interview flow (no pre-generation)
 # =========================================================
 ICEBREAKER_QUESTION = (
     "To warm up, tell me about yourself — your background, key strengths, and what you’re looking for next."
@@ -1299,6 +1114,7 @@ def start_adaptive_interview_service(email: str, db: Session, app: FastAPI, max_
         "icebreaker": ICEBREAKER_QUESTION,
         "icebreaker_answer": None,
 
+        # context for on-demand generation
         "role_type": jt,
         "role_position": jp,
         "topics": topics,
@@ -1330,9 +1146,10 @@ def evaluate_answer_for_question(question: str, answer: str, app: FastAPI) -> Tu
     if judged is None:  # local fallback
         return _local_judge(q, a)
     is_corr, conf, _ = judged
-    if (not is_corr) and conf <= 0.35 and _keyword_overlap(q, a) >= 1:
-        logger.info("[Judge=Override] Low-conf negative but on-topic -> accept")
-        return True, 0.55
+    if (not is_corr) and conf <= 0.35:
+        if _keyword_overlap(q, a) >= 1:
+            logger.info("[Judge=Override] Low-conf negative but on-topic -> accept")
+            return True, 0.55
     return is_corr, conf
 
 def submit_adaptive_answer_service(email: str, question: Optional[str], answer: str, app: FastAPI, db: Session):
@@ -1352,8 +1169,7 @@ def submit_adaptive_answer_service(email: str, question: Optional[str], answer: 
             jt = state.get("role_type") or "unknown"
             jp = state.get("role_position") or "unknown"
             final = {"status": "finished", "score": state["score"], "questions_asked": state["asked_count"]}
-            reports = _build_final_reports(state, jt, jp)
-            final.update(reports)
+            final["feedback"] = _build_final_feedback(state, jt, jp)
             report_id = _persist_final_report(db, email, state, final)
             if report_id:
                 final["report_id"] = report_id
@@ -1390,33 +1206,12 @@ def submit_adaptive_answer_service(email: str, question: Optional[str], answer: 
         elif state["current_difficulty"] == "medium":
             state["current_difficulty"] = "easy"
 
-    # ---------- EARLY TERMINATION BY SCORE ----------
-    if state["score"] <= END_EARLY_SCORE:
-        state["stopped"] = True
-        jt = state.get("role_type") or "unknown"
-        jp = state.get("role_position") or "unknown"
-        final = {
-            "status": "finished",
-            "ended_by": "score_threshold",
-            "score": state["score"],
-            "questions_asked": state["asked_count"]
-        }
-        reports = _build_final_reports(state, jt, jp)
-        final.update(reports)
-        report_id = _persist_final_report(db, email, state, final)
-        if report_id:
-            final["report_id"] = report_id
-        app.state.interviews.pop(email, None)
-        return {"result": is_correct, "next": None, "final": final}
-    # -----------------------------------------------
-
     if state["asked_count"] >= state["max_questions"]:
         state["stopped"] = True
         jt = state.get("role_type") or "unknown"
         jp = state.get("role_position") or "unknown"
         final = {"status": "finished", "score": state["score"], "questions_asked": state["asked_count"]}
-        reports = _build_final_reports(state, jt, jp)
-        final.update(reports)
+        final["feedback"] = _build_final_feedback(state, jt, jp)
         report_id = _persist_final_report(db, email, state, final)
         if report_id:
             final["report_id"] = report_id
@@ -1429,8 +1224,7 @@ def submit_adaptive_answer_service(email: str, question: Optional[str], answer: 
         jt = state.get("role_type") or "unknown"
         jp = state.get("role_position") or "unknown"
         final = {"status": "finished", "score": state["score"], "questions_asked": state["asked_count"]}
-        reports = _build_final_reports(state, jt, jp)
-        final.update(reports)
+        final["feedback"] = _build_final_feedback(state, jt, jp)
         report_id = _persist_final_report(db, email, state, final)
         if report_id:
             final["report_id"] = report_id

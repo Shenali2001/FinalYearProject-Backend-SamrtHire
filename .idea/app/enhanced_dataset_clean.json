@@ -1,0 +1,1444 @@
+[
+  {
+    "input": "CV section: Marketing Analyst, TrendWave Corp., 2023-2025, Increased lead generation by 40% with targeted campaigns.",
+    "output": "How did you increase lead generation at TrendWave Corp.?"
+  },
+  {
+    "input": "CV section: Software Engineer, CodeForge Inc., 2022-2024, Reduced bug rates by 25% with code reviews.",
+    "output": "What code reviews reduced bug rates at CodeForge Inc.?"
+  },
+  {
+    "input": "CV section: HR Coordinator, PeopleSync Ltd., 2021-2023, Improved onboarding efficiency by 30% with new processes.",
+    "output": "How did new processes improve onboarding at PeopleSync Ltd.?"
+  },
+  {
+    "input": "CV section: Sales Executive, ProfitPeak Solutions, 2020-2022, Boosted quarterly sales by $500K with upselling.",
+    "output": "What upselling boosted sales at ProfitPeak Solutions?"
+  },
+  {
+    "input": "CV section: UI Designer, PixelCraft Studio, 2023-2025, Enhanced user retention by 15% with interface updates.",
+    "output": "How did interface updates improve retention at PixelCraft Studio?"
+  },
+  {
+    "input": "CV section: Data Analyst, InsightHub Inc., 2022-2024, Improved reporting accuracy by 20% with data validation.",
+    "output": "What data validation improved accuracy at InsightHub Inc.?"
+  },
+  {
+    "input": "CV section: Network Administrator, ConnectPro Systems, 2021-2023, Reduced downtime by 18% with network upgrades.",
+    "output": "How did upgrades reduce downtime at ConnectPro Systems?"
+  },
+  {
+    "input": "CV section: Product Manager, InnovateNow Corp., 2020-2022, Launched products with 10% market share gain.",
+    "output": "What strategies launched products at InnovateNow Corp.?"
+  },
+  {
+    "input": "CV section: Cybersecurity Analyst, SecureBit Tech, 2023-2025, Decreased phishing incidents by 35% with training.",
+    "output": "How did training decrease phishing at SecureBit Tech?"
+  },
+  {
+    "input": "CV section: Content Writer, WordFlow Media, 2022-2024, Increased website traffic by 25% with SEO content.",
+    "output": "What SEO content increased traffic at WordFlow Media?"
+  },
+  {
+    "input": "CV section: Logistics Manager, FreightMaster Inc., 2021-2023, Reduced shipping costs by $300K annually.",
+    "output": "How did you reduce shipping costs at FreightMaster Inc.?"
+  },
+  {
+    "input": "CV section: DevOps Engineer, CloudSwift Solutions, 2020-2022, Cut deployment time by 40% with automation.",
+    "output": "What automation cut deployment time at CloudSwift Solutions?"
+  },
+  {
+    "input": "CV section: Business Development Lead, GrowthEdge Co., 2023-2025, Secured 15 new clients with pitches.",
+    "output": "What pitches secured clients at GrowthEdge Co.?"
+  },
+  {
+    "input": "CV section: Quality Assurance Tester, TestRight Labs, 2022-2024, Reduced defects by 22% with test cases.",
+    "output": "How did test cases reduce defects at TestRight Labs?"
+  },
+  {
+    "input": "CV section: Customer Support Specialist, HelpVista Inc., 2021-2023, Improved resolution rate to 90% within 24 hours.",
+    "output": "What improved the resolution rate at HelpVista Inc.?"
+  },
+  {
+    "input": "CV section: Systems Architect, TechBuild Corp., 2020-2022, Enhanced system scalability by 15% with redesigns.",
+    "output": "How did redesigns enhance scalability at TechBuild Corp.?"
+  },
+  {
+    "input": "CV section: Digital Strategist, MediaPulse Agency, 2023-2025, Boosted ad conversions by 30% with analytics.",
+    "output": "What analytics boosted conversions at MediaPulse Agency?"
+  },
+  {
+    "input": "CV section: Operations Analyst, StreamlinePro Inc., 2022-2024, Reduced process delays by 20% with optimization.",
+    "output": "How did optimization reduce delays at StreamlinePro Inc.?"
+  },
+  {
+    "input": "CV section: Machine Learning Specialist, AIQuest Labs, 2021-2023, Improved model precision by 12% with tuning.",
+    "output": "What tuning improved precision at AIQuest Labs?"
+  },
+  {
+    "input": "CV section: Project Coordinator, BuildSmart Solutions, 2020-2022, Delivered projects 10% under budget.",
+    "output": "How did you deliver projects under budget at BuildSmart Solutions?"
+  },
+  {
+    "input": "CV section: Web Developer, SiteCraft Inc., 2023-2025, Increased page load speed by 35% with optimization.",
+    "output": "What optimization increased speed at SiteCraft Inc.?"
+  },
+  {
+    "input": "CV section: Financial Advisor, WealthPath Ltd., 2022-2024, Grew client portfolios by 18% with planning.",
+    "output": "How did planning grow portfolios at WealthPath Ltd.?"
+  },
+  {
+    "input": "CV section: Embedded Developer, CircuitEdge Tech, 2021-2023, Reduced power usage by 15% with firmware.",
+    "output": "What firmware reduced power usage at CircuitEdge Tech?"
+  },
+  {
+    "input": "CV section: Compliance Manager, ReguSafe Inc., 2020-2022, Achieved 95% audit compliance with policies.",
+    "output": "How did policies ensure compliance at ReguSafe Inc.?"
+  },
+  {
+    "input": "CV section: Technical Support Lead, TechAid Solutions, 2023-2025, Cut ticket resolution time by 25%.",
+    "output": "What cut resolution time at TechAid Solutions?"
+  },
+  {
+    "input": "CV section: Supply Chain Specialist, GlobalMove Ltd., 2022-2024, Decreased inventory costs by 12%.",
+    "output": "How did you decrease inventory costs at GlobalMove Ltd.?"
+  },
+  {
+    "input": "CV section: Cloud Engineer, SkyTech Innovations, 2021-2023, Saved $200K with cloud optimization.",
+    "output": "What optimization saved costs at SkyTech Innovations?"
+  },
+  {
+    "input": "CV section: Public Relations Officer, ConnectMedia Agency, 2020-2022, Increased press coverage by 20%.",
+    "output": "How did you increase press coverage at ConnectMedia Agency?"
+  },
+  {
+    "input": "CV section: Database Administrator, DataCore Systems, 2023-2025, Improved query speed by 28% with indexing.",
+    "output": "What indexing improved query speed at DataCore Systems?"
+  },
+  {
+    "input": "CV section: UX Researcher, UserTrend Studio, 2022-2024, Boosted usability scores by 18% with studies.",
+    "output": "How did studies boost usability at UserTrend Studio?"
+  },
+  {
+    "input": "CV section: Environmental Consultant, GreenFuture Inc., 2021-2023, Reduced emissions by 10% with audits.",
+    "output": "What audits reduced emissions at GreenFuture Inc.?"
+  },
+  {
+    "input": "CV section: Mobile Developer, AppRise Tech, 2020-2022, Increased app downloads by 20% with features.",
+    "output": "What features increased downloads at AppRise Tech?"
+  },
+  {
+    "input": "CV section: Training Manager, SkillBoost Academy, 2023-2025, Raised training completion by 25%.",
+    "output": "How did you raise completion at SkillBoost Academy?"
+  },
+  {
+    "input": "CV section: Field Engineer, InfraPro Solutions, 2022-2024, Reduced repair times by 15% with diagnostics.",
+    "output": "What diagnostics reduced repair times at InfraPro Solutions?"
+  },
+  {
+    "input": "CV section: Research Scientist, BioPeak Labs, 2021-2023, Accelerated experiments by 20% with tools.",
+    "output": "What tools accelerated experiments at BioPeak Labs?"
+  },
+  {
+    "input": "CV section: Event Coordinator, CelebrateNow Inc., 2020-2022, Increased attendance by 30% with promotions.",
+    "output": "What promotions increased attendance at CelebrateNow Inc.?"
+  },
+  {
+    "input": "CV section: Systems Analyst, TechFlow Innovations, 2023-2025, Enhanced system uptime to 99.5%.",
+    "output": "How did you enhance uptime at TechFlow Innovations?"
+  },
+  {
+    "input": "CV section: Legal Consultant, LawBridge Partners, 2022-2024, Reduced legal risks by 15% with reviews.",
+    "output": "What reviews reduced risks at LawBridge Partners?"
+  },
+  {
+    "input": "CV section: Video Producer, ClipMaster Studios, 2021-2023, Reduced production time by 20% with editing.",
+    "output": "What editing reduced time at ClipMaster Studios?"
+  },
+  {
+    "input": "CV section: IT Auditor, SecureCheck Inc., 2020-2022, Identified $400K in savings with audits.",
+    "output": "How did audits identify savings at SecureCheck Inc.?"
+  },
+  {
+    "input": "CV section: Game Designer, PlaySphere Inc., 2023-2025, Increased player engagement by 25% with updates.",
+    "output": "What updates increased engagement at PlaySphere Inc.?"
+  },
+  {
+    "input": "CV section: Safety Coordinator, SafeWork Pro, 2022-2024, Decreased incidents by 18% with training.",
+    "output": "How did training decrease incidents at SafeWork Pro?"
+  },
+  {
+    "input": "CV section: Electrical Engineer, PowerGrid Solutions, 2021-2023, Improved grid stability by 12%.",
+    "output": "What improved grid stability at PowerGrid Solutions?"
+  },
+  {
+    "input": "CV section: Customer Service Manager, HelpLink Pro, 2020-2022, Raised satisfaction scores by 15%.",
+    "output": "How did you raise satisfaction at HelpLink Pro?"
+  },
+  {
+    "input": "CV section: Industrial Designer, DesignPro Inc., 2023-2025, Cut production costs by 10% with designs.",
+    "output": "What designs cut costs at DesignPro Inc.?"
+  },
+  {
+    "input": "CV section: Policy Analyst, GovTrend Agency, 2022-2024, Streamlined approvals by 20% with reviews.",
+    "output": "How did reviews streamline approvals at GovTrend Agency?"
+  },
+  {
+    "input": "CV section: Biomedical Engineer, HealthSync Labs, 2021-2023, Enhanced device reliability by 15%.",
+    "output": "What enhanced device reliability at HealthSync Labs?"
+  },
+  {
+    "input": "CV section: Travel Agent, GlobeTrek Pro, 2020-2022, Boosted bookings by 25% with packages.",
+    "output": "What packages boosted bookings at GlobeTrek Pro?"
+  },
+  {
+    "input": "CV section: Infrastructure Specialist, BuildTech Inc., 2023-2025, Reduced outages by 20% with maintenance.",
+    "output": "How did maintenance reduce outages at BuildTech Inc.?"
+  },
+  {
+    "input": "CV section: Content Creator, MediaMix Pro, 2022-2024, Grew audience by 30% with videos.",
+    "output": "What videos grew the audience at MediaMix Pro?"
+  },
+  {
+    "input": "CV section: Risk Manager, SecureFuture Pro, 2021-2023, Lowered risk exposure by 12%.",
+    "output": "How did you lower risk at SecureFuture Pro?"
+  },
+  {
+    "input": "CV section: Software Tester, QualityPeak Inc., 2020-2022, Cut bug rates by 15% with automation.",
+    "output": "What automation cut bug rates at QualityPeak Inc.?"
+  },
+  {
+    "input": "CV section: Facilities Supervisor, SpaceOptima Pro, 2023-2025, Reduced energy use by 10%.",
+    "output": "How did you reduce energy use at SpaceOptima Pro?"
+  },
+  {
+    "input": "CV section: Digital Marketer, ClickRise Pro, 2022-2024, Increased click-through rates by 20%.",
+    "output": "What increased click-through rates at ClickRise Pro?"
+  },
+  {
+    "input": "CV section: Mechanical Engineer, GearTech Pro, 2021-2023, Boosted machine output by 15%.",
+    "output": "How did you boost output at GearTech Pro?"
+  },
+  {
+    "input": "CV section: HR Recruiter, TalentFlow Pro, 2020-2022, Shortened hiring time by 20%.",
+    "output": "What shortened hiring time at TalentFlow Pro?"
+  },
+  {
+    "input": "CV section: Network Security Expert, CyberShield Pro, 2023-2025, Blocked 98% of threats with firewalls.",
+    "output": "How did firewalls block threats at CyberShield Pro?"
+  },
+  {
+    "input": "CV section: Sales Associate, RetailPeak Pro, 2022-2024, Raised sales by 10% with promotions.",
+    "output": "What promotions raised sales at RetailPeak Pro?"
+  },
+  {
+    "input": "CV section: Process Engineer, FlowMaster Pro, 2021-2023, Reduced waste by 12% with lean methods.",
+    "output": "How did lean methods reduce waste at FlowMaster Pro?"
+  },
+  {
+    "input": "CV section: Cloud Security Specialist, SkyLock Pro, 2020-2022, Enhanced security by 20% with encryption.",
+    "output": "What encryption enhanced security at SkyLock Pro?"
+  },
+  {
+    "input": "CV section: Training Specialist, LearnPro Pro, 2023-2025, Improved skill levels by 25% with courses.",
+    "output": "How did courses improve skills at LearnPro Pro?"
+  },
+  {
+    "input": "CV section: Product Manager, NextStep Pro, 2022-2024, Achieved 15% market growth with launches.",
+    "output": "What launches achieved growth at NextStep Pro?"
+  },
+  {
+    "input": "CV section: Systems Engineer, TechBridge Pro, 2021-2023, Improved reliability by 15% with updates.",
+    "output": "How did updates improve reliability at TechBridge Pro?"
+  },
+  {
+    "input": "CV section: Customer Support Lead, HelpCore Pro, 2020-2022, Reduced wait times by 18%.",
+    "output": "What reduced wait times at HelpCore Pro?"
+  },
+  {
+    "input": "CV section: Industrial Hygienist, CleanAir Pro, 2023-2025, Lowered air quality issues by 15%.",
+    "output": "How did you lower issues at CleanAir Pro?"
+  },
+  {
+    "input": "CV section: Software Architect, CodeCraft Pro, 2022-2024, Reduced technical debt by 20%.",
+    "output": "What reduced technical debt at CodeCraft Pro?"
+  },
+  {
+    "input": "CV section: Inventory Manager, StockSmart Pro, 2021-2023, Improved stock accuracy by 15%.",
+    "output": "How did you improve accuracy at StockSmart Pro?"
+  },
+  {
+    "input": "CV section: UX Designer, UserFocus Pro, 2020-2022, Increased satisfaction by 20% with redesigns.",
+    "output": "What redesigns increased satisfaction at UserFocus Pro?"
+  },
+  {
+    "input": "CV section: Telecom Engineer, ConnectWave Pro, 2023-2025, Boosted signal quality by 10%.",
+    "output": "How did you boost quality at ConnectWave Pro?"
+  },
+  {
+    "input": "CV section: Business Development Manager, GrowthPulse Pro, 2022-2024, Secured 10 new contracts.",
+    "output": "What secured contracts at GrowthPulse Pro?"
+  },
+  {
+    "input": "CV section: Quality Control Inspector, PrecisionParts Pro, 2021-2023, Reduced errors by 15%.",
+    "output": "How did you reduce errors at PrecisionParts Pro?"
+  },
+  {
+    "input": "CV section: AI Developer, SmartMind Pro, 2020-2022, Enhanced algorithm efficiency by 12%.",
+    "output": "What enhanced efficiency at SmartMind Pro?"
+  },
+  {
+    "input": "CV section: Facilities Coordinator, SpacePlan Pro, 2023-2025, Cut maintenance costs by 10%.",
+    "output": "How did you cut costs at SpacePlan Pro?"
+  },
+  {
+    "input": "CV section: Digital Illustrator, ArtFlow Pro, 2022-2024, Grew client projects by 20%.",
+    "output": "What grew projects at ArtFlow Pro?"
+  },
+  {
+    "input": "CV section: Transportation Planner, MoveEasy Pro, 2021-2023, Reduced fuel costs by 12%.",
+    "output": "How did you reduce fuel costs at MoveEasy Pro?"
+  },
+  {
+    "input": "CV section: IT Project Coordinator, TechSync Pro, 2020-2022, Completed projects 15% ahead of schedule.",
+    "output": "What completed projects early at TechSync Pro?"
+  },
+  {
+    "input": "CV section: Clinical Researcher, HealthQuest Pro, 2023-2025, Speeded up trials by 20%.",
+    "output": "How did you speed up trials at HealthQuest Pro?"
+  },
+  {
+    "input": "CV section: E-commerce Specialist, ShopTrend Pro, 2022-2024, Boosted sales by 25%.",
+    "output": "What boosted sales at ShopTrend Pro?"
+  },
+  {
+    "input": "CV section: Structural Engineer, BuildSafe Pro, 2021-2023, Improved safety by 15%.",
+    "output": "How did you improve safety at BuildSafe Pro?"
+  },
+  {
+    "input": "CV section: Social Media Manager, TrendSet Pro, 2020-2022, Grew followers by 30%.",
+    "output": "What grew followers at TrendSet Pro?"
+  },
+  {
+    "input": "CV section: Energy Consultant, GreenVolt Pro, 2023-2025, Reduced consumption by 10%.",
+    "output": "How did you reduce consumption at GreenVolt Pro?"
+  },
+  {
+    "input": "CV section: Automation Specialist, RoboTech Pro, 2022-2024, Increased output by 20%.",
+    "output": "What increased output at RoboTech Pro?"
+  },
+  {
+    "input": "CV section: Fundraising Coordinator, CharityLink Pro, 2021-2023, Raised $300K with events.",
+    "output": "What events raised funds at CharityLink Pro?"
+  },
+  {
+    "input": "CV section: GIS Analyst, MapMaster Pro, 2020-2022, Improved mapping by 12%.",
+    "output": "How did you improve mapping at MapMaster Pro?"
+  },
+  {
+    "input": "CV section: Compliance Auditor, ReguCheck Pro, 2023-2025, Ensured 97% compliance.",
+    "output": "How did you ensure compliance at ReguCheck Pro?"
+  },
+  {
+    "input": "CV section: Photonics Engineer, LightWave Pro, 2022-2024, Boosted efficiency by 15%.",
+    "output": "What boosted efficiency at LightWave Pro?"
+  },
+  {
+    "input": "CV section: Patient Care Coordinator, HealWell Pro, 2021-2023, Reduced wait times by 20%.",
+    "output": "How did you reduce wait times at HealWell Pro?"
+  },
+  {
+    "input": "CV section: VR Developer, ImmersiveX Pro, 2020-2022, Increased immersion by 25%.",
+    "output": "What increased immersion at ImmersiveX Pro?"
+  },
+  {
+    "input": "CV section: Payroll Specialist, PaySure Pro, 2023-2025, Eliminated errors by 100%.",
+    "output": "How did you eliminate errors at PaySure Pro?"
+  },
+  {
+    "input": "CV section: Sustainability Expert, EcoBalance Pro, 2022-2024, Cut carbon footprint by 10%.",
+    "output": "What cut the footprint at EcoBalance Pro?"
+  },
+  {
+    "input": "CV section: Technical Trainer, SkillPath Pro, 2021-2023, Raised certification rates by 20%.",
+    "output": "How did you raise rates at SkillPath Pro?"
+  },
+  {
+    "input": "CV section: Fleet Manager, TransPort Pro, 2020-2022, Reduced costs by 15%.",
+    "output": "How did you reduce costs at TransPort Pro?"
+  },
+  {
+    "input": "CV section: Bioinformatics Analyst, GeneTrack Pro, 2023-2025, Accelerated analysis by 20%.",
+    "output": "What accelerated analysis at GeneTrack Pro?"
+  },
+  {
+    "input": "CV section: Community Manager, SocialSphere Pro, 2022-2024, Grew engagement by 30%.",
+    "output": "What grew engagement at SocialSphere Pro?"
+  },
+  {
+    "input": "CV section: Chemical Engineer, PureChem Pro, 2021-2023, Increased yield by 12%.",
+    "output": "How did you increase yield at PureChem Pro?"
+  },
+  {
+    "input": "CV section: Executive Assistant, LeadPro Pro, 2020-2022, Improved efficiency by 20%.",
+    "output": "What improved efficiency at LeadPro Pro?"
+  },
+  {
+    "input": "CV section: Data Entry Clerk, InfoSync Pro, 2023-2025, Reduced errors by 15%.",
+    "output": "How did you reduce errors at InfoSync Pro?"
+  },
+  {
+    "input": "CV section: Acoustics Engineer, SoundWave Pro, 2022-2024, Reduced noise by 10%.",
+    "output": "What reduced noise at SoundWave Pro?"
+  },
+  {
+    "input": "CV section: Insurance Agent, CoverAll Pro, 2021-2023, Increased policies by 20%.",
+    "output": "How did you increase policies at CoverAll Pro?"
+  },
+  {
+    "input": "CV section: Urban Planner, CityBuild Pro, 2020-2022, Improved traffic by 15%.",
+    "output": "What improved traffic at CityBuild Pro?"
+  },
+  {
+    "input": "CV section: Copywriter, WordCraft Pro, 2023-2025, Boosted conversions by 15%.",
+    "output": "What boosted conversions at WordCraft Pro?"
+  },
+  {
+    "input": "CV section: Hardware Technician, TechFix Pro, 2022-2024, Reduced downtime by 18%.",
+    "output": "How did you reduce downtime at TechFix Pro?"
+  },
+  {
+    "input": "CV section: Veterinary Assistant, PetCare Pro, 2021-2023, Improved recovery by 10%.",
+    "output": "What improved recovery at PetCare Pro?"
+  },
+  {
+    "input": "CV section: Construction Supervisor, BuildStrong Pro, 2020-2022, Completed projects 10% early.",
+    "output": "How did you complete projects early at BuildStrong Pro?"
+  },
+  {
+    "input": "CV section: Sports Coach, FitFuture Pro, 2023-2025, Increased wins by 15%.",
+    "output": "What increased wins at FitFuture Pro?"
+  },
+  {
+    "input": "CV section: Photographer, LensPro Pro, 2022-2024, Grew clients by 20%.",
+    "output": "What grew clients at LensPro Pro?"
+  },
+  {
+    "input": "CV section: Hospitality Manager, StayBright Pro, 2021-2023, Raised guest ratings by 15%.",
+    "output": "How did you raise ratings at StayBright Pro?"
+  },
+  {
+    "input": "CV section: Aerospace Engineer, SkyHigh Pro, 2020-2022, Enhanced safety by 12%.",
+    "output": "What enhanced safety at SkyHigh Pro?"
+  },
+  {
+    "input": "CV section: Nutritionist, HealthBite Pro, 2023-2025, Improved health outcomes by 10%.",
+    "output": "How did you improve outcomes at HealthBite Pro?"
+  },
+  {
+    "input": "CV section: Real Estate Agent, HomeQuest Pro, 2022-2024, Increased sales by 25%.",
+    "output": "What increased sales at HomeQuest Pro?"
+  },
+  {
+    "input": "CV section: Landscape Architect, GreenScape Pro, 2021-2023, Reduced water use by 15%.",
+    "output": "How did you reduce water use at GreenScape Pro?"
+  },
+  {
+    "input": "CV section: Dental Hygienist, SmileCare Pro, 2020-2022, Increased visits by 20%.",
+    "output": "What increased visits at SmileCare Pro?"
+  },
+  {
+    "input": "CV section: Fitness Trainer, ActiveLife Pro, 2023-2025, Grew membership by 18%.",
+    "output": "What grew membership at ActiveLife Pro?"
+  },
+  {
+    "input": "CV section: Marine Biologist, OceanWatch Pro, 2022-2024, Protected 10% more species.",
+    "output": "How did you protect species at OceanWatch Pro?"
+  },
+  {
+    "input": "CV section: Music Therapist, HarmonyHeal Pro, 2021-2023, Improved mood by 15%.",
+    "output": "What improved mood at HarmonyHeal Pro?"
+  },
+  {
+    "input": "CV section: Fashion Designer, StyleTrend Pro, 2020-2022, Boosted sales by 20%.",
+    "output": "What boosted sales at StyleTrend Pro?"
+  },
+  {
+    "input": "CV section: Wildlife Ranger, NatureGuard Pro, 2023-2025, Reduced poaching by 12%.",
+    "output": "How did you reduce poaching at NatureGuard Pro?"
+  },
+  {
+    "input": "CV section: Event Photographer, SnapMoment Pro, 2022-2024, Increased bookings by 25%.",
+    "output": "What increased bookings at SnapMoment Pro?"
+  },
+  {
+    "input": "CV section: Occupational Therapist, RehabRise Pro, 2021-2023, Improved recovery by 10%.",
+    "output": "How did you improve recovery at RehabRise Pro?"
+  },
+  {
+    "input": "CV section: Jewelry Designer, GemCraft Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at GemCraft Pro?"
+  },
+  {
+    "input": "CV section: Travel Writer, Wanderlust Pro, 2023-2025, Increased readership by 30%.",
+    "output": "What increased readership at Wanderlust Pro?"
+  },
+  {
+    "input": "CV section: Horticulturist, GreenLeaf Pro, 2022-2024, Boosted yield by 12%.",
+    "output": "How did you boost yield at GreenLeaf Pro?"
+  },
+  {
+    "input": "CV section: Archivist, HistoryPreserve Pro, 2021-2023, Improved access by 20%.",
+    "output": "What improved access at HistoryPreserve Pro?"
+  },
+  {
+    "input": "CV section: Voice Coach, SoundMaster Pro, 2020-2022, Raised performance by 15%.",
+    "output": "What raised performance at SoundMaster Pro?"
+  },
+  {
+    "input": "CV section: Film Editor, CineCraft Pro, 2023-2025, Cut edit time by 10%.",
+    "output": "What cut edit time at CineCraft Pro?"
+  },
+  {
+    "input": "CV section: Childcare Worker, LittleSteps Pro, 2022-2024, Improved development by 12%.",
+    "output": "How did you improve development at LittleSteps Pro?"
+  },
+  {
+    "input": "CV section: Textile Designer, FabricFlow Pro, 2021-2023, Increased range by 20%.",
+    "output": "What increased range at FabricFlow Pro?"
+  },
+  {
+    "input": "CV section: Park Ranger, WildHaven Pro, 2020-2022, Reduced vandalism by 15%.",
+    "output": "How did you reduce vandalism at WildHaven Pro?"
+  },
+  {
+    "input": "CV section: Culinary Instructor, TasteBud Pro, 2023-2025, Grew enrollment by 18%.",
+    "output": "What grew enrollment at TasteBud Pro?"
+  },
+  {
+    "input": "CV section: Historian, TimeTrace Pro, 2022-2024, Enhanced attendance by 25%.",
+    "output": "What enhanced attendance at TimeTrace Pro?"
+  },
+  {
+    "input": "CV section: Librarian, BookHaven Pro, 2021-2023, Boosted circulation by 20%.",
+    "output": "What boosted circulation at BookHaven Pro?"
+  },
+  {
+    "input": "CV section: Art Therapist, CreativeHeal Pro, 2020-2022, Improved well-being by 10%.",
+    "output": "How did you improve well-being at CreativeHeal Pro?"
+  },
+  {
+    "input": "CV section: Meteorologist, WeatherWatch Pro, 2023-2025, Raised forecast accuracy by 15%.",
+    "output": "What raised accuracy at WeatherWatch Pro?"
+  },
+  {
+    "input": "CV section: Interpreter, LangBridge Pro, 2022-2024, Increased satisfaction by 20%.",
+    "output": "How did you increase satisfaction at LangBridge Pro?"
+  },
+  {
+    "input": "CV section: Geologist, EarthScan Pro, 2021-2023, Identified 10% more resources.",
+    "output": "What identified resources at EarthScan Pro?"
+  },
+  {
+    "input": "CV section: Dance Instructor, MoveRhythm Pro, 2020-2022, Grew students by 15%.",
+    "output": "What grew students at MoveRhythm Pro?"
+  },
+  {
+    "input": "CV section: Speech Therapist, VoiceCare Pro, 2023-2025, Improved clarity by 12%.",
+    "output": "How did you improve clarity at VoiceCare Pro?"
+  },
+  {
+    "input": "CV section: Animator, FrameMaster Pro, 2022-2024, Increased wins by 20%.",
+    "output": "What increased wins at FrameMaster Pro?"
+  },
+  {
+    "input": "CV section: Zoologist, WildLife Pro, 2021-2023, Protected 5% more habitats.",
+    "output": "How did you protect habitats at WildLife Pro?"
+  },
+  {
+    "input": "CV section: Puppeteer, PuppetPlay Pro, 2020-2022, Boosted attendance by 18%.",
+    "output": "What boosted attendance at PuppetPlay Pro?"
+  },
+  {
+    "input": "CV section: Optometrist, ClearSight Pro, 2023-2025, Improved outcomes by 10%.",
+    "output": "How did you improve outcomes at ClearSight Pro?"
+  },
+  {
+    "input": "CV section: Astronomer, StarGaze Pro, 2022-2024, Discovered 5 new objects.",
+    "output": "What aided discoveries at StarGaze Pro?"
+  },
+  {
+    "input": "CV section: Magician, MagicWand Pro, 2021-2023, Increased bookings by 25%.",
+    "output": "What increased bookings at MagicWand Pro?"
+  },
+  {
+    "input": "CV section: Paramedic, QuickRespond Pro, 2020-2022, Reduced response time by 15%.",
+    "output": "How did you reduce response time at QuickRespond Pro?"
+  },
+  {
+    "input": "CV section: Cartographer, MapQuest Pro, 2023-2025, Enhanced detail by 12%.",
+    "output": "What enhanced detail at MapQuest Pro?"
+  },
+  {
+    "input": "CV section: Pastry Chef, SweetTreat Pro, 2022-2024, Raised sales by 20%.",
+    "output": "What raised sales at SweetTreat Pro?"
+  },
+  {
+    "input": "CV section: Firefighter, BlazeGuard Pro, 2021-2023, Reduced delays by 10%.",
+    "output": "How did you reduce delays at BlazeGuard Pro?"
+  },
+  {
+    "input": "CV section: Archaeologist, AncientFinds Pro, 2020-2022, Uncovered 15% more artifacts.",
+    "output": "What uncovered artifacts at AncientFinds Pro?"
+  },
+  {
+    "input": "CV section: Stunt Performer, ActionScene Pro, 2023-2025, Improved safety by 15%.",
+    "output": "What improved safety at ActionScene Pro?"
+  },
+  {
+    "input": "CV section: Massage Therapist, RelaxWell Pro, 2022-2024, Raised return rate by 12%.",
+    "output": "How did you raise the return rate at RelaxWell Pro?"
+  },
+  {
+    "input": "CV section: Tour Guide, ExplorePath Pro, 2021-2023, Boosted ratings by 20%.",
+    "output": "What boosted ratings at ExplorePath Pro?"
+  },
+  {
+    "input": "CV section: Jewelry Maker, GemSpark Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at GemSpark Pro?"
+  },
+  {
+    "input": "CV section: Florist, BloomField Pro, 2023-2025, Increased orders by 18%.",
+    "output": "What increased orders at BloomField Pro?"
+  },
+  {
+    "input": "CV section: Carpenter, WoodCraft Pro, 2022-2024, Reduced time by 10%.",
+    "output": "How did you reduce time at WoodCraft Pro?"
+  },
+  {
+    "input": "CV section: Pilot, SkyLink Pro, 2021-2023, Improved arrivals by 12%.",
+    "output": "What improved arrivals at SkyLink Pro?"
+  },
+  {
+    "input": "CV section: Tailor, StitchPerfect Pro, 2020-2022, Increased loyalty by 15%.",
+    "output": "How did you increase loyalty at StitchPerfect Pro?"
+  },
+  {
+    "input": "CV section: Beekeeper, HoneyHive Pro, 2023-2025, Boosted production by 10%.",
+    "output": "What boosted production at HoneyHive Pro?"
+  },
+  {
+    "input": "CV section: Potter, ClayArt Pro, 2022-2024, Grew sales by 20%.",
+    "output": "What grew sales at ClayArt Pro?"
+  },
+  {
+    "input": "CV section: Lifeguard, WaveSafe Pro, 2021-2023, Reduced incidents by 15%.",
+    "output": "How did you reduce incidents at WaveSafe Pro?"
+  },
+  {
+    "input": "CV section: Fisherman, SeaCatch Pro, 2020-2022, Increased yield by 12%.",
+    "output": "What increased yield at SeaCatch Pro?"
+  },
+  {
+    "input": "CV section: Glassblower, ClearCraft Pro, 2023-2025, Boosted sales by 18%.",
+    "output": "What boosted sales at ClearCraft Pro?"
+  },
+  {
+    "input": "CV section: Dog Trainer, PawPerfect Pro, 2022-2024, Improved obedience by 10%.",
+    "output": "How did you improve obedience at PawPerfect Pro?"
+  },
+  {
+    "input": "CV section: Blacksmith, ForgeMaster Pro, 2021-2023, Increased output by 15%.",
+    "output": "What increased output at ForgeMaster Pro?"
+  },
+  {
+    "input": "CV section: Candle Maker, GlowLight Pro, 2020-2022, Grew sales by 20%.",
+    "output": "What grew sales at GlowLight Pro?"
+  },
+  {
+    "input": "CV section: Falconer, SkyHunt Pro, 2023-2025, Improved success by 12%.",
+    "output": "What improved success at SkyHunt Pro?"
+  },
+  {
+    "input": "CV section: Weaver, ThreadArt Pro, 2022-2024, Increased variety by 15%.",
+    "output": "What increased variety at ThreadArt Pro?"
+  },
+  {
+    "input": "CV section: Horse Trainer, StableStrong Pro, 2021-2023, Boosted performance by 10%.",
+    "output": "How did you boost performance at StableStrong Pro?"
+  },
+  {
+    "input": "CV section: Tattoo Artist, InkMaster Pro, 2020-2022, Grew clients by 20%.",
+    "output": "What grew clients at InkMaster Pro?"
+  },
+  {
+    "input": "CV section: Puppeteer, PuppetJoy Pro, 2023-2025, Increased attendance by 15%.",
+    "output": "What increased attendance at PuppetJoy Pro?"
+  },
+  {
+    "input": "CV section: Sculptor, StoneCraft Pro, 2022-2024, Boosted sales by 18%.",
+    "output": "What boosted sales at StoneCraft Pro?"
+  },
+  {
+    "input": "CV section: Magician, MagicRealm Pro, 2021-2023, Increased bookings by 25%.",
+    "output": "What increased bookings at MagicRealm Pro?"
+  },
+  {
+    "input": "CV section: Jockey, RaceTrack Pro, 2020-2022, Improved win rate by 12%.",
+    "output": "What improved the win rate at RaceTrack Pro?"
+  },
+  {
+    "input": "CV section: Basket Weaver, CraftWeave Pro, 2023-2025, Increased sales by 15%.",
+    "output": "What increased sales at CraftWeave Pro?"
+  },
+  {
+    "input": "CV section: Circus Performer, RingMaster Pro, 2022-2024, Boosted ticket sales by 20%.",
+    "output": "What boosted sales at RingMaster Pro?"
+  },
+  {
+    "input": "CV section: Ice Sculptor, FrostArt Pro, 2021-2023, Grew commissions by 10%.",
+    "output": "What grew commissions at FrostArt Pro?"
+  },
+  {
+    "input": "CV section: Stonemason, RockSolid Pro, 2020-2022, Reduced time by 12%.",
+    "output": "How did you reduce time at RockSolid Pro?"
+  },
+  {
+    "input": "CV section: Falconer, SkyWing Pro, 2023-2025, Improved hunting by 15%.",
+    "output": "What improved hunting at SkyWing Pro?"
+  },
+  {
+    "input": "CV section: Leatherworker, HideCraft Pro, 2022-2024, Increased sales by 18%.",
+    "output": "What increased sales at HideCraft Pro?"
+  },
+  {
+    "input": "CV section: Beadworker, GemThread Pro, 2021-2023, Grew clients by 20%.",
+    "output": "What grew clients at GemThread Pro?"
+  },
+  {
+    "input": "CV section: Woodcarver, TimberArt Pro, 2020-2022, Boosted sales by 15%.",
+    "output": "What boosted sales at TimberArt Pro?"
+  },
+  {
+    "input": "CV section: Calligrapher, InkFlow Pro, 2023-2025, Increased orders by 12%.",
+    "output": "What increased orders at InkFlow Pro?"
+  },
+  {
+    "input": "CV section: Kite Maker, SkyDance Pro, 2022-2024, Grew sales by 10%.",
+    "output": "What grew sales at SkyDance Pro?"
+  },
+  {
+    "input": "CV section: Puppet Maker, ToyCraft Pro, 2021-2023, Increased production by 15%.",
+    "output": "What increased production at ToyCraft Pro?"
+  },
+  {
+    "input": "CV section: Quilt Maker, StitchBloom Pro, 2020-2022, Boosted sales by 18%.",
+    "output": "What boosted sales at StitchBloom Pro?"
+  },
+  {
+    "input": "CV section: Paper Artist, FoldCraft Pro, 2023-2025, Grew exhibits by 20%.",
+    "output": "What grew exhibits at FoldCraft Pro?"
+  },
+  {
+    "input": "CV section: Soap Maker, PureScent Pro, 2022-2024, Increased sales by 15%.",
+    "output": "What increased sales at PureScent Pro?"
+  },
+  {
+    "input": "CV section: Model Builder, MiniWorld Pro, 2021-2023, Boosted interest by 12%.",
+    "output": "What boosted interest at MiniWorld Pro?"
+  },
+  {
+    "input": "CV section: Toy Designer, PlayTime Pro, 2020-2022, Increased sales by 20%.",
+    "output": "What increased sales at PlayTime Pro?"
+  },
+  {
+    "input": "CV section: Glass Painter, ColorGlass Pro, 2023-2025, Grew commissions by 15%.",
+    "output": "What grew commissions at ColorGlass Pro?"
+  },
+  {
+    "input": "CV section: Lace Maker, ThreadLace Pro, 2022-2024, Increased orders by 10%.",
+    "output": "What increased orders at ThreadLace Pro?"
+  },
+  {
+    "input": "CV section: Doll Maker, TinyTreasures Pro, 2021-2023, Boosted sales by 18%.",
+    "output": "What boosted sales at TinyTreasures Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Artist, TileCraft Pro, 2020-2022, Grew projects by 12%.",
+    "output": "What grew projects at TileCraft Pro?"
+  },
+  {
+    "input": "CV section: Candle Carver, WaxArt Pro, 2023-2025, Increased sales by 15%.",
+    "output": "What increased sales at WaxArt Pro?"
+  },
+  {
+    "input": "CV section: Wood Turner, SpinWood Pro, 2022-2024, Boosted sales by 20%.",
+    "output": "What boosted sales at SpinWood Pro?"
+  },
+  {
+    "input": "CV section: Metal Engraver, SteelMark Pro, 2021-2023, Grew orders by 10%.",
+    "output": "What grew orders at SteelMark Pro?"
+  },
+  {
+    "input": "CV section: Basket Weaver, WeaveMaster Pro, 2020-2022, Increased sales by 15%.",
+    "output": "What increased sales at WeaveMaster Pro?"
+  },
+  {
+    "input": "CV section: Pottery Painter, ClayColor Pro, 2023-2025, Boosted sales by 12%.",
+    "output": "What boosted sales at ClayColor Pro?"
+  },
+  {
+    "input": "CV section: Fabric Dyer, DyeCraft Pro, 2022-2024, Grew sales by 18%.",
+    "output": "What grew sales at DyeCraft Pro?"
+  },
+  {
+    "input": "CV section: Rug Maker, WeftArt Pro, 2021-2023, Increased sales by 15%.",
+    "output": "What increased sales at WeftArt Pro?"
+  },
+  {
+    "input": "CV section: Tapestry Weaver, ThreadTapestry Pro, 2020-2022, Boosted sales by 10%.",
+    "output": "What boosted sales at ThreadTapestry Pro?"
+  },
+  {
+    "input": "CV section: Bead Weaver, GemBead Pro, 2023-2025, Grew sales by 20%.",
+    "output": "What grew sales at GemBead Pro?"
+  },
+  {
+    "input": "CV section: Leather Carver, HideArt Pro, 2022-2024, Increased sales by 12%.",
+    "output": "What increased sales at HideArt Pro?"
+  },
+  {
+    "input": "CV section: Metal Smith, ForgeCraft Pro, 2021-2023, Boosted sales by 15%.",
+    "output": "What boosted sales at ForgeCraft Pro?"
+  },
+  {
+    "input": "CV section: Glass Blower, ClearWind Pro, 2020-2022, Grew sales by 18%.",
+    "output": "What grew sales at ClearWind Pro?"
+  },
+  {
+    "input": "CV section: Wood Sculptor, TimberSculpt Pro, 2023-2025, Increased sales by 10%.",
+    "output": "What increased sales at TimberSculpt Pro?"
+  },
+  {
+    "input": "CV section: Paper Maker, PulpCraft Pro, 2022-2024, Boosted sales by 15%.",
+    "output": "What boosted sales at PulpCraft Pro?"
+  },
+  {
+    "input": "CV section: Candle Maker, LightCraft Pro, 2021-2023, Grew sales by 12%.",
+    "output": "What grew sales at LightCraft Pro?"
+  },
+  {
+    "input": "CV section: Puppet Carver, PuppetArt Pro, 2020-2022, Increased sales by 20%.",
+    "output": "What increased sales at PuppetArt Pro?"
+  },
+  {
+    "input": "CV section: Quilt Maker, PatchWork Pro, 2023-2025, Boosted sales by 15%.",
+    "output": "What boosted sales at PatchWork Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Maker, TileArt Pro, 2022-2024, Grew sales by 10%.",
+    "output": "What grew sales at TileArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Painter, ColorCraft Pro, 2021-2023, Increased sales by 18%.",
+    "output": "What increased sales at ColorCraft Pro?"
+  },
+  {
+    "input": "CV section: Lace Maker, ThreadLace Pro, 2020-2022, Boosted sales by 12%.",
+    "output": "What boosted sales at ThreadLace Pro?"
+  },
+  {
+    "input": "CV section: Doll Maker, TinyArt Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at TinyArt Pro?"
+  },
+  {
+    "input": "CV section: Paper Artist, FoldArt Pro, 2022-2024, Increased sales by 20%.",
+    "output": "What increased sales at FoldArt Pro?"
+  },
+  {
+    "input": "CV section: Soap Maker, PureGlow Pro, 2021-2023, Boosted sales by 10%.",
+    "output": "What boosted sales at PureGlow Pro?"
+  },
+  {
+    "input": "CV section: Model Maker, MiniCraft Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at MiniCraft Pro?"
+  },
+  {
+    "input": "CV section: Toy Maker, PlayCraft Pro, 2023-2025, Increased sales by 12%.",
+    "output": "What increased sales at PlayCraft Pro?"
+  },
+  {
+    "input": "CV section: Glass Carver, ClearCut Pro, 2022-2024, Boosted sales by 18%.",
+    "output": "What boosted sales at ClearCut Pro?"
+  },
+  {
+    "input": "CV section: Lace Weaver, ThreadWeave Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at ThreadWeave Pro?"
+  },
+  {
+    "input": "CV section: Doll Painter, TinyPaint Pro, 2020-2022, Increased sales by 10%.",
+    "output": "What increased sales at TinyPaint Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Designer, TileDesign Pro, 2023-2025, Boosted sales by 12%.",
+    "output": "What boosted sales at TileDesign Pro?"
+  },
+  {
+    "input": "CV section: Candle Designer, WaxDesign Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at WaxDesign Pro?"
+  },
+  {
+    "input": "CV section: Wood Turner, SpinArt Pro, 2021-2023, Increased sales by 20%.",
+    "output": "What increased sales at SpinArt Pro?"
+  },
+  {
+    "input": "CV section: Metal Engraver, SteelArt Pro, 2020-2022, Boosted sales by 10%.",
+    "output": "What boosted sales at SteelArt Pro?"
+  },
+  {
+    "input": "CV section: Basket Weaver, WeaveArt Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at WeaveArt Pro?"
+  },
+  {
+    "input": "CV section: Pottery Painter, ClayPaint Pro, 2022-2024, Increased sales by 12%.",
+    "output": "What increased sales at ClayPaint Pro?"
+  },
+  {
+    "input": "CV section: Fabric Dyer, DyeArt Pro, 2021-2023, Boosted sales by 18%.",
+    "output": "What boosted sales at DyeArt Pro?"
+  },
+  {
+    "input": "CV section: Rug Maker, WeftCraft Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at WeftCraft Pro?"
+  },
+  {
+    "input": "CV section: Tapestry Weaver, ThreadTapestry Pro, 2023-2025, Increased sales by 10%.",
+    "output": "What increased sales at ThreadTapestry Pro?"
+  },
+  {
+    "input": "CV section: Bead Weaver, GemBead Pro, 2022-2024, Boosted sales by 12%.",
+    "output": "What boosted sales at GemBead Pro?"
+  },
+  {
+    "input": "CV section: Leather Carver, HideCraft Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at HideCraft Pro?"
+  },
+  {
+    "input": "CV section: Metal Smith, ForgeArt Pro, 2020-2022, Increased sales by 18%.",
+    "output": "What increased sales at ForgeArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Blower, ClearWind Pro, 2023-2025, Boosted sales by 10%.",
+    "output": "What boosted sales at ClearWind Pro?"
+  },
+  {
+    "input": "CV section: Wood Sculptor, TimberSculpt Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at TimberSculpt Pro?"
+  },
+  {
+    "input": "CV section: Paper Maker, PulpArt Pro, 2021-2023, Increased sales by 12%.",
+    "output": "What increased sales at PulpArt Pro?"
+  },
+  {
+    "input": "CV section: Candle Maker, LightCraft Pro, 2020-2022, Boosted sales by 20%.",
+    "output": "What boosted sales at LightCraft Pro?"
+  },
+  {
+    "input": "CV section: Puppet Carver, PuppetArt Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at PuppetArt Pro?"
+  },
+  {
+    "input": "CV section: Quilt Maker, PatchWork Pro, 2022-2024, Increased sales by 10%.",
+    "output": "What increased sales at PatchWork Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Maker, TileArt Pro, 2021-2023, Boosted sales by 12%.",
+    "output": "What boosted sales at TileArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Painter, ColorCraft Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at ColorCraft Pro?"
+  },
+  {
+    "input": "CV section: Lace Maker, ThreadLace Pro, 2023-2025, Increased sales by 18%.",
+    "output": "What increased sales at ThreadLace Pro?"
+  },
+  {
+    "input": "CV section: Doll Maker, TinyArt Pro, 2022-2024, Boosted sales by 10%.",
+    "output": "What boosted sales at TinyArt Pro?"
+  },
+  {
+    "input": "CV section: Paper Artist, FoldArt Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at FoldArt Pro?"
+  },
+  {
+    "input": "CV section: Soap Maker, PureGlow Pro, 2020-2022, Increased sales by 12%.",
+    "output": "What increased sales at PureGlow Pro?"
+  },
+  {
+    "input": "CV section: Model Maker, MiniCraft Pro, 2023-2025, Boosted sales by 20%.",
+    "output": "What boosted sales at MiniCraft Pro?"
+  },
+  {
+    "input": "CV section: Toy Maker, PlayCraft Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at PlayCraft Pro?"
+  },
+  {
+    "input": "CV section: Glass Carver, ClearCut Pro, 2021-2023, Increased sales by 10%.",
+    "output": "What increased sales at ClearCut Pro?"
+  },
+  {
+    "input": "CV section: Lace Weaver, ThreadWeave Pro, 2020-2022, Boosted sales by 12%.",
+    "output": "What boosted sales at ThreadWeave Pro?"
+  },
+  {
+    "input": "CV section: Doll Painter, TinyPaint Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at TinyPaint Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Designer, TileDesign Pro, 2022-2024, Increased sales by 18%.",
+    "output": "What increased sales at TileDesign Pro?"
+  },
+  {
+    "input": "CV section: Candle Designer, WaxDesign Pro, 2021-2023, Boosted sales by 10%.",
+    "output": "What boosted sales at WaxDesign Pro?"
+  },
+  {
+    "input": "CV section: Wood Turner, SpinArt Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at SpinArt Pro?"
+  },
+  {
+    "input": "CV section: Metal Engraver, SteelArt Pro, 2023-2025, Increased sales by 12%.",
+    "output": "What increased sales at SteelArt Pro?"
+  },
+  {
+    "input": "CV section: Basket Weaver, WeaveArt Pro, 2022-2024, Boosted sales by 20%.",
+    "output": "What boosted sales at WeaveArt Pro?"
+  },
+  {
+    "input": "CV section: Pottery Painter, ClayPaint Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at ClayPaint Pro?"
+  },
+  {
+    "input": "CV section: Fabric Dyer, DyeArt Pro, 2020-2022, Increased sales by 10%.",
+    "output": "What increased sales at DyeArt Pro?"
+  },
+  {
+    "input": "CV section: Rug Maker, WeftCraft Pro, 2023-2025, Boosted sales by 12%.",
+    "output": "What boosted sales at WeftCraft Pro?"
+  },
+  {
+    "input": "CV section: Tapestry Weaver, ThreadTapestry Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at ThreadTapestry Pro?"
+  },
+  {
+    "input": "CV section: Bead Weaver, GemBead Pro, 2021-2023, Increased sales by 18%.",
+    "output": "What increased sales at GemBead Pro?"
+  },
+  {
+    "input": "CV section: Leather Carver, HideCraft Pro, 2020-2022, Boosted sales by 10%.",
+    "output": "What boosted sales at HideCraft Pro?"
+  },
+  {
+    "input": "CV section: Metal Smith, ForgeArt Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at ForgeArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Blower, ClearWind Pro, 2022-2024, Increased sales by 12%.",
+    "output": "What increased sales at ClearWind Pro?"
+  },
+  {
+    "input": "CV section: Wood Sculptor, TimberSculpt Pro, 2021-2023, Boosted sales by 20%.",
+    "output": "What boosted sales at TimberSculpt Pro?"
+  },
+  {
+    "input": "CV section: Paper Maker, PulpArt Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at PulpArt Pro?"
+  },
+  {
+    "input": "CV section: Candle Maker, LightCraft Pro, 2023-2025, Increased sales by 10%.",
+    "output": "What increased sales at LightCraft Pro?"
+  },
+  {
+    "input": "CV section: Puppet Carver, PuppetArt Pro, 2022-2024, Boosted sales by 12%.",
+    "output": "What boosted sales at PuppetArt Pro?"
+  },
+  {
+    "input": "CV section: Quilt Maker, PatchWork Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at PatchWork Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Maker, TileArt Pro, 2020-2022, Increased sales by 18%.",
+    "output": "What increased sales at TileArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Painter, ColorCraft Pro, 2023-2025, Boosted sales by 10%.",
+    "output": "What boosted sales at ColorCraft Pro?"
+  },
+  {
+    "input": "CV section: Lace Maker, ThreadLace Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at ThreadLace Pro?"
+  },
+  {
+    "input": "CV section: Doll Maker, TinyArt Pro, 2021-2023, Increased sales by 12%.",
+    "output": "What increased sales at TinyArt Pro?"
+  },
+  {
+    "input": "CV section: Paper Artist, FoldArt Pro, 2020-2022, Boosted sales by 20%.",
+    "output": "What boosted sales at FoldArt Pro?"
+  },
+  {
+    "input": "CV section: Soap Maker, PureGlow Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at PureGlow Pro?"
+  },
+  {
+    "input": "CV section: Model Maker, MiniCraft Pro, 2022-2024, Increased sales by 10%.",
+    "output": "What increased sales at MiniCraft Pro?"
+  },
+  {
+    "input": "CV section: Toy Maker, PlayCraft Pro, 2021-2023, Boosted sales by 12%.",
+    "output": "What boosted sales at PlayCraft Pro?"
+  },
+  {
+    "input": "CV section: Glass Carver, ClearCut Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at ClearCut Pro?"
+  },
+  {
+    "input": "CV section: Lace Weaver, ThreadWeave Pro, 2023-2025, Increased sales by 18%.",
+    "output": "What increased sales at ThreadWeave Pro?"
+  },
+  {
+    "input": "CV section: Doll Painter, TinyPaint Pro, 2022-2024, Boosted sales by 10%.",
+    "output": "What boosted sales at TinyPaint Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Designer, TileDesign Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at TileDesign Pro?"
+  },
+  {
+    "input": "CV section: Candle Designer, WaxDesign Pro, 2020-2022, Increased sales by 12%.",
+    "output": "What increased sales at WaxDesign Pro?"
+  },
+  {
+    "input": "CV section: Wood Turner, SpinArt Pro, 2023-2025, Boosted sales by 20%.",
+    "output": "What boosted sales at SpinArt Pro?"
+  },
+  {
+    "input": "CV section: Metal Engraver, SteelArt Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at SteelArt Pro?"
+  },
+  {
+    "input": "CV section: Basket Weaver, WeaveArt Pro, 2021-2023, Increased sales by 10%.",
+    "output": "What increased sales at WeaveArt Pro?"
+  },
+  {
+    "input": "CV section: Pottery Painter, ClayPaint Pro, 2020-2022, Boosted sales by 12%.",
+    "output": "What boosted sales at ClayPaint Pro?"
+  },
+  {
+    "input": "CV section: Fabric Dyer, DyeArt Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at DyeArt Pro?"
+  },
+  {
+    "input": "CV section: Rug Maker, WeftCraft Pro, 2022-2024, Increased sales by 18%.",
+    "output": "What increased sales at WeftCraft Pro?"
+  },
+  {
+    "input": "CV section: Tapestry Weaver, ThreadTapestry Pro, 2021-2023, Boosted sales by 10%.",
+    "output": "What boosted sales at ThreadTapestry Pro?"
+  },
+  {
+    "input": "CV section: Bead Weaver, GemBead Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at GemBead Pro?"
+  },
+  {
+    "input": "CV section: Leather Carver, HideCraft Pro, 2023-2025, Increased sales by 12%.",
+    "output": "What increased sales at HideCraft Pro?"
+  },
+  {
+    "input": "CV section: Metal Smith, ForgeArt Pro, 2022-2024, Boosted sales by 20%.",
+    "output": "What boosted sales at ForgeArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Blower, ClearWind Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at ClearWind Pro?"
+  },
+  {
+    "input": "CV section: Wood Sculptor, TimberSculpt Pro, 2020-2022, Increased sales by 10%.",
+    "output": "What increased sales at TimberSculpt Pro?"
+  },
+  {
+    "input": "CV section: Paper Maker, PulpArt Pro, 2023-2025, Boosted sales by 12%.",
+    "output": "What boosted sales at PulpArt Pro?"
+  },
+  {
+    "input": "CV section: Candle Maker, LightCraft Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at LightCraft Pro?"
+  },
+  {
+    "input": "CV section: Puppet Carver, PuppetArt Pro, 2021-2023, Increased sales by 18%.",
+    "output": "What increased sales at PuppetArt Pro?"
+  },
+  {
+    "input": "CV section: Quilt Maker, PatchWork Pro, 2020-2022, Boosted sales by 10%.",
+    "output": "What boosted sales at PatchWork Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Maker, TileArt Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at TileArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Painter, ColorCraft Pro, 2022-2024, Increased sales by 12%.",
+    "output": "What increased sales at ColorCraft Pro?"
+  },
+  {
+    "input": "CV section: Lace Maker, ThreadLace Pro, 2021-2023, Boosted sales by 20%.",
+    "output": "What boosted sales at ThreadLace Pro?"
+  },
+  {
+    "input": "CV section: Doll Maker, TinyArt Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at TinyArt Pro?"
+  },
+  {
+    "input": "CV section: Paper Artist, FoldArt Pro, 2023-2025, Increased sales by 10%.",
+    "output": "What increased sales at FoldArt Pro?"
+  },
+  {
+    "input": "CV section: Soap Maker, PureGlow Pro, 2022-2024, Boosted sales by 12%.",
+    "output": "What boosted sales at PureGlow Pro?"
+  },
+  {
+    "input": "CV section: Model Maker, MiniCraft Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at MiniCraft Pro?"
+  },
+  {
+    "input": "CV section: Toy Maker, PlayCraft Pro, 2020-2022, Increased sales by 18%.",
+    "output": "What increased sales at PlayCraft Pro?"
+  },
+  {
+    "input": "CV section: Glass Carver, ClearCut Pro, 2023-2025, Boosted sales by 10%.",
+    "output": "What boosted sales at ClearCut Pro?"
+  },
+  {
+    "input": "CV section: Lace Weaver, ThreadWeave Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at ThreadWeave Pro?"
+  },
+  {
+    "input": "CV section: Doll Painter, TinyPaint Pro, 2021-2023, Increased sales by 12%.",
+    "output": "What increased sales at TinyPaint Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Designer, TileDesign Pro, 2020-2022, Boosted sales by 20%.",
+    "output": "What boosted sales at TileDesign Pro?"
+  },
+  {
+    "input": "CV section: Candle Designer, WaxDesign Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at WaxDesign Pro?"
+  },
+  {
+    "input": "CV section: Wood Turner, SpinArt Pro, 2022-2024, Increased sales by 10%.",
+    "output": "What increased sales at SpinArt Pro?"
+  },
+  {
+    "input": "CV section: Metal Engraver, SteelArt Pro, 2021-2023, Boosted sales by 12%.",
+    "output": "What boosted sales at SteelArt Pro?"
+  },
+  {
+    "input": "CV section: Basket Weaver, WeaveArt Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at WeaveArt Pro?"
+  },
+  {
+    "input": "CV section: Pottery Painter, ClayPaint Pro, 2023-2025, Increased sales by 18%.",
+    "output": "What increased sales at ClayPaint Pro?"
+  },
+  {
+    "input": "CV section: Fabric Dyer, DyeArt Pro, 2022-2024, Boosted sales by 10%.",
+    "output": "What boosted sales at DyeArt Pro?"
+  },
+  {
+    "input": "CV section: Rug Maker, WeftCraft Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at WeftCraft Pro?"
+  },
+  {
+    "input": "CV section: Tapestry Weaver, ThreadTapestry Pro, 2020-2022, Increased sales by 12%.",
+    "output": "What increased sales at ThreadTapestry Pro?"
+  },
+  {
+    "input": "CV section: Bead Weaver, GemBead Pro, 2023-2025, Boosted sales by 20%.",
+    "output": "What boosted sales at GemBead Pro?"
+  },
+  {
+    "input": "CV section: Leather Carver, HideCraft Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at HideCraft Pro?"
+  },
+  {
+    "input": "CV section: Metal Smith, ForgeArt Pro, 2021-2023, Increased sales by 10%.",
+    "output": "What increased sales at ForgeArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Blower, ClearWind Pro, 2020-2022, Boosted sales by 12%.",
+    "output": "What boosted sales at ClearWind Pro?"
+  },
+  {
+    "input": "CV section: Wood Sculptor, TimberSculpt Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at TimberSculpt Pro?"
+  },
+  {
+    "input": "CV section: Paper Maker, PulpArt Pro, 2022-2024, Increased sales by 18%.",
+    "output": "What increased sales at PulpArt Pro?"
+  },
+  {
+    "input": "CV section: Candle Maker, LightCraft Pro, 2021-2023, Boosted sales by 10%.",
+    "output": "What boosted sales at LightCraft Pro?"
+  },
+  {
+    "input": "CV section: Puppet Carver, PuppetArt Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at PuppetArt Pro?"
+  },
+  {
+    "input": "CV section: Quilt Maker, PatchWork Pro, 2023-2025, Increased sales by 12%.",
+    "output": "What increased sales at PatchWork Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Maker, TileArt Pro, 2022-2024, Boosted sales by 20%.",
+    "output": "What boosted sales at TileArt Pro?"
+  },
+  {
+    "input": "CV section: Glass Painter, ColorCraft Pro, 2021-2023, Grew sales by 15%.",
+    "output": "What grew sales at ColorCraft Pro?"
+  },
+  {
+    "input": "CV section: Lace Maker, ThreadLace Pro, 2020-2022, Increased sales by 10%.",
+    "output": "What increased sales at ThreadLace Pro?"
+  },
+  {
+    "input": "CV section: Doll Maker, TinyArt Pro, 2023-2025, Boosted sales by 12%.",
+    "output": "What boosted sales at TinyArt Pro?"
+  },
+  {
+    "input": "CV section: Paper Artist, FoldArt Pro, 2022-2024, Grew sales by 15%.",
+    "output": "What grew sales at FoldArt Pro?"
+  },
+
+  {
+    "input": "CV section: Soap Maker, PureGlow Pro, 2021-2023, Increased sales by 18%.",
+    "output": "What increased sales at PureGlow Pro?"
+  },
+  {
+    "input": "CV section: Model Maker, MiniCraft Pro, 2020-2022, Boosted sales by 10%.",
+    "output": "What boosted sales at MiniCraft Pro?"
+  },
+  {
+    "input": "CV section: Toy Maker, PlayCraft Pro, 2023-2025, Grew sales by 15%.",
+    "output": "What grew sales at PlayCraft Pro?"
+  },
+  {
+    "input": "CV section: Glass Carver, ClearCut Pro, 2022-2024, Increased sales by 12%.",
+    "output": "What increased sales at ClearCut Pro?"
+  },
+  {
+    "input": "CV section: Lace Weaver, ThreadWeave Pro, 2021-2023, Boosted sales by 20%.",
+    "output": "What boosted sales at ThreadWeave Pro?"
+  },
+  {
+    "input": "CV section: Doll Painter, TinyPaint Pro, 2020-2022, Grew sales by 15%.",
+    "output": "What grew sales at TinyPaint Pro?"
+  },
+  {
+    "input": "CV section: Mosaic Designer, TileDesign Pro, 2023-2025, Increased sales by 10%.",
+    "output": "What increased sales at TileDesign Pro?"
+  },
+
+  {"input": "CV section: Software Developer, CodeCrafters Inc., 2021-2023, Optimized code efficiency by 25%.", "output": "What optimized code efficiency at CodeCrafters Inc.?"},
+  {"input": "CV section: Marketing Specialist, BrightAds Ltd., 2020-2022, Increased campaign reach by 30%.", "output": "What increased campaign reach at BrightAds Ltd.?"},
+  {"input": "CV section: Data Analyst, InfoPeak Solutions, 2022-2024, Reduced data processing time by 40%.", "output": "What reduced data processing time at InfoPeak Solutions?"},
+  {"input": "CV section: Graphic Designer, VisualVibe Studio, 2019-2021, Boosted client satisfaction by 15%.", "output": "What boosted client satisfaction at VisualVibe Studio?"},
+  {"input": "CV section: HR Manager, TalentFlow Corp., 2023-2025, Improved employee retention by 20%.", "output": "What improved employee retention at TalentFlow Corp.?"},
+  {"input": "CV section: Network Engineer, ConnectTech Ltd., 2020-2022, Enhanced network uptime to 99.9%.", "output": "What enhanced network uptime at ConnectTech Ltd.?"},
+  {"input": "CV section: Product Manager, InnovatePro Inc., 2021-2023, Launched 3 new products successfully.", "output": "How did you launch new products at InnovatePro Inc.?"},
+  {"input": "CV section: Sales Representative, PeakSales Co., 2019-2021, Grew sales revenue by 35%.", "output": "What grew sales revenue at PeakSales Co.?"},
+  {"input": "CV section: Content Writer, WordCraft Agency, 2022-2024, Increased engagement by 25%.", "output": "What increased engagement at WordCraft Agency?"},
+  {"input": "CV section: Cybersecurity Analyst, SecureNet Solutions, 2020-2022, Reduced breaches by 50%.", "output": "What reduced breaches at SecureNet Solutions?"},
+  {"input": "CV section: UX Designer, UserFocus Inc., 2021-2023, Improved user satisfaction by 30%.", "output": "What improved user satisfaction at UserFocus Inc.?"},
+  {"input": "CV section: Financial Analyst, MoneyMatters Ltd., 2019-2021, Saved $500K annually.", "output": "What saved money at MoneyMatters Ltd.?"},
+  {"input": "CV section: Logistics Coordinator, ShipFast Global, 2022-2024, Cut delivery times by 20%.", "output": "What cut delivery times at ShipFast Global?"},
+  {"input": "CV section: Machine Learning Engineer, AI Innovations, 2020-2022, Achieved 90% model accuracy.", "output": "What achieved model accuracy at AI Innovations?"},
+  {"input": "CV section: Event Planner, CelebratePro, 2021-2023, Increased attendance by 40%.", "output": "What increased attendance at CelebratePro?"},
+  {"input": "CV section: Quality Assurance Tester, TechCheck Inc., 2019-2021, Reduced bugs by 60%.", "output": "What reduced bugs at TechCheck Inc.?"},
+  {"input": "CV section: Business Analyst, StrategyPeak, 2022-2024, Streamlined processes by 25%.", "output": "What streamlined processes at StrategyPeak?"},
+  {"input": "CV section: Cloud Architect, SkySolutions, 2020-2022, Migrated 100+ servers successfully.", "output": "How did you migrate servers at SkySolutions?"},
+  {"input": "CV section: Customer Support Lead, HelpHub Co., 2021-2023, Raised satisfaction scores by 15%.", "output": "What raised satisfaction scores at HelpHub Co.?"},
+  {"input": "CV section: DevOps Engineer, BuildFast Tech, 2019-2021, Reduced deployment time by 30%.", "output": "What reduced deployment time at BuildFast Tech?"},
+  {"input": "CV section: Digital Marketing Manager, ClickRise Agency, 2022-2024, Boosted ROI by 40%.", "output": "What boosted ROI at ClickRise Agency?"},
+  {"input": "CV section: Systems Administrator, TechGuard Ltd., 2020-2022, Improved system reliability by 20%.", "output": "What improved system reliability at TechGuard Ltd.?"},
+  {"input": "CV section: Research Scientist, BioAdvance Labs, 2021-2023, Accelerated research by 35%.", "output": "What accelerated research at BioAdvance Labs?"},
+  {"input": "CV section: Supply Chain Manager, FlowLogistics, 2019-2021, Reduced costs by $1M.", "output": "What reduced costs at FlowLogistics?"},
+  {"input": "CV section: Web Developer, SiteCraft Inc., 2022-2024, Enhanced site speed by 50%.", "output": "What enhanced site speed at SiteCraft Inc.?"},
+  {"input": "CV section: Project Coordinator, BuildPro Solutions, 2020-2022, Completed projects 10% under budget.", "output": "How did you complete projects at BuildPro Solutions?"},
+  {"input": "CV section: SEO Specialist, RankBoost Agency, 2021-2023, Improved rankings by 25%.", "output": "What improved rankings at RankBoost Agency?"},
+  {"input": "CV section: IT Support Specialist, TechAid Co., 2019-2021, Resolved 95% of tickets on first call.", "output": "What resolved tickets at TechAid Co.?"},
+  {"input": "CV section: Operations Manager, RunSmooth Inc., 2022-2024, Increased productivity by 30%.", "output": "What increased productivity at RunSmooth Inc.?"},
+  {"input": "CV section: Mobile App Developer, AppTrendz, 2020-2022, Grew user base by 20%.", "output": "What grew the user base at AppTrendz?"},
+  {"input": "CV section: Compliance Officer, ReguSafe Ltd., 2021-2023, Ensured 100% audit compliance.", "output": "How did you ensure compliance at ReguSafe Ltd.?"},
+  {"input": "CV section: Training Coordinator, SkillUp Corp., 2019-2021, Trained 200+ employees.", "output": "How did you train employees at SkillUp Corp.?"},
+  {"input": "CV section: Database Administrator, DataCore Systems, 2022-2024, Improved query performance by 40%.", "output": "What improved query performance at DataCore Systems?"},
+  {"input": "CV section: Public Relations Specialist, MediaLink Agency, 2020-2022, Enhanced brand image by 15%.", "output": "What enhanced brand image at MediaLink Agency?"},
+  {"input": "CV section: Environmental Engineer, GreenTech Solutions, 2021-2023, Reduced emissions by 25%.", "output": "What reduced emissions at GreenTech Solutions?"},
+  {"input": "CV section: Retail Manager, ShopTrendz Inc., 2019-2021, Increased foot traffic by 20%.", "output": "What increased foot traffic at ShopTrendz Inc.?"},
+  {"input": "CV section: AI Researcher, NeuralNet Labs, 2022-2024, Developed 3 new algorithms.", "output": "How did you develop algorithms at NeuralNet Labs?"},
+  {"input": "CV section: Inventory Manager, StockMaster Co., 2020-2022, Reduced stockouts by 30%.", "output": "What reduced stockouts at StockMaster Co.?"},
+  {"input": "CV section: Technical Writer, DocuTech Inc., 2021-2023, Simplified 50+ manuals.", "output": "How did you simplify manuals at DocuTech Inc.?"},
+  {"input": "CV section: Healthcare Administrator, CarePlus Network, 2019-2021, Improved patient wait times by 20%.", "output": "What improved patient wait times at CarePlus Network?"},
+  {"input": "CV section: E-commerce Specialist, ShopEasy Ltd., 2022-2024, Boosted online sales by 35%.", "output": "What boosted online sales at ShopEasy Ltd.?"},
+  {"input": "CV section: Game Developer, PlayForge Studio, 2020-2022, Released 2 hit games.", "output": "How did you release games at PlayForge Studio?"},
+  {"input": "CV section: Risk Analyst, SafeInvest Corp., 2021-2023, Mitigated $2M in risks.", "output": "What mitigated risks at SafeInvest Corp.?"},
+  {"input": "CV section: Facilities Manager, BuildSpace Inc., 2019-2021, Reduced maintenance costs by 15%.", "output": "What reduced maintenance costs at BuildSpace Inc.?"},
+  {"input": "CV section: Social Media Manager, TrendSet Agency, 2022-2024, Grew followers by 50%.", "output": "What grew followers at TrendSet Agency?"},
+  {"input": "CV section: Chemical Engineer, ChemPro Ltd., 2020-2022, Improved yield by 20%.", "output": "What improved yield at ChemPro Ltd.?"},
+  {"input": "CV section: Customer Success Manager, SuccessPath Co., 2021-2023, Raised renewal rates by 25%.", "output": "What raised renewal rates at SuccessPath Co.?"},
+  {"input": "CV section: Embedded Systems Engineer, TechEmbed Inc., 2019-2021, Designed 5 new devices.", "output": "How did you design devices at TechEmbed Inc.?"},
+  {"input": "CV section: Fundraising Coordinator, CharityLift, 2022-2024, Raised $1M for causes.", "output": "How did you raise funds at CharityLift?"},
+  {"input": "CV section: Legal Advisor, LawFirm Pro, 2020-2022, Won 90% of cases.", "output": "What won cases at LawFirm Pro?"},
+  {"input": "CV section: Mechanical Engineer, GearTech Solutions, 2021-2023, Reduced downtime by 30%.", "output": "What reduced downtime at GearTech Solutions?"},
+  {"input": "CV section: Photographer, SnapVision Studio, 2019-2021, Increased bookings by 40%.", "output": "What increased bookings at SnapVision Studio?"},
+  {"input": "CV section: Policy Analyst, GovInsight Inc., 2022-2024, Influenced 3 new policies.", "output": "How did you influence policies at GovInsight Inc.?"},
+  {"input": "CV section: Real Estate Agent, HomeQuest Ltd., 2020-2022, Closed 50+ deals.", "output": "How did you close deals at HomeQuest Ltd.?"},
+  {"input": "CV section: Safety Officer, SafeWork Corp., 2021-2023, Reduced incidents by 25%.", "output": "What reduced incidents at SafeWork Corp.?"},
+  {"input": "CV section: Travel Consultant, Wanderlust Agency, 2019-2021, Boosted bookings by 20%.", "output": "What boosted bookings at Wanderlust Agency?"},
+  {"input": "CV section: Urban Planner, CityDesign Inc., 2022-2024, Developed 5 new plans.", "output": "How did you develop plans at CityDesign Inc.?"},
+  {"input": "CV section: Veterinary Technician, PetHeal Clinic, 2020-2022, Improved recovery rates by 15%.", "output": "What improved recovery rates at PetHeal Clinic?"},
+  {"input": "CV section: Video Editor, ClipMaster Studio, 2021-2023, Produced 100+ videos.", "output": "How did you produce videos at ClipMaster Studio?"},
+  {"input": "CV section: Warehouse Supervisor, StockFlow Inc., 2019-2021, Increased efficiency by 30%.", "output": "What increased efficiency at StockFlow Inc.?"},
+  {"input": "CV section: Writer, StoryCraft Ltd., 2022-2024, Published 10 articles.", "output": "How did you publish articles at StoryCraft Ltd.?"},
+  {"input": "CV section: Yoga Instructor, ZenBalance Studio, 2020-2022, Grew class size by 25%.", "output": "What grew class size at ZenBalance Studio?"},
+  {"input": "CV section: Zoologist, WildLife Research, 2021-2023, Protected 5 species.", "output": "How did you protect species at WildLife Research?"},
+  {"input": "CV section: Animator, MotionMagic Inc., 2019-2021, Created 20 animations.", "output": "How did you create animations at MotionMagic Inc.?"},
+  {"input": "CV section: Architect, DesignBuild Co., 2022-2024, Completed 10 projects.", "output": "How did you complete projects at DesignBuild Co.?"},
+  {"input": "CV section: Biotechnologist, BioGenix Labs, 2020-2022, Developed 3 patents.", "output": "How did you develop patents at BioGenix Labs?"},
+  {"input": "CV section: Chef, GourmetKitchen, 2021-2023, Increased ratings by 20%.", "output": "What increased ratings at GourmetKitchen?"},
+  {"input": "CV section: Dentist, SmileCare Clinic, 2019-2021, Reduced wait times by 15%.", "output": "What reduced wait times at SmileCare Clinic?"},
+  {"input": "CV section: Economist, EconTrend Institute, 2022-2024, Predicted trends with 85% accuracy.", "output": "What predicted trends at EconTrend Institute?"},
+  {"input": "CV section: Fashion Designer, StyleTrendz, 2020-2022, Launched 5 collections.", "output": "How did you launch collections at StyleTrendz?"},
+  {"input": "CV section: Geologist, EarthScan Inc., 2021-2023, Mapped 100 sites.", "output": "How did you map sites at EarthScan Inc.?"},
+  {"input": "CV section: Historian, HeritagePreserve, 2019-2021, Documented 50 artifacts.", "output": "How did you document artifacts at HeritagePreserve?"},
+  {"input": "CV section: Illustrator, ArtFlow Studio, 2022-2024, Completed 30 projects.", "output": "How did you complete projects at ArtFlow Studio?"},
+  {"input": "CV section: Journalist, NewsPulse Media, 2020-2022, Published 200 articles.", "output": "How did you publish articles at NewsPulse Media?"},
+  {"input": "CV section: Librarian, BookHaven Inc., 2021-2023, Increased membership by 20%.", "output": "What increased membership at BookHaven Inc.?"},
+  {"input": "CV section: Mathematician, NumSolve Labs, 2019-2021, Solved 10 complex problems.", "output": "How did you solve problems at NumSolve Labs?"},
+  {"input": "CV section: Nurse, HealthFirst Clinic, 2022-2024, Improved patient care by 25%.", "output": "What improved patient care at HealthFirst Clinic?"},
+  {"input": "CV section: Optometrist, ClearVision Center, 2020-2022, Reduced appointment delays by 15%.", "output": "What reduced appointment delays at ClearVision Center?"},
+  {"input": "CV section: Pharmacist, MediCare Pharmacy, 2021-2023, Optimized inventory by 20%.", "output": "What optimized inventory at MediCare Pharmacy?"},
+  {"input": "CV section: Physicist, QuantumResearch, 2019-2021, Published 5 papers.", "output": "How did you publish papers at QuantumResearch?"},
+  {"input": "CV section: Pilot, SkyWings Airlines, 2022-2024, Completed 500 flights.", "output": "How did you complete flights at SkyWings Airlines?"},
+  {"input": "CV section: Psychologist, MindWell Center, 2020-2022, Helped 100 clients.", "output": "How did you help clients at MindWell Center?"},
+  {"input": "CV section: Radiologist, ScanTech Inc., 2021-2023, Improved diagnosis accuracy by 30%.", "output": "What improved diagnosis accuracy at ScanTech Inc.?"},
+  {"input": "CV section: Sculptor, ArtForge Studio, 2019-2021, Sold 50 sculptures.", "output": "How did you sell sculptures at ArtForge Studio?"},
+  {"input": "CV section: Teacher, LearnBright School, 2022-2024, Raised test scores by 20%.", "output": "What raised test scores at LearnBright School?"},
+  {"input": "CV section: Translator, LinguaLink Inc., 2020-2022, Translated 100 documents.", "output": "How did you translate documents at LinguaLink Inc.?"},
+  {"input": "CV section: Veterinarian, AnimalCare Clinic, 2021-2023, Treated 200 animals.", "output": "How did you treat animals at AnimalCare Clinic?"},
+  {"input": "CV section: Welder, MetalCraft Inc., 2019-2021, Completed 300 welds.", "output": "How did you complete welds at MetalCraft Inc.?"},
+  {"input": "CV section: X-ray Technician, ImagePro Labs, 2022-2024, Reduced scan errors by 15%.", "output": "What reduced scan errors at ImagePro Labs?"},
+  {"input": "CV section: Youth Counselor, FuturePath Org., 2020-2022, Supported 50 youths.", "output": "How did you support youths at FuturePath Org.?"},
+  {"input": "CV section: Zoological Educator, WildLearn Inc., 2021-2023, Educated 1,000 visitors.", "output": "How did you educate visitors at WildLearn Inc.?"}
+
+  ]
