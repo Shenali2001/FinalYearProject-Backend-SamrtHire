@@ -817,6 +817,8 @@ def _keyword_overlap(question: str, answer: str) -> int:
 # =========================================================
 # Gemini-based detailed FEEDBACK (candidate) & SUMMARY (admin)
 # =========================================================
+# Replace the _gemini_candidate_feedback and _gemini_admin_summary functions with these fixed versions
+
 def _gemini_candidate_feedback(history: List[dict], jt: str, jp: str, scorecard: dict) -> Optional[dict]:
     """Ask Gemini for a rich candidate-facing feedback JSON."""
     prompt = (
@@ -833,7 +835,8 @@ def _gemini_candidate_feedback(history: List[dict], jt: str, jp: str, scorecard:
         "  is_suitable (boolean),\n"
         "  overall_rating (number 1-5),\n"
         "  hire_recommendation ('strong_yes'|'yes'|'leaning_no'|'no'),\n"
-        "  scorecard (object with existing asked/correct per difficulty and accuracy_pct)."
+        "  scorecard (object with existing asked/correct per difficulty and accuracy_pct).\n"
+        "Return ONLY valid JSON, no markdown formatting."
     )
     payload = {
         "role_type": jt, "role_position": jp,
@@ -845,31 +848,123 @@ def _gemini_candidate_feedback(history: List[dict], jt: str, jp: str, scorecard:
             {"role": "user", "parts": [{"text": prompt}]},
             {"role": "user", "parts": [{"text": json.dumps(payload, ensure_ascii=False)}]},
         ],
-        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 700}
+        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 1200}  # Increased from 700
     })
-    if not data: return None
-    try:
-        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-        if text.startswith("```"):
-            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE|re.DOTALL).strip()
-        obj = json.loads(re.search(r"\{.*\}", text, flags=re.DOTALL).group(0))
-        return obj
-    except Exception as e:
-        logger.warning(f"[Gemini candidate feedback parse error] {e}")
+    if not data:
+        logger.warning("[Gemini candidate feedback] No response from API")
         return None
+
+    try:
+        # Log the raw response for debugging
+        logger.debug(f"[Gemini candidate feedback] Raw response: {json.dumps(data, ensure_ascii=False)}")
+
+        # Extract the text content
+        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+
+        # Check if response was truncated
+        finish_reason = data["candidates"][0].get("finishReason", "")
+        if finish_reason == "MAX_TOKENS":
+            logger.warning("[Gemini candidate feedback] Response was truncated due to MAX_TOKENS limit")
+            # Try to find a valid JSON object even in truncated response
+            json_matches = list(re.finditer(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', text, re.DOTALL))
+            if json_matches:
+                # Take the largest JSON-like structure
+                text = max(json_matches, key=lambda m: len(m.group(0))).group(0)
+            else:
+                logger.warning("[Gemini candidate feedback] No recoverable JSON found in truncated response")
+                return None
+
+        # Remove markdown code fences if present
+        if text.startswith("```"):
+            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+
+        # Try to find the JSON object
+        match = re.search(r"\{.*\}", text, flags=re.DOTALL)
+        if not match:
+            logger.warning(f"[Gemini candidate feedback] No JSON object found in response: {text[:200]}")
+            return None
+
+        json_str = match.group(0)
+
+        # Attempt to parse JSON with additional error handling
+        try:
+            obj = json.loads(json_str)
+            # Validate required keys
+            required_keys = {
+                "summary", "strengths", "areas_to_improve", "topic_breakdown",
+                "next_steps", "resources", "suitability", "is_suitable",
+                "overall_rating", "hire_recommendation", "scorecard"
+            }
+            missing_keys = required_keys - set(obj.keys())
+            if missing_keys:
+                logger.warning(f"[Gemini candidate feedback] Missing required keys: {list(missing_keys)}")
+                # Add default values for missing keys
+                defaults = {
+                    "summary": "Interview completed successfully.",
+                    "strengths": ["Demonstrated technical knowledge"],
+                    "areas_to_improve": ["Continue practicing technical concepts"],
+                    "topic_breakdown": [],
+                    "next_steps": ["Review feedback and continue learning"],
+                    "resources": ["Technical documentation", "Practice problems", "Online courses"],
+                    "suitability": "borderline",
+                    "is_suitable": False,
+                    "overall_rating": 3,
+                    "hire_recommendation": "leaning_no",
+                    "scorecard": scorecard
+                }
+                for key in missing_keys:
+                    obj[key] = defaults.get(key)
+
+            return obj
+        except json.JSONDecodeError as e:
+            logger.warning(f"[Gemini candidate feedback parse error] JSON parsing failed: {e}")
+            logger.debug(f"[Gemini candidate feedback] Problematic JSON: {json_str[:500]}")
+
+            # Try to fix common JSON issues
+            try:
+                # Fix truncated JSON by adding closing braces/brackets if needed
+                fixed_json = json_str
+
+                # Count opening and closing braces/brackets
+                open_braces = fixed_json.count('{') - fixed_json.count('}')
+                open_brackets = fixed_json.count('[') - fixed_json.count(']')
+
+                # Add missing closing characters
+                if open_brackets > 0:
+                    fixed_json += ']' * open_brackets
+                if open_braces > 0:
+                    fixed_json += '}' * open_braces
+
+                # Try to fix common formatting issues
+                fixed_json = re.sub(r'}\s*{', '},{', fixed_json)  # Add missing commas between objects
+                fixed_json = re.sub(r']\s*{', '],{', fixed_json)  # Add missing commas before objects
+                fixed_json = re.sub(r',\s*}', '}', fixed_json)  # Remove trailing commas
+                fixed_json = re.sub(r',\s*]', ']', fixed_json)  # Remove trailing commas
+
+                obj = json.loads(fixed_json)
+                logger.info("[Gemini candidate feedback] Successfully parsed after fixing JSON")
+                return obj
+            except json.JSONDecodeError as e2:
+                logger.warning(f"[Gemini candidate feedback] Failed to fix JSON: {e2}")
+                return None
+    except Exception as e:
+        logger.warning(f"[Gemini candidate feedback] Unexpected error: {e}")
+        return None
+
 
 def _gemini_admin_summary(history: List[dict], jt: str, jp: str, scorecard: dict) -> Optional[dict]:
-    """Ask Gemini for a concise HR/admin summary JSON."""
+    """Ask Gemini for admin summary in JSON format."""
     prompt = (
-        "You are a hiring panel summarizer for HR. Input JSON includes role_type, role_position, scorecard, and history.\n"
-        "Return STRICT JSON with keys ONLY:\n"
-        "  overview (string, 2-4 sentences),\n"
-        "  competency_scores (object with numbers 0-5): {problem_solving, coding, system_design, databases, web_backend, devops_testing},\n"
+        "You are a hiring panel summarizer for HR. Input includes role_type, role_position, scorecard, and history.\n"
+        "Generate admin summary as STRICT JSON with keys ONLY:\n"
+        "  overview (string),\n"
+        "  competency_scores (object with numerical scores 1-5),\n"
         "  notable_signals (array of strings),\n"
         "  risk_flags (array of strings),\n"
-        "  recommendation (object): {decision('advance'|'onsite'|'hold'|'reject'), confidence(0..1), level('junior'|'mid'|'senior')},\n"
+        "  recommendation (object with decision, confidence, level),\n"
         "  followups (array of strings),\n"
-        "  question_log (array of {question, difficulty, is_correct, brief_reason})."
+        "  question_log (array of objects with question, difficulty, is_correct, brief_reason).\n"
+        "Return ONLY valid JSON, no markdown formatting."
     )
     payload = {
         "role_type": jt, "role_position": jp,
@@ -881,19 +976,54 @@ def _gemini_admin_summary(history: List[dict], jt: str, jp: str, scorecard: dict
             {"role": "user", "parts": [{"text": prompt}]},
             {"role": "user", "parts": [{"text": json.dumps(payload, ensure_ascii=False)}]},
         ],
-        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 700}
+        "generationConfig": {"temperature": 0.2, "topK": 40, "topP": 0.9, "maxOutputTokens": 1000}  # Increased from 700
     })
-    if not data: return None
-    try:
-        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-        if text.startswith("```"):
-            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE|re.DOTALL).strip()
-        obj = json.loads(re.search(r"\{.*\}", text, flags=re.DOTALL).group(0))
-        return obj
-    except Exception as e:
-        logger.warning(f"[Gemini admin summary parse error] {e}")
+    if not data:
+        logger.warning("[Gemini admin summary] No response from API")
         return None
 
+    try:
+        logger.debug(f"[Gemini admin summary] Raw response: {json.dumps(data, ensure_ascii=False)}")
+        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+
+        # Check if response was truncated
+        finish_reason = data["candidates"][0].get("finishReason", "")
+        if finish_reason == "MAX_TOKENS":
+            logger.warning("[Gemini admin summary] Response was truncated due to MAX_TOKENS limit")
+            return None  # Fall back to local summary for truncated responses
+
+        # Remove markdown formatting
+        if text.startswith("```") or text.startswith("##"):
+            # If it starts with markdown, it's likely not JSON format
+            logger.warning("[Gemini admin summary] Response appears to be markdown format, not JSON")
+            return None  # Fall back to local summary
+
+        if text.startswith("```"):
+            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+
+        match = re.search(r"\{.*\}", text, flags=re.DOTALL)
+        if not match:
+            logger.warning(f"[Gemini admin summary] No JSON object found in response: {text[:200]}")
+            return None
+
+        json_str = match.group(0)
+        try:
+            obj = json.loads(json_str)
+            required_keys = {
+                "overview", "competency_scores", "notable_signals", "risk_flags",
+                "recommendation", "followups", "question_log"
+            }
+            missing_keys = required_keys - set(obj.keys())
+            if missing_keys:
+                logger.warning(f"[Gemini admin summary] Missing required keys: {list(missing_keys)}")
+                return None  # Fall back to local summary if keys are missing
+            return obj
+        except json.JSONDecodeError as e:
+            logger.warning(f"[Gemini admin summary parse error] JSON parsing failed: {e}")
+            return None
+    except Exception as e:
+        logger.warning(f"[Gemini admin summary] Unexpected error: {e}")
+        return None
 # ----------------- Local fallbacks for richer outputs -----------------
 def _local_scorecard(state: dict) -> dict:
     e_asked = state["per_difficulty"]["easy"]["asked"]

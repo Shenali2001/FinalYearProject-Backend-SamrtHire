@@ -25,15 +25,13 @@ logger = logging.getLogger("smart-hire")
 
 app = FastAPI(title="AI Interview System", version="1.0.0")
 
-# CORS (adjust origins via env if needed)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.getenv("CORS_ALLOW_ORIGIN", "http://localhost:3000")],
+    allow_origins=["http://localhost:3000", "http://localhost:3001"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 def _pick_device() -> torch.device:
     if torch.cuda.is_available():
         return torch.device("cuda")
