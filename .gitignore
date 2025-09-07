@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# macOS system files
+.DS_Store
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy and other type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# VSCode settings
+.vscode/
+
+
+# SQLite and other DB files
+*.sqlite3
+*.db
+
+# Logs and reports
+*.log
+*.pot
+*.pyc
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+.cache
+
+# Static build artifacts
+dist/
+build/
+*.egg-info/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Uvicorn reload file
+.reload/
+
+# Local testing artifacts
+test.db
