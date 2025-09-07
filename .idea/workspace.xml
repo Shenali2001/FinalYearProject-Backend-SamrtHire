@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b2bce0f2-1b05-4e56-80d1-55ff11d89427" name="Changes" comment="fix model error and summary">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/cv_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/cv_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +72,9 @@
       <workItem from="1757006930327" duration="1719000" />
       <workItem from="1757086818237" duration="782000" />
       <workItem from="1757170293058" duration="9346000" />
-      <workItem from="1757201641242" duration="335000" />
+      <workItem from="1757201641242" duration="1070000" />
+      <workItem from="1757213218633" duration="4023000" />
+      <workItem from="1757232985163" duration="565000" />
     </task>
     <task id="LOCAL-00001" summary="fix model error and summary">
       <option name="closed" value="true" />
